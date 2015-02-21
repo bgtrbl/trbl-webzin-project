@@ -1,0 +1,17 @@
+*.py[cod]
+__pycache__/
+
+settings.py
+
+pip-log.txt
+pip-delete-this-directory.txt
+
+*.log
+*.pot
+.ropeproject
+
+db.sqlite3
+migrations/
+
+*.swp
+statics/
