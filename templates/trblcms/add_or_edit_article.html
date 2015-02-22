@@ -21,6 +21,6 @@
 </form>
 
 <script>
-    CKEDITOR.replace('body', {language: 'ko'});
+	CKEDITOR.replace("body", {customConfig :  "{% static 'ckeditor/trblcms_config.js' %}" });
 </script>
 {% endblock %}

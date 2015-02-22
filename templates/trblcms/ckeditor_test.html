@@ -8,8 +8,9 @@
 {% endblock %}
 
 {% block trblcms_content %}
-<script src={% static "ckeditor/ckeditor.js" %}>
-</script>
+<script src={% static "ckeditor/ckeditor.js" %}></script>
+<script>CKEDITOR.dtd.$removeEmpty['span'] = false;</script>
+
 
 <form method="POST" action="{% url 'trblcms:ckeditor_test' %}">
     {% csrf_token %}
@@ -18,6 +19,6 @@
 </form>
 
 <script>
-    CKEDITOR.replace('body', {language: 'ko'});
+	CKEDITOR.replace("body", {customConfig :  "{% static 'ckeditor/trblcms_config.js' %}" });
 </script>
 {% endblock %}

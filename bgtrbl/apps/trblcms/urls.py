@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 
-from .views import formTest, ckeditorTest, saveArticle, addOrEditArticle
+from .views import formTest, ckeditorTest, saveArticle, addOrEditArticle, Article
 
 urlpatterns = patterns('',
     url(r'^save_article/$', saveArticle, name = 'save_article'),
