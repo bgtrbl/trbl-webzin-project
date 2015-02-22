@@ -43,6 +43,8 @@ def addOrEditArticle(request, slug=None):
 def saveArticle(request):
     if request.method == 'POST':
         article, created = Article.objects.get_or_create(slug=request.POST['slug'])
+        # @? do I need to check for slug clash(if created)? or uuslug already have taken
+        # care of it before?
         form = ArticleModelForm(request.POST, instance=article)
         if form.is_valid():
             # @todo user authorization needed (if the user changed the category
