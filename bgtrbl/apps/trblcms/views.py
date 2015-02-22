@@ -64,5 +64,3 @@ def saveArticle(request):
             article.delete()
         return redirect('trblcms:edit_article', slug=request.POST['slug']) # @!
     return redirect('main:home')
-
-    
