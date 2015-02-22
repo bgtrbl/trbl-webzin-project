@@ -1,6 +1,7 @@
 {% extends 'trblcms/testbase.html' %}
 
 {% load staticfiles %}
+{% load bootstrap3 %}
 {% load crispy_forms_tags %}
 
 {# bootstrap_css #}
@@ -14,10 +15,17 @@
 <script src={% static "ckeditor/ckeditor.js" %}>
 </script>
 
-<form method="POST" action="{% url 'trblcms:save_article' %}">
+<form method="POST" action="{% url 'trblcms:save_article' %}" class="form">
     {% csrf_token %}
     {{ form|crispy }} {# crispy form #}	
-    <input type="submit" value="submit" />
+    {% buttons %}
+        <button action="action" type="button" value="Back" onclick="history.go(-1);" class="btn btn-primary">
+            {% bootstrap_icon "menu-left" %} Cancel
+        </button>
+        <button type="submit" class="btn btn-primary">
+            {% bootstrap_icon "star" %} Submit
+        </button>
+    {% endbuttons %}
 </form>
 
 <script>

@@ -1,0 +1,32 @@
+{% extends 'trblcms/testbase.html' %}
+
+{# load staticfiles #}
+{% load bootstrap3 %}
+{% load crispy_forms_tags %}
+
+{# bootstrap_css #}
+{# bootstrap_javascript #}
+
+{% block title %}
+    Article detail
+{% endblock %}
+
+{% block trblcms_content %}
+    <h1>{{ object.title }}</h1>
+
+    <p>Created at - {{ object.created_at|date }}</p>
+    <p>Modified at - {{ object.modified_at|date }}</p>
+    <p>Sequel - {{ object.sequel }}</p>
+
+    <p>{{ object.body|safe }}</p>
+
+    <p>Tags -
+        {% for tag in object.tags.all %}
+            {{ tag }} 
+        {% endfor %}</p>
+    <p>{% buttons %}
+            <a href="{% url 'trblcms:edit_article' object.slug %}" type="button" class="btn btn-primary">
+                {% bootstrap_icon "edit" %}[Edit]
+            </a>
+    {% endbuttons %}</p>
+{% endblock %}

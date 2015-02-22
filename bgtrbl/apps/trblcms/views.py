@@ -3,6 +3,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
+from django.views.generic.detail import DetailView
+from django.views.generic.list import ListView
 
 from ckeditor.widgets import CKEditorWidget  # @? wiget 을 여기다가 임포트?? 모델에다가 하는거 아님??
 
@@ -34,6 +36,26 @@ def ckeditorTest(request):
     return render(request, 'trblcms/ckeditor_test.html', {'form': form})
 
 
+class ArticleListView(ListView):
+    model = Article
+    template_name = 'trblcms/article_list.html'
+
+    # context configuring
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
+class ArticleDetailView(DetailView):
+    model = Article
+    template_name = 'trblcms/article_detail.html'
+
+    # context configuring
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
 def addOrEditArticle(request, slug=None):
     article = get_object_or_404(Article, slug=slug) if slug else None     # 404 exception(accessing with weird slug) filtered
     form = ArticleModelForm(initial={'category': None}, instance=article)
@@ -50,7 +72,8 @@ def saveArticle(request):
             # @todo user authorization needed (if the user changed the category
             # or slug to purposly change other Articles, than django must know)
             form.save()
-            return HttpResponse("success")
+            # article slug or form slug
+            return redirect('trblcms:article_detail', slug=article.slug)
         if created:
             article.delete()
         return redirect('trblcms:edit_article', slug=request.POST['slug']) # @!

@@ -1,0 +1,23 @@
+{% extends 'trblcms/testbase.html' %}
+
+{# load staticfiles #}
+{% load crispy_forms_tags %}
+
+{# bootstrap_css #}
+{# bootstrap_javascript #}
+
+{% block title %}
+    Articles 
+{% endblock %}
+
+{% block trblcms_content %}
+<ul>
+    {% for article in object_list %}
+        <li>{{ article.created_at|date }} - 
+        <a href="{% url 'trblcms:article_detail' article.slug %}">
+            {{ article.title }}</a></li>
+    {% empty %}
+        <li>No articles yet.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
