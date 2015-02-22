@@ -6,7 +6,6 @@ from django.core.urlresolvers import reverse
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
-from ckeditor.widgets import CKEditorWidget  # @? wiget 을 여기다가 임포트?? 모델에다가 하는거 아님??
 
 from .models import Article
 from .forms import ArticleModelForm, CkeditorTestForm
@@ -65,3 +64,5 @@ def saveArticle(request):
             article.delete()
         return redirect('trblcms:edit_article', slug=request.POST['slug']) # @!
     return redirect('main:home')
+
+    
