@@ -5,9 +5,10 @@ from ckeditor.widgets import CKEditorWidget
 
 
 class ArticleModelForm(forms.ModelForm):
+    slug = forms.CharField(max_length=200, widget=forms.HiddenInput(), required=False)
     class Meta:
         model = Article
-        exclude = ['slug', 'created_at', 'modified_at', ]
+        exclude = ['created_at', 'modified_at']
         widgets = {'category': forms.HiddenInput()}
 
 

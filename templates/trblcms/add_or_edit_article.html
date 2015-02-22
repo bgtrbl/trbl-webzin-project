@@ -1,0 +1,26 @@
+{% extends 'trblcms/testbase.html' %}
+
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{# bootstrap_css #}
+{# bootstrap_javascript #}
+
+{% block title %}
+    Add an article
+{% endblock %}
+
+{% block trblcms_content %}
+<script src={% static "ckeditor/ckeditor.js" %}>
+</script>
+
+<form method="POST" action="{% url 'trblcms:save_article' %}">
+    {% csrf_token %}
+    {{ form|crispy }} {# crispy form #}	
+    <input type="submit" value="submit" />
+</form>
+
+<script>
+    CKEDITOR.replace('body', {language: 'ko'});
+</script>
+{% endblock %}
