@@ -62,7 +62,7 @@ class ArticleQuerySet(models.QuerySet):
 
 class Article(BaseItemModel):
     # @todo user
-    body = RichTextField()
+    body = RichTextField(config_name='article_body')
     # Sequel 삭제시 foreign key null
     sequel = models.ForeignKey(Sequel, blank=True, null=True,
                                on_delete=models.SET_NULL)
