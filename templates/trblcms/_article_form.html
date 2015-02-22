@@ -1,0 +1,29 @@
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% load crispy_forms_tags %}
+
+{% block bootstrap3_extra_head %}
+<script src={% static "ckeditor/ckeditor.js" %}>
+</script>
+{% endblock %}
+
+{% block article_form_content %}
+
+<form method="POST" action="{% url 'trblcms:save_article' %}" class="form">
+    {% csrf_token %}
+    {{ form|crispy }} {# crispy form #}	
+    {% buttons %}
+        <button action="action" type="button" value="Back" onclick="history.go(-1);" class="btn btn-primary">
+            {% bootstrap_icon "menu-left" %} Cancel
+        </button>
+        <button type="submit" class="btn btn-primary">
+            {% bootstrap_icon "star" %} Submit
+        </button>
+    {% endbuttons %}
+</form>
+this is a test phrase
+
+<script>
+    CKEDITOR.replace('body', {language: 'ko'});
+</script>
+{% endblock %}

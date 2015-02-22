@@ -12,20 +12,6 @@ from .models import Article
 from .forms import ArticleModelForm, CkeditorTestForm
 
 
-def formTest(request):
-    if request.method == 'POST':
-        form = ArticleModelForm(request.POST)
-        if form.is_valid():
-            output = ''
-            for k, v in form.cleaned_data.items():
-                output += "{}: {}<br />".format(k, v)
-            return HttpResponse("Succeed<br />"+output)
-    else:
-        # initial attr gives a prepopulated form
-        form = ArticleModelForm(initial={'category': None})
-    return render(request, 'trblcms/form_test.html', {'form': form})
-
-
 def ckeditorTest(request):
     if request.method == 'POST':
         form = CkeditorTestForm(request.POST)
@@ -56,6 +42,7 @@ class ArticleDetailView(DetailView):
         return context
 
 
+# @? change it to use the trbl_tags?
 def addOrEditArticle(request, slug=None):
     article = get_object_or_404(Article, slug=slug) if slug else None     # 404 exception(accessing with weird slug) filtered
     form = ArticleModelForm(initial={'category': None}, instance=article)

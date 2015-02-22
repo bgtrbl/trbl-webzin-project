@@ -3,6 +3,7 @@
 {% load staticfiles %}
 {% load bootstrap3 %}
 {% load crispy_forms_tags %}
+{% load trbl_tags %}
 
 {# bootstrap_css #}
 {# bootstrap_javascript #}
@@ -12,23 +13,8 @@
 {% endblock %}
 
 {% block trblcms_content %}
-<script src={% static "ckeditor/ckeditor.js" %}>
-</script>
-
-<form method="POST" action="{% url 'trblcms:save_article' %}" class="form">
-    {% csrf_token %}
-    {{ form|crispy }} {# crispy form #}	
-    {% buttons %}
-        <button action="action" type="button" value="Back" onclick="history.go(-1);" class="btn btn-primary">
-            {% bootstrap_icon "menu-left" %} Cancel
-        </button>
-        <button type="submit" class="btn btn-primary">
-            {% bootstrap_icon "star" %} Submit
-        </button>
-    {% endbuttons %}
-</form>
-
-<script>
-    CKEDITOR.replace('body', {language: 'ko'});
-</script>
+    <!-- should i design it like this: if form include else error msg? -->
+    {# include 'trblcms/_article_form.html' #}
+    <!-- 임시 테스트: context 에 있는 form render(inclusing tag) -->
+    {% get_article_form %}
 {% endblock %}

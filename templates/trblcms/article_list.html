@@ -1,7 +1,9 @@
 {% extends 'trblcms/testbase.html' %}
 
-{# load staticfiles #}
+{% load staticfiles %}
 {% load crispy_forms_tags %}
+{% load bootstrap3 %}
+{% load trbl_tags %}
 
 {# bootstrap_css #}
 {# bootstrap_javascript #}
@@ -20,4 +22,15 @@
         <li>No articles yet.</li>
     {% endfor %}
 </ul>
+{% endblock %}
+
+{% block my_modal_body %}
+    {% get_article_form %}
+{% endblock %}
+
+{% block my_modal_button %}
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+    {% bootstrap_icon "pencil" %} Quick Write
+</button>
 {% endblock %}
