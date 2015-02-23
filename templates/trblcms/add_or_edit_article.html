@@ -17,4 +17,9 @@
     {# include 'trblcms/_article_form.html' #}
     <!-- 테스트: context 에 있는 form render(inclusing tag) -->
     {% get_article_form %}
+    {% buttons %}
+    <button action="action" type="button" value="Back" onclick="history.go(-1);" class="btn btn-default">
+        {% bootstrap_icon "menu-left" %} Cancel
+    </button>
+    {% endbuttons %}
 {% endblock %}
