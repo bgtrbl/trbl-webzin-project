@@ -7,18 +7,10 @@
 {% load bootstrap3 %}
 
 {% block bootstrap3_content %}
-{% sitetree_menu from "maintree" include "trunk, topmenu" template "sitetree/menu.html" %}
     <div class="container">
         <h1>{% block title %}(no title){% endblock %}</h1>
         <p>
-            <a href="{% url 'main:home' %}">Home</a> | 
-            <a href="{% url 'main:allauth_test' %}">Allauth Test</a> | 
-
-            <a href="{% url 'trblcms:ckeditor_test' %}">Ckeditor test</a> |
-            <a href="{% url 'trblcms:article_list' %}">Articles</a> | 
-            <a href="{% url 'trblcms:add_article' %}">Add Article</a> | 
-            <a href="{% url 'main:flatpage' url='goals/' %}" >Goals</a> | 
-            <a href="{% url 'main:flatpage' url='about/' %}" >About</a>
+            {% sitetree_menu from "maintree" include "trunk, topmenu" template "sitetree/menu.html" %}
         </p>
         <hr/>
         {% bootstrap_messages %}
