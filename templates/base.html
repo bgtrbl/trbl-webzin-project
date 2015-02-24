@@ -13,7 +13,9 @@
 
             <a href="{% url 'trblcms:ckeditor_test' %}">Ckeditor test</a> |
             <a href="{% url 'trblcms:article_list' %}">Articles</a> | 
-            <a href="{% url 'trblcms:add_article' %}">Add Article</a>
+            <a href="{% url 'trblcms:add_article' %}">Add Article</a> | 
+            <a href="{% url 'main:flatpage' url='goals/' %}" >Goals</a> | 
+            <a href="{% url 'main:flatpage' url='about/' %}" >About</a>
         </p>
         <hr/>
         {% bootstrap_messages %}

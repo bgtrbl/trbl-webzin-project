@@ -3,9 +3,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
+
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
-
 
 from .models import Article
 from .forms import ArticleModelForm, CkeditorTestForm
@@ -45,14 +45,12 @@ class ArticleDetailView(DetailView):
 def addOrEditArticle(request, slug=None):
     article = get_object_or_404(Article, slug=slug) if slug else None     # 404 exception(accessing with weird slug) filtered
     form = ArticleModelForm(initial={'category': None}, instance=article)
-    return render(request, 'trblcms/add_or_edit_article.html', {'form': form})
+    return render(request, 'trblcms/add_or_edit_article.html', {'article_form': form})
 
 
 def saveArticle(request):
     if request.method == 'POST':
         article, created = Article.objects.get_or_create(slug=request.POST['slug'])
-        # @? do I need to check for slug clash(if created)? or uuslug already have taken
-        # care of it before?
         form = ArticleModelForm(request.POST, instance=article)
         if form.is_valid():
             # @todo user authorization needed (if the user changed the category

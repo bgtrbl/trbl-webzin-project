@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib import admin
-from .models import Article
+from .models import Article, Comment
 from ckeditor.widgets import CKEditorWidget
 
 
@@ -19,3 +19,9 @@ class CkeditorTestForm(forms.ModelForm):
 
 
 #class ArticleAdminForm(forms.ModelForm):
+
+
+class CommentModelForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('author', 'body', )

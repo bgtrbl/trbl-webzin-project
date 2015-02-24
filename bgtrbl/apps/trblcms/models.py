@@ -7,6 +7,7 @@ from ckeditor.fields import RichTextField
 
 
 # abstract class to factor out repeated parts
+# created_at, modified_at 추가 예정
 class BaseItemModel(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True)
@@ -25,6 +26,11 @@ class BaseItemModel(models.Model):
 
 
 # @& manager
+# 상위레벨에서 정리하는 단위:
+#   (포럼 카테고리[level0]->유저 연제물 카테고리[level1])
+#   (웸진 카테고리[level0] -> 강좌 카테고리[level1])
+# models.Model 상속으로 수정 예정
+# no slug
 class Category(BaseItemModel):
     level = models.IntegerField(default=0)
     public = models.BooleanField(default=False)
@@ -78,3 +84,16 @@ class Article(BaseItemModel):
 
     class Meta(BaseItemModel.Meta):
         ordering = ["-created_at"]
+
+
+class Comment(models.Model):
+    # @todo user
+    # comment 는 마지막 변경시간만 가지고 있음
+    date = models.DateTimeField(auto_now=True)
+    # optional author submission
+    author = models.CharField(max_length=100, blank=True, null=True)
+    body = models.TextField()
+    article = models.ForeignKey(Article)
+
+    def __str__(self):
+        return "{}: {}".format(self.article, self.body[:80])
