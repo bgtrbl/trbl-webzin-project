@@ -13,18 +13,22 @@
 {% endblock %}
 
 {% block trblcms_content %}
+    {% include 'trblcms/_fb_sdk.html' %}
+    {% include 'trblcms/_tw_sdk.html' %}
+    {% include 'trblcms/_ggl_sdk.html' %}
+
     <h1>{{ object.title }}</h1>
 
     <p>Created at - {{ object.created_at|date }}</p>
     <p>Modified at - {{ object.modified_at|date }}</p>
     <p>Sequel - {{ object.sequel }}</p>
-
     <p>{{ object.body|safe }}</p>
-
     <p>Tags -
         {% for tag in object.tags.all %}
             {{ tag }} 
         {% endfor %}</p>
+    {% include 'trblcms/_share_buttons.html' %}
+
     <p>{% buttons %}
             <a href="{% url 'trblcms:edit_article' object.slug %}" type="button" class="btn btn-primary">
                 {% bootstrap_icon "edit" %}[Edit]

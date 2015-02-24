@@ -1,0 +1,5 @@
+{% block share_buttons %}
+<div class="fb-share-button" data-href="{{ request.build_absolute_uri|urlencode }}" data-layout="button"></div>
+<a href="https://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a>
+<g:plusone size="tall" annotation="none"></g:plusone>
+{% endblock %}
