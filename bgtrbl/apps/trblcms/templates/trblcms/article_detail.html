@@ -34,5 +34,7 @@
                 {% bootstrap_icon "edit" %}[Edit]
             </a>
     {% endbuttons %}</p>
-    {% get_comment_form %}
+    <!-- maybe get_comment_form can take and argument? like the article's id? -->
+    {% get_comment_form object.id %}
+    {% get_comments object.id %}
 {% endblock %}

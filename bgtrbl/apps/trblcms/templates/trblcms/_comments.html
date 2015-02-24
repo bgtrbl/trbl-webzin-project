@@ -1,0 +1,11 @@
+{% load bootstrap3 %}
+
+{% block comments_content %}
+{% for comment in comments %}
+<p>
+    {{ comment.author }}
+    {{ comment.date }}
+    {{ comment.body }}
+</p>
+{% endfor %}
+{% endblock %}

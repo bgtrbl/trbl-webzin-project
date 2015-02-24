@@ -7,8 +7,8 @@ from django.core.urlresolvers import reverse
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
-from .models import Article
-from .forms import ArticleModelForm, CkeditorTestForm
+from .models import Article, Comment
+from .forms import ArticleModelForm, CkeditorTestForm, CommentModelForm
 
 
 def ckeditorTest(request):
@@ -62,3 +62,16 @@ def saveArticle(request):
             article.delete()
         return redirect('trblcms:edit_article', slug=request.POST['slug']) # @!
     return redirect('main:home')
+
+
+# @? id or slug?
+def saveComment(request, pk):
+    if request.method == 'POST':
+        form = CommentModelForm(request.POST)
+        if form.is_valid():
+            comment = Comment(article=Article.objects.get(id=pk))
+            form = CommentModelForm(request.POST, instance=comment)
+            if form.is_valid():
+                form.save()
+    # @? comment redirection... where to go if fails?
+    return redirect('trblcms:article_detail', slug=Article.objects.get(id=pk).slug)

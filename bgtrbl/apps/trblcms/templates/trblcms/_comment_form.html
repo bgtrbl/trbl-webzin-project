@@ -7,9 +7,9 @@
 </script>
 {% endblock %}
 
-{% block article_form_content %}
+{% block comment_form_content %}
 
-<form method="POST" action="{% url 'trblcms:save_article' %}" class="form">
+<form method="POST" action="{% url 'trblcms:save_comment' object_id %}" class="form">
     {% csrf_token %}
     {{ comment_form|crispy }} {# crispy form #}	
     {% buttons %}
