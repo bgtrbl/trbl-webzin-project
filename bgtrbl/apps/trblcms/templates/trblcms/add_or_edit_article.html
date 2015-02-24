@@ -13,6 +13,7 @@
 {% endblock %}
 
 {% block trblcms_content %}
+<script src={% static "ckeditor/ckeditor.js" %}></script>
     <!-- should i design it like this: if form include else error msg? -->
     {# include 'trblcms/_article_form.html' #}
     <!-- 테스트: context 에 있는 form render(inclusing tag) -->
