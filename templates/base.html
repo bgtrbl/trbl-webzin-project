@@ -10,7 +10,7 @@
     <div class="container">
         <h1>{% block title %}(no title){% endblock %}</h1>
         <p>
-            {% sitetree_menu from "maintree" include "trunk, topmenu" template "sitetree/menu.html" %}
+            {% sitetree_menu from "root" include "trunk, topmenu" template "sitetree/menu.html" %}
         </p>
         <hr/>
         {% bootstrap_messages %}
