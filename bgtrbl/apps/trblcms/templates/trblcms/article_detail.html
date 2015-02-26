@@ -35,6 +35,6 @@
             </a>
     {% endbuttons %}</p>
     <!-- maybe get_comment_form can take and argument? like the article's id? -->
-    {% get_comment_form object.id %}
-    {% get_comments object.id %}
+    {% get_comment_form 'article' object.id %}
+    {% get_comments 'article' object.id %}
 {% endblock %}

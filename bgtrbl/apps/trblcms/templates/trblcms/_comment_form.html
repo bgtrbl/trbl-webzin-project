@@ -2,14 +2,15 @@
 {% load bootstrap3 %}
 {% load crispy_forms_tags %}
 
+
 {% block bootstrap3_extra_head %}
-<script src={% static "ckeditor/ckeditor.js" %}>
-</script>
+<!--script src={% static "ckeditor/ckeditor.js" %}>
+</script-->
 {% endblock %}
 
 {% block comment_form_content %}
 
-<form method="POST" action="{% url 'trblcms:save_comment' object_id %}" class="form">
+<form method="POST" action="{% url 'trblcms:save_comment' content_type pk %}" class="form">
     {% csrf_token %}
     {{ comment_form|crispy }} {# crispy form #}	
     {% buttons %}
@@ -19,7 +20,7 @@
     {% endbuttons %}
 </form>
 
-<script>
+<!--script>
     CKEDITOR.replace("body", {customConfig :  "{% static 'ckeditor/trblcms_config.js' %}" });
-</script>
+</script-->
 {% endblock %}

@@ -1,11 +1,13 @@
 {% load bootstrap3 %}
 
 {% block comments_content %}
-{% for comment in comments %}
-<p>
-    {{ comment.author }}
-    {{ comment.date }}
-    {{ comment.body }}
-</p>
-{% endfor %}
+<ul>
+    {% for comment in comments %}
+    <li>
+        {{ comment.text}}
+        by {{ comment.author }}
+        at {{ comment.date }}
+    </li>
+    {% endfor %}
+</ul>
 {% endblock %}

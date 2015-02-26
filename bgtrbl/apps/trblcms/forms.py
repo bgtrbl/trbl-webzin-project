@@ -9,7 +9,7 @@ class ArticleModelForm(forms.ModelForm):
     class Meta:
         model = Article
         exclude = ['created_at', 'modified_at']
-        widgets = {'category': forms.HiddenInput()}
+        #widgets = {}
 
 
 class CkeditorTestForm(forms.ModelForm):
@@ -21,7 +21,13 @@ class CkeditorTestForm(forms.ModelForm):
 #class ArticleAdminForm(forms.ModelForm):
 
 
-class CommentModelForm(forms.ModelForm):
-    class Meta:
-        model = Comment
-        fields = ('author', 'body', )
+# for security reason(when changing server state, use POST other than GET)
+# parent_thread is in the form
+class CommentForm(forms.Form):
+    author = forms.CharField(max_length=100, required=True)
+    text = forms.CharField(max_length=500, required=True)
+
+    #class Meta:
+        #model = Comment
+        #fields = ('author', 'body')
+        #widgets = {'parent_thread': forms.HiddenInput()}

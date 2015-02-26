@@ -4,11 +4,14 @@ from django.shortcuts import get_object_or_404, redirect
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 
+# for comment saving
+from django.contrib.contenttypes.models import ContentType
+
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
 from .models import Article, Comment
-from .forms import ArticleModelForm, CkeditorTestForm, CommentModelForm
+from .forms import ArticleModelForm, CkeditorTestForm, CommentForm
 
 
 def ckeditorTest(request):
@@ -44,7 +47,7 @@ class ArticleDetailView(DetailView):
 # @? change it to use the trbl_tags?
 def addOrEditArticle(request, slug=None):
     article = get_object_or_404(Article, slug=slug) if slug else None     # 404 exception(accessing with weird slug) filtered
-    form = ArticleModelForm(initial={'category': None}, instance=article)
+    form = ArticleModelForm(instance=article)
     return render(request, 'trblcms/add_or_edit_article.html', {'article_form': form})
 
 
@@ -64,14 +67,19 @@ def saveArticle(request):
     return redirect('main:home')
 
 
+# @! security flaws
 # @? id or slug?
-def saveComment(request, pk):
+# @todo eventually pk has to go, and from would pass things in post to deal
+# with redirection
+# @idea or maybe getting next="url" whith GET method also would be nice...
+def saveComment(request, content_type, pk):
     if request.method == 'POST':
-        form = CommentModelForm(request.POST)
-        if form.is_valid():
-            comment = Comment(article=Article.objects.get(id=pk))
-            form = CommentModelForm(request.POST, instance=comment)
-            if form.is_valid():
-                form.save()
+        form = CommentForm(request.POST)
+        if form.is_valid() and ContentType.objects.filter(model=content_type).exists():
+            model_class = ContentType.objects.get(model=content_type).model_class()
+            parent_thread = model_class.objects.get(id=pk).child_thread
+            Comment.objects.create(author=form.cleaned_data['author'], text=form.cleaned_data['text'], parent_thread=parent_thread)
+        else: print("form valid({}); content type({}) isn't matching".format(form.is_valid(), content_type))
     # @? comment redirection... where to go if fails?
+    # @todo support many content type that inherits CommentedItemMixin
     return redirect('trblcms:article_detail', slug=Article.objects.get(id=pk).slug)

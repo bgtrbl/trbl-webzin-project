@@ -6,10 +6,8 @@ from uuslug import uuslug
 from ckeditor.fields import RichTextField
 
 
-# abstract class to factor out repeated parts
-# created_at, modified_at 추가 예정
-class BaseItemModel(models.Model):
-    title = models.CharField(max_length=200)
+# baseclass -> mixin class
+class SluggedItemMixin(models.Model):
     slug = models.SlugField(max_length=200, unique=True)
 
     # @todo make the method bypass-able to set slug explicitly (for admins)
@@ -17,9 +15,6 @@ class BaseItemModel(models.Model):
         self.slug = uuslug(self.title, instance=self, start_no=2,
                            max_length=200, word_boundary=True)
         super().save(*args, **kwargs)
-
-    def __str__(self):
-        return self.title
 
     class Meta:
         abstract = True
@@ -31,32 +26,84 @@ class BaseItemModel(models.Model):
 #   (웸진 카테고리[level0] -> 강좌 카테고리[level1])
 # models.Model 상속으로 수정 예정
 # no slug
-class Category(BaseItemModel):
+class Category(SluggedItemMixin):
     level = models.IntegerField(default=0)
+    title = models.CharField(max_length=200)
     public = models.BooleanField(default=False)
     parent = models.ForeignKey('self', null=True, blank=True)
+
+    def get_children(self):
+        return self._default_manager.filter(parent=self)
+
+    def get_descendants(self):
+        desc = set(self.get_children())
+        for node in list(desc):
+            desc.update(node.get_descendants())
+        return desc
 
     def save(self, *args, **kwargs):
         if self.parent:
             self.level = self.parent.level + 1
         super().save(*args, **kwargs)
 
+    def __str__(self):
+        return "{}: {}".format(self.level, self.title)
 
-# Sequence 보다 Sequel이 더 맞는것 같아서 이름을 Sequel 로 함
-# @& QuerySet
-class Sequel(BaseItemModel):
+
+# @todo override save and create thread after save
+class CommentThread(models.Model):
+    def __str__(self):
+        # @! temporary id return
+        return str(self.id)
+
+
+# possible commented item(with CommentedItemMixin) for tree style commenting
+class Comment(models.Model):
+    # @todo user
+    # comment 는 마지막 변경시간만 가지고 있음
+    date = models.DateTimeField(auto_now=True)
+    # optional author submission
+    author = models.CharField(max_length=100, blank=True, null=True)
+    text = models.TextField()
+    parent_thread = models.ForeignKey(CommentThread)
+
+    def __str__(self):
+        return "{}: {}".format(self.parent_thread, self.body[:80])
+
+    class Meta:
+        ordering = ["date"]
+
+
+# @? commentedItem mixin?, signal?
+# @? maybe it can store parent information such as type
+class CommentedItemMixin(models.Model):
+    # possible OneToOne field
+    # @! nullable blankable testing
+    child_thread = models.ForeignKey(CommentThread, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        self.child_thread = CommentThread.objects.create()
+        super().save(*args, **kwargs)
+
+    class Meta:
+        abstract = True
+
+
+# @? signal based count?
+class Sequel(SluggedItemMixin, CommentedItemMixin):
+    title = models.CharField(max_length=200)
     # @todo user
     description = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    # @todo category - returns category key from any item in it
+    category = models.ForeignKey(Category)
 
     # @? True 시 다른유저도 Sequel 에 추가 가능?
     public = models.BooleanField(default=False)
 
-    def category(self):
-        return self.article_set.last().category
+    def __str__(self):
+        return self.title
 
-    class Meta(BaseItemModel.Meta):
+    class Meta:
         ordering = ["-created_at"]
 
 
@@ -66,7 +113,8 @@ class ArticleQuerySet(models.QuerySet):
         return self.filter(published=value)
 
 
-class Article(BaseItemModel):
+class Article(SluggedItemMixin, CommentedItemMixin):
+    title = models.CharField(max_length=200)
     # @todo user
     body = RichTextField()
     # Sequel 삭제시 foreign key null
@@ -82,18 +130,8 @@ class Article(BaseItemModel):
     # applying custom query set as manager
     objects = ArticleQuerySet.as_manager()
 
-    class Meta(BaseItemModel.Meta):
-        ordering = ["-created_at"]
-
-
-class Comment(models.Model):
-    # @todo user
-    # comment 는 마지막 변경시간만 가지고 있음
-    date = models.DateTimeField(auto_now=True)
-    # optional author submission
-    author = models.CharField(max_length=100, blank=True, null=True)
-    body = models.TextField()
-    article = models.ForeignKey(Article)
-
     def __str__(self):
-        return "{}: {}".format(self.article, self.body[:80])
+        return "{}: {}".format(self.title, self.sequel)
+
+    class Meta:
+        ordering = ["-created_at"]
