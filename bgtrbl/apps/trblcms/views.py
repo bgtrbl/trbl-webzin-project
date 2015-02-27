@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 
-# for comment saving
+# comment saving by ContentType
 from django.contrib.contenttypes.models import ContentType
 
 from django.views.generic.detail import DetailView
@@ -86,8 +86,8 @@ def saveComment(request, content_type, pk):
 #'trblcms:article_detail'
 
 
-class SequelDetailView(DetailView): 
-    model = Sequel 
+class SequelDetailView(DetailView):
+    model = Sequel
     template_naem = 'trblcms/sequel_detail.html'
 
     def get_context_data(self, **kwargs):

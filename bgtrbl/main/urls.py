@@ -1,6 +1,8 @@
 from django.conf.urls import patterns, url
+from django.contrib.auth.decorators import login_required
 
 from .views import home, allauthTest, profileView
+
 
 urlpatterns = patterns('',
     url(r'^$', home, name='home'),
