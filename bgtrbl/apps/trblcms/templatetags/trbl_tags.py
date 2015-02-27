@@ -38,7 +38,13 @@ def get_comments(content_type, pk):
             }
     print("something is wrong")
 
+def get_articles(content_type, pk):
+    if ContentType.objects.filter(model=content_type).exists():
+        articles = Article.objects.filter(sequel=pk)
+    return{'articles': articles}
+
 
 register.inclusion_tag('trblcms/_article_form.html', takes_context=True)(get_article_form)
 register.inclusion_tag('trblcms/_comment_form.html')(get_comment_form)
 register.inclusion_tag('trblcms/_comments.html')(get_comments)
+register.inclusion_tag('trblcms/_articles.html')(get_articles)

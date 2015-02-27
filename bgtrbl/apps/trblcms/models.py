@@ -12,8 +12,7 @@ class SluggedItemMixin(models.Model):
 
     # @todo make the method bypass-able to set slug explicitly (for admins)
     def save(self, *args, **kwargs):
-        self.slug = uuslug(self.title, instance=self, start_no=2,
-                           max_length=200, word_boundary=True)
+        self.slug = uuslug(self.title, instance=self, start_no=2, max_length=200, word_boundary=True)
         super().save(*args, **kwargs)
 
     class Meta:

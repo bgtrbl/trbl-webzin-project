@@ -10,9 +10,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
-from .models import Article, Comment
+from .models import Article, Comment, Sequel
 from .forms import ArticleModelForm, CkeditorTestForm, CommentForm
-
 
 def ckeditorTest(request):
     if request.method == 'POST':
@@ -79,7 +78,20 @@ def saveComment(request, content_type, pk):
             model_class = ContentType.objects.get(model=content_type).model_class()
             parent_thread = model_class.objects.get(id=pk).child_thread
             Comment.objects.create(author=form.cleaned_data['author'], text=form.cleaned_data['text'], parent_thread=parent_thread)
+            template = ('trblcms:'+model_class.__name__+'_detail').lower()
         else: print("form valid({}); content type({}) isn't matching".format(form.is_valid(), content_type))
     # @? comment redirection... where to go if fails?
     # @todo support many content type that inherits CommentedItemMixin
-    return redirect('trblcms:article_detail', slug=Article.objects.get(id=pk).slug)
+    return redirect(template,  slug=model_class.objects.get(id=pk).slug)
+#'trblcms:article_detail'
+
+
+class SequelDetailView(DetailView): 
+    model = Sequel 
+    template_naem = 'trblcms/sequel_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+

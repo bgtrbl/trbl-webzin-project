@@ -1,0 +1,14 @@
+{% load bootstrap3 %}
+
+{% block articles_content %}
+<ul>
+    {% for article in articles %}
+    <a class = {% cycle "bgtype1" "bgtype2" as bgtype %} href="{% url 'trblcms:article_detail' article.slug %}">
+            <b>{{ article.title }}</b></a> - {{ article.created_at|date }}
+        <li>{{ bgtype }}{{ article.body|truncatewords:40 }}</li> 
+        <br>
+    {% empty %}
+        <li>No articles yet.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

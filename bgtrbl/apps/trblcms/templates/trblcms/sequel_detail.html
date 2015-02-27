@@ -1,0 +1,32 @@
+{% extends 'trblcms/testbase.html' %}
+
+{# load staticfiles #}
+{% load bootstrap3 %}
+{% load crispy_forms_tags %}
+{% load trbl_tags %}
+
+{# bootstrap_css #}
+{# bootstrap_javascript #}
+
+{% block title %}
+    Sequel detail
+{% endblock %}
+
+{% block trblcms_content %}
+    {% include 'trblcms/_fb_sdk.html' %}
+    {% include 'trblcms/_tw_sdk.html' %}
+    {% include 'trblcms/_ggl_sdk.html' %}
+    <h1>{{ object.title }}</h1>
+    <p>Created at - {{ object.created_at|date }}</p>
+    <p>Category = {{ object.category }}
+    <p>{{ object.description }}</p>
+    <p>{% buttons %}
+            <a href="{% url 'trblcms:edit_article' object.slug %}" type="button" class="btn btn-primary">
+                {% bootstrap_icon "edit" %}[Edit]
+            </a>
+    {% endbuttons %}</p>
+    <!-- maybe get_comment_form can take and argument? like the article's id? -->
+    {% get_articles 'sequel' object.id %}
+    {% get_comment_form 'sequel' object.id %}
+    {% get_comments 'sequel' object.id %}
+{% endblock %}

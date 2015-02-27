@@ -17,7 +17,7 @@
     {% for article in object_list %}
         <li>{{ article.created_at|date }} - 
         <a href="{% url 'trblcms:article_detail' article.slug %}">
-            {{ article.title }}</a></li>
+            {{ article.title|truncatewords:10 }}</a></li>
     {% empty %}
         <li>No articles yet.</li>
     {% endfor %}
