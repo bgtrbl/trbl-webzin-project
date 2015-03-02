@@ -6,10 +6,9 @@ from django.contrib.contenttypes.models import ContentType
 register = template.Library()
 
 
+# @depr
 def get_article_form(context):
     # @todo change it to the Article specific form checking
-    if not context.has_key('article_form'):
-        context['article_form'] = ArticleModelForm()
     #article = get_object_or_404(models.Article, slug=slug) if slug else None
     #print(slug, article)
     return context
@@ -38,13 +37,14 @@ def get_comments(content_type, pk):
             }
     print("something is wrong")
 
+# @depr
 def get_articles(content_type, pk):
     if ContentType.objects.filter(model=content_type).exists():
         articles = Article.objects.filter(sequel=pk)
     return{'articles': articles}
 
 
-register.inclusion_tag('trblcms/_article_form.html', takes_context=True)(get_article_form)
-register.inclusion_tag('trblcms/_comment_form.html')(get_comment_form)
-register.inclusion_tag('trblcms/_comments.html')(get_comments)
-register.inclusion_tag('trblcms/_articles.html')(get_articles)
+register.inclusion_tag('trblcms/templatetags/_article_form.html', takes_context=True)(get_article_form)
+register.inclusion_tag('trblcms/templatetags/_comment_form.html')(get_comment_form)
+register.inclusion_tag('trblcms/templatetags/_comments.html')(get_comments)
+register.inclusion_tag('trblcms/templatetags/_articles.html')(get_articles)
