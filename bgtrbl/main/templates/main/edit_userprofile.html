@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% load bootstrap3 %}
+{% load account %}
+{% load socialaccount %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Update Profile
+{% endblock %}
+
+{% block content %}
+    <ul>
+    {% if user.is_authenticated %}
+        You are logged in as "{% user_display user %}"
+        <li> <a href="{% url 'account_logout' %}">Logout</a> </li>
+
+        <form action="{% url 'update_userprofile' %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit">Submit</button>
+        </form>
+    {% else %}
+    {% endif %}
+    </ul>
+{% endblock %}

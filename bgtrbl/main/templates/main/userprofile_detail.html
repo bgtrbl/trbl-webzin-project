@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% load bootstrap3 %}
+{% load account %}
+{% load socialaccount %}
+
+{% block title %}
+    User Profile Detail
+{% endblock %}
+
+{% block content %}
+<ul>
+    <li> {{ object.user.username }} </li>
+    <li> {{ object.bio }} </li>
+    <li> {{ object.dob|date }} </li>
+    <li> {{ object.gender }} </li>
+    <li> {{ object.website }} </li>
+</ul>
+{% endblock %}

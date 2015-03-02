@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
 
-from .views import home, allauthTest, profileView
+from .views import home, allauthTest
 
 
 urlpatterns = patterns('',

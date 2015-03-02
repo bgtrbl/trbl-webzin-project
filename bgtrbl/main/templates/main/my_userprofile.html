@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% load bootstrap3 %}
+{% load account %}
+{% load socialaccount %}
+
+{% block title %}
+    My Profile
+{% endblock %}
+
+{% block content %}
+<ul>
+    <li> {{ user_profile.user }} </li>
+    <li> {{ user_profile.bio }} </li>
+    <li> {{ user_profile.dob|date }} </li>
+    <li> {{ user_profile.gender }} </li>
+    <li> {{ user_profile.website }} </li>
+    <li><a href="{% url 'edit_userprofile' %}">edit</a></li>
+
+</ul>
+{% endblock %}
