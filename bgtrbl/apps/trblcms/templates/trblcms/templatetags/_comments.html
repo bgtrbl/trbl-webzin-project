@@ -5,7 +5,7 @@
     {% for comment in comments %}
     <li>
         {{ comment.text}}
-        by {{ comment.author }}
+        by {{ comment.user }}
         at {{ comment.date }}
     </li>
     {% endfor %}

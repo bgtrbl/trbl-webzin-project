@@ -15,7 +15,7 @@ class ArticleAdmin(admin.ModelAdmin):
 
 
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ("parent_thread", "author", "text")
+    list_display = ("parent_thread", "user", "text")
 
 
 admin.site.register(models.Category, CategoryAdmin)

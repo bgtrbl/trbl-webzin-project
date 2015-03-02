@@ -5,9 +5,6 @@
 {% load crispy_forms_tags %}
 {% load trbl_tags %}
 
-{# bootstrap_css #}
-{# bootstrap_javascript #}
-
 {% block bootstrap3_extra_head %}
 <script src={% static "ckeditor/ckeditor.js" %}>
 </script>
@@ -15,17 +12,17 @@
 
 
 {% block title %}
-    Add an article
+    Add a sequel
 {% endblock %}
 
 {% block trblcms_content %}
 {% if pk %}
-<form method="POST" action="{% url 'trblcms:update_article' pk %}" class="form">
+<form method="POST" action="{% url 'trblcms:update_sequel' pk %}" class="form">
 {% else %}
-<form method="POST" action="{% url 'trblcms:save_article' %}" class="form">
+<form method="POST" action="{% url 'trblcms:save_sequel' %}" class="form">
 {% endif %}
     {% csrf_token %}
-    {{ article_form|crispy }} {# crispy form #}	
+    {{ sequel_form|crispy }} {# crispy form #}	
     {% buttons %}
         <button type="submit" class="btn btn-primary">
             {% bootstrap_icon "star" %} Submit
@@ -37,7 +34,7 @@
     {% bootstrap_icon "menu-left" %} Cancel
 </button>
 {% endbuttons %}
-<script>
-    CKEDITOR.replace("body", {customConfig :  "{% static 'ckeditor/trblcms_config.js' %}" });
-</script>
+    <script>
+        CKEDITOR.replace("description", {customConfig :  "{% static 'ckeditor/trblcms_config.js' %}" });
+    </script>
 {% endblock %}

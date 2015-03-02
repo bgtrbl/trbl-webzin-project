@@ -1,4 +1,6 @@
 from django.db import models
+from django.core.urlresolvers import reverse
+from django.contrib.auth.models import User
 
 from taggit.managers import TaggableManager
 from uuslug import uuslug
@@ -62,12 +64,12 @@ class Comment(models.Model):
     # comment 는 마지막 변경시간만 가지고 있음
     date = models.DateTimeField(auto_now=True)
     # optional author submission
-    author = models.CharField(max_length=100, blank=True, null=True)
+    user = models.ForeignKey(User)
     text = models.TextField()
     parent_thread = models.ForeignKey(CommentThread)
 
     def __str__(self):
-        return "{}: {}".format(self.parent_thread, self.body[:80])
+        return "{}: {}".format(self.parent_thread, self.text[:80])
 
     class Meta:
         ordering = ["date"]
@@ -90,6 +92,7 @@ class CommentedItemMixin(models.Model):
 
 # @? signal based count?
 class Sequel(SluggedItemMixin, CommentedItemMixin):
+    user = models.ForeignKey(User)
     title = models.CharField(max_length=200)
     # @todo user
     description = models.TextField(blank=True)
@@ -98,6 +101,11 @@ class Sequel(SluggedItemMixin, CommentedItemMixin):
 
     # @? True 시 다른유저도 Sequel 에 추가 가능?
     public = models.BooleanField(default=False)
+
+    def get_absolute_url(self):
+        return reverse('trblcms:sequel_detail', kwargs={'slug': self.slug})
+
+    #def get_edit_url(self):
 
     def __str__(self):
         return self.title
@@ -113,6 +121,7 @@ class ArticleQuerySet(models.QuerySet):
 
 
 class Article(SluggedItemMixin, CommentedItemMixin):
+    user = models.ForeignKey(User)
     title = models.CharField(max_length=200)
     # @todo user
     body = RichTextField()
@@ -128,6 +137,11 @@ class Article(SluggedItemMixin, CommentedItemMixin):
 
     # applying custom query set as manager
     objects = ArticleQuerySet.as_manager()
+
+    def get_absolute_url(self):
+        return reverse('trblcms:article_detail', kwargs={'slug': self.slug})
+
+    #def get_edit_url(self):
 
     def __str__(self):
         return "{}: {}".format(self.title, self.sequel)

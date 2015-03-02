@@ -19,6 +19,7 @@
 
     <h1>{{ object.title }}</h1>
 
+    <p>User - {{ object.user }}</p>
     <p>Created at - {{ object.created_at|date }}</p>
     <p>Modified at - {{ object.modified_at|date }}</p>
     <p>Sequel - {{ object.sequel }}</p>
@@ -30,7 +31,7 @@
     {% include 'trblcms/_share_buttons.html' %}
 
     <p>{% buttons %}
-            <a href="{% url 'trblcms:edit_article' object.slug %}" type="button" class="btn btn-primary">
+            <a href="{% url 'trblcms:edit_article' object.id %}" type="button" class="btn btn-primary">
                 {% bootstrap_icon "edit" %}[Edit]
             </a>
     {% endbuttons %}</p>

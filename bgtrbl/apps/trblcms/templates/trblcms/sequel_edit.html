@@ -1,0 +1,23 @@
+{% extends 'trblcms/testbase.html' %}
+
+{# load staticfiles #}
+{% load bootstrap3 %}
+{% load crispy_forms_tags %}
+{% load trbl_tags %}
+
+{# bootstrap_css #}
+{# bootstrap_javascript #}
+
+{% block title %}
+    Sequel Edit 
+{% endblock %}
+
+{% block trblcms_content %}
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Send message" />
+</form> 
+
+{% endblock %}
