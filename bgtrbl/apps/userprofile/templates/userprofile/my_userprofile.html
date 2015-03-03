@@ -17,7 +17,7 @@
     <li> {{ user_profile.gender }} </li>
     <li> {{ user_profile.website }} </li>
     <li> {% avatar user_profile.user %} </li>
-    <li><a href="{% url 'edit_userprofile' %}">edit</a></li>
+    <li><a href="{% url 'userprofile:edit_userprofile' %}">edit</a></li>
 
 </ul>
 {% endblock %}

@@ -15,7 +15,7 @@
         You are logged in as "{% user_display user %}"
         <li> <a href="{% url 'account_logout' %}">Logout</a> </li>
 
-        <form action="{% url 'update_userprofile' %}" method="post" enctype="multipart/form-data">
+        <form action="{% url 'userprofile:update_userprofile' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form }}
             <button type="submit">Submit</button>
