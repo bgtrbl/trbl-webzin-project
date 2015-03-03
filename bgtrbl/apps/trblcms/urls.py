@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
 
-from .views import ckeditorTest, SequelEditView, ArticleListView
+from .views import SequelEditView, ArticleListView
 from .views import ArticleDetailView, addOrEditArticle, saveOrUpdateArticle
 from .views import SequelDetailView, addOrEditSequel, saveOrUpdateSequel
 from .views import saveComment
@@ -21,5 +21,4 @@ urlpatterns = patterns('',
     url(r'^save_comment/(?P<content_type>[\w]+)/(?P<pk>[\d]+)/$', login_required(saveComment), name = 'save_comment'),
     url(r'^articles/$', ArticleListView.as_view(), name = 'article_list'),
     url(r'^sequel_edit_test/(?P<slug>[\w\_\-]+)/$', SequelEditView.as_view(), name= 'sequel_edit'),
-    url(r'^ckeditor_test/', ckeditorTest, name = 'ckeditor_test'),
 )
