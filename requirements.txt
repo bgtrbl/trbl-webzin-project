@@ -16,6 +16,7 @@ ipdb==0.8
 ipython==2.4.1
 markdown2==2.3.0
 oauthlib==0.7.2
+Pillow==2.7.0
 psycopg2==2.6
 Pygments==2.0.2
 python-slugify==0.1.0

@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 
 from bgtrbl.main.views import editUserProfile, updateUserProfile, myUserProfile,  UserProfileDetail
 
+from .settings import MEDIA_ROOT
+
 
 # @todo profile 관련 main 으로
 urlpatterns = patterns('',
@@ -17,4 +19,6 @@ urlpatterns = patterns('',
     url(r'^accounts/edit_profile/$', login_required(editUserProfile), name='edit_userprofile'),
     url(r'^accounts/profile/$', login_required(myUserProfile), name='my_userprofile'),
     url(r'^accounts/profile/(?P<pk>[\d]+)/$', UserProfileDetail.as_view(), name='userprofile_detail'),
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': MEDIA_ROOT}),
 )
+# temporary media url

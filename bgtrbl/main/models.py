@@ -4,17 +4,27 @@ from django.contrib.auth.models import User
 
 from ckeditor.fields import RichTextField
 
+import os
+
+
+# userprofile image upload helper function
+def _image_upload_path(instance, filename):
+   return instance.get_image_path(filename)
+
 
 # @& 1-1 model - django's auth or allauth, multitable inheritance
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
-    #image = models.ImageField()
+    image = models.ImageField(blank=True, null=True, upload_to=_image_upload_path)
     bio = RichTextField(blank=True, null=True)
     dob = models.DateField(blank=True, null=True)
     # True = female; False = male  -> for gender equality ...
     gender = models.NullBooleanField(default=None)
     # @? other social variables?
     website = models.URLField(blank=True, unique=True, null=True)
+
+    def get_image_path(self, filename):
+        return os.path.join('main/userprofile/', self.user.username, 'image', filename)
 
     def get_absolute_url(self):
         return reverse('userprofile_detail',kwargs={'pk':self.id})
