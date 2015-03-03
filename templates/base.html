@@ -1,7 +1,7 @@
 {% extends 'bootstrap.html' %}
 
 {# load url from future #}
-{# navigation tree#}
+{# navigation tree #}
 {% load sitetree %}
 
 {% load bootstrap3 %}
@@ -9,10 +9,6 @@
 {% block bootstrap3_content %}
     <div class="container">
         <h1>{% block title %}(no title){% endblock %}</h1>
-        <p>
-            {% sitetree_menu from "root" include "trunk, topmenu" template "sitetree/menu.html" %}
-        </p>
-        <hr/>
         {% bootstrap_messages %}
         {% block content %}(no content){% endblock %}
     </div>
