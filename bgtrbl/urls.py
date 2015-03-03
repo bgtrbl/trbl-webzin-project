@@ -19,6 +19,7 @@ urlpatterns = patterns('',
     url(r'^accounts/profile/$', login_required(myUserProfile), name='my_userprofile'),
     url(r'^accounts/profile/(?P<pk>[\d]+)/$', UserProfileDetail.as_view(), name='userprofile_detail'),
     url(r'^avatar/', include('avatar.urls')),
+    url(r'^ckeditor/', include('ckeditor.urls')),
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': MEDIA_ROOT}),
 )
 # temporary media url
