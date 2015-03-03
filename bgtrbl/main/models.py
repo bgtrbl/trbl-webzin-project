@@ -13,6 +13,7 @@ def _image_upload_path(instance, filename):
 
 
 # @& 1-1 model - django's auth or allauth, multitable inheritance
+# @togoaway image field 지울 예정 (avatar로 대체)
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     image = models.ImageField(blank=True, null=True, upload_to=_image_upload_path)

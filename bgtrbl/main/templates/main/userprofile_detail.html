@@ -3,6 +3,7 @@
 {% load bootstrap3 %}
 {% load account %}
 {% load socialaccount %}
+{% load avatar_tags %}
 
 {% block title %}
     User Profile Detail
@@ -15,6 +16,6 @@
     <li> {{ object.dob|date }} </li>
     <li> {{ object.gender }} </li>
     <li> {{ object.website }} </li>
-    <li> <img src="http://localhost:8000/media/{{ object.image }}"> </li>
+    <li> {% avatar object.user %} </li>
 </ul>
 {% endblock %}
