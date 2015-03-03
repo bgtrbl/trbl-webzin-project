@@ -8,13 +8,13 @@ from .forms import UserProfileModelForm
 
 class UserProfileDetail(DetailView):
     model = UserProfile
-    template_name = 'main/userprofile_detail.html'
+    template_name = 'userprofile/userprofile_detail.html'
 
 
 def editUserProfile(request):
     user_profile = UserProfile.objects.get(user=request.user)
     form = UserProfileModelForm(instance=user_profile)
-    return render(request, 'main/edit_userprofile.html', {'form': form})
+    return render(request, 'userprofile/edit_userprofile.html', {'form': form})
 
 
 # login required
@@ -36,4 +36,4 @@ def updateUserProfile(request):
 # login required
 def myUserProfile(request):
     user_profile = UserProfile.objects.get(user=request.user)
-    return render(request, 'main/my_userprofile.html', {'user_profile': user_profile})
+    return render(request, 'userprofile/my_userprofile.html', {'user_profile': user_profile})
