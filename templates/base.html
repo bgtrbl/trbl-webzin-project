@@ -1,15 +1,31 @@
-{% extends 'bootstrap.html' %}
+{% extends 'root.html' %}
 
 {# load url from future #}
 {# navigation tree #}
 {% load sitetree %}
-
 {% load bootstrap3 %}
+{% load staticfiles%}
 
-{% block bootstrap3_content %}
-    <div class="container">
-        <h1>{% block title %}(no title){% endblock %}</h1>
+{% block base_head%}
+    <link href="{% static 'css/nav.css' %}" media="all" rel="stylesheet"> 
+{% endblock%}
+
+{% block header %}
+    {% sitetree_menu from "root" include "trunk,topmenu" template "navigation/nav.html" %}
+{% endblock%}
+
+{% block root_content %}
+    <div>
+        <button id="showLeftPush">slide</button> 
         {% bootstrap_messages %}
         {% block content %}(no content){% endblock %}
     </div>
 {% endblock %}
+
+{% block footer %}
+{% endblock%}
+
+{% block base_script%}
+<script src="{% static 'classie.js'%}"></script>
+<script src="{% static 'js/nav.js'%}"></script>
+{% endblock%}
