@@ -5,7 +5,8 @@
     {% for comment in comments %}
     <li>
         {{ comment.text}}
-        by {{ comment.user }}
+        by <a href="{{ comment.user.userprofile.get_absolute_url }}">
+            {{ comment.user }}</a>
         at {{ comment.date }}
     </li>
     {% endfor %}
