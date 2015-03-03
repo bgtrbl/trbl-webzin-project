@@ -12,6 +12,16 @@
 	font-weight: 300;
 	background: #0d77b6;
 }
+#nav_main {
+        font-size: 1.3em;
+        font-weight: 350;
+        display: auto;
+}
+
+#nav_main a:hover {
+       background: #6A5ACD; 
+        
+}
 
 .cbp-spmenu a {
 	display: block;

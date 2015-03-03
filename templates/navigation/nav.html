@@ -1,11 +1,11 @@
 {% load sitetree %}
     <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
-        <h3>Menu</h3>
+    <h3><a id="nav_main" href="/">Main</a></h3>
     {% for item in sitetree_items %}
-        <a href="{% sitetree_url for item %}">{{ item.title_resolved }}</a>  
-             
 	{% if item.has_children %}
-		{% sitetree_children of item for menu template "navigation/sub_nav.html" %}
+	    {% sitetree_children of item for menu template "navigation/sub_nav.html" %}
+        {% else %}
+            <a href="{% sitetree_url for item %}">{{ item.title_resolved }}</a> 
         {% endif %}
     {% endfor %}
     </nav>

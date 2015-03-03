@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block extra_head %}
+{% endblock %}
+
+{% block content %}
+    <ul>
+        {% for articles in obejct_list%}
+            <li><a href="{% url 'trblcms:article_detail' article.slug %}">{{ objects.title }}</a></li>
+        {% endfor %}
+
+    </ul>
+{% endblock %}
+{% block footer %}
+{% endblock%}
+
+{% block base_script%}
+{% endblock%}
+
+{% block extra_script %}
+{% endblock %}
