@@ -21,7 +21,7 @@ def editUserProfile(request):
 def updateUserProfile(request):
     if request.method == 'POST':
         user_profile = UserProfile.objects.get(user=request.user)
-        form = UserProfileModelForm(request.POST, request.FILES, instance=user_profile)
+        form = UserProfileModelForm(request.POST, instance=user_profile)
         if form.is_valid():
             user_profile = form.save(commit=False)
             user_profile.user = request.user
