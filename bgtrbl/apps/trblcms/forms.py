@@ -21,15 +21,6 @@ class SequelModelForm(forms.ModelForm):
         exclude = ['child_thread', 'user']
 
 
-class CkeditorTestForm(forms.ModelForm):
-    class Meta:
-        model = Article
-        fields = ('title','body')
-
-
-#class ArticleAdminForm(forms.ModelForm):
-
-
 # for security reason(when changing server state, use POST other than GET)
 # parent_thread is in the form
 class CommentForm(forms.Form):

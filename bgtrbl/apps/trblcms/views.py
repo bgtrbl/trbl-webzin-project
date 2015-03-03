@@ -12,7 +12,7 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import FormView
 
 from .models import Article, Comment, Sequel, Category
-from .forms import ArticleModelForm, CkeditorTestForm, CommentForm, SequelModelForm
+from .forms import ArticleModelForm, CommentForm, SequelModelForm
 
 
 class ArticleDetailView(DetailView):
@@ -106,16 +106,6 @@ class SequelEditView(FormView):
     success_url = '/main/'
 
     #def form_valid(self, form):
-
-
-def ckeditorTest(request):
-    if request.method == 'POST':
-        form = CkeditorTestForm(request.POST)
-        if form.is_valid():
-            return HttpResponse("good")
-    else:
-        form = CkeditorTestForm()
-    return render(request, 'trblcms/ckeditor_test.html', {'form': form})
 
 
 class ArticleListView(ListView):
