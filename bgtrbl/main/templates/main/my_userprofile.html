@@ -3,6 +3,7 @@
 {% load bootstrap3 %}
 {% load account %}
 {% load socialaccount %}
+{% load avatar_tags %}
 
 {% block title %}
     My Profile
@@ -15,8 +16,7 @@
     <li> {{ user_profile.dob|date }} </li>
     <li> {{ user_profile.gender }} </li>
     <li> {{ user_profile.website }} </li>
-    <li> <img src="http://localhost:8000/media/{{ user_profile.image }}"> </li>
-    <!-- media 는 나중에 따로 Service -->
+    <li> {% avatar user_profile.user %} </li>
     <li><a href="{% url 'edit_userprofile' %}">edit</a></li>
 
 </ul>
