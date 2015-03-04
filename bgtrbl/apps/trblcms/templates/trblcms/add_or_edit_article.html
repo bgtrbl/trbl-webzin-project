@@ -8,7 +8,7 @@
 {# bootstrap_css #}
 {# bootstrap_javascript #}
 
-{% block bootstrap3_extra_head %}
+{% block extra_head %}
 <script src={% static "ckeditor/ckeditor/ckeditor.js" %}>
 </script>
 {% endblock %}
@@ -38,6 +38,7 @@
 </button>
 {% endbuttons %}
 <script>
-    CKEDITOR.replace("body", {customConfig :  "{% static 'ckeditor/trblcms_config.js' %}" });
+    CKEDITOR.replace("body", { customConfig : "{% static 'ckeditor/trblcms_config.js' %}",
+            filebrowserUploadUrl : "{% url 'trblcms:ckeditor_upload' %}" });
 </script>
 {% endblock %}

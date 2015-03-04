@@ -6,8 +6,11 @@ from .views import ArticleDetailView, addOrEditArticle, saveOrUpdateArticle
 from .views import SequelDetailView, addOrEditSequel, saveOrUpdateSequel
 from .views import saveComment
 
+from ckeditor.views import upload as ckeditor_upload
+
 
 urlpatterns = patterns('',
+    url(r'^ckeditor_upload/', ckeditor_upload, name='ckeditor_upload'),
     url(r'^article/(?P<slug>[\w\_\-]+)/$', ArticleDetailView.as_view(), name = 'article_detail'),
     url(r'^add_article/$', login_required(addOrEditArticle), name = 'add_article'),
     url(r'^edit_article/(?P<pk>[\d]+)/$', login_required(addOrEditArticle), name = 'edit_article'),
