@@ -10,21 +10,23 @@
 	padding: 20px;
 	margin: 0;
 	font-weight: 300;
-	background: #0d77b6;
 }
 #nav_main {
         font-size: 1.3em;
         font-weight: 350;
         display: auto;
+        background: #0d77b6;
+}
+a#nav-main  {
+    background: #0d77b6;
 }
 
 #nav_main a:hover {
        background: #6A5ACD; 
-        
-}
-
+        }
 .cbp-spmenu a {
 	display: block;
+        text-decoration: none;
 	color: #fff;
 	font-size: 1.1em;
 	font-weight: 300;

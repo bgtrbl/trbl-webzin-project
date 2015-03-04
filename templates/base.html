@@ -8,18 +8,19 @@
 
 {% block base_head %}
     <link href="{% static 'navigation/css/nav.css' %}" media="all" rel="stylesheet"> 
-    {% block extra_head %}
-    {% endblock %}
+    <link href="{% static 'base/base.css' %}" media="all" rel="stylesheet">
+    {% block extra_head %}{% endblock %}
 {% endblock %}
 
 {% block header %}
     {% sitetree_menu from "root" include "trunk,topmenu" template "navigation/nav.html" %}
+    {% block extra_header %}{% endblock %}
 {% endblock %}
 
 {% block root_content %}
-    {% sitetree_breadcrumbs from "root"%}
     <div>
-        <button id="showLeftPush">slide</button> 
+        <button type="button" id="showLeftPush" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-th"></span>
+        </button> 
         {% bootstrap_messages %}
         {% block content %}(no content){% endblock %}
     </div>

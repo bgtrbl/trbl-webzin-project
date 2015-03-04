@@ -1,20 +1,43 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block extra_head %}
+    <link href="{% static 'front_forum/css/masonary.css' %}" media="all" rel="stylesheet"> 
 {% endblock %}
+
+{% block extra_header %}
+    <div id=  
+{% endblock %}
+
 
 {% block content %}
 {# view, 추천수 높은건 크거나 색이 다르게 #}
-<div = front_forum> 
-    <ul>
-        {% for articles in object_list%}
-        <li><a href="{% url 'trblcms:article_detail' articles.slug %}">{{ articles.title }}</a></li>
-        {% endfor %}
-    </ul>
+<div id='front_forum'> 
+    {% for articles in object_list%}
+    <div class="item co1">
+            <a href="{% url 'trblcms:article_detail' articles.slug %}"><img src="http://imgs.tuts.dragoart.com/how-to-draw-princess-cadence-my-little-pony_1_000000012723_5.png" /><p><strong>{{ articles.title }}</strong></p></a>
+            <p>{{ articles.user.name }}</p>
+            <p id="date">{{ articles.created_at|date }}</p>
+        </div>
+    {% endfor %}
+</div>
 {% endblock %}
 
 {% block footer %}
-{% endblock%}
+{% endblock %}
 
 {% block extra_script %}
+<script src="{% static 'front_forum/js/masonary.js' %}"></script>
+<script src="{% static 'front_forum/js/imageloaded.js' %}"></script>
+<script>
+    var container = document.querySelector('#front_forum');
+    var msnry;
+    imagesLoaded( container, function() {
+        msnry = new Masonry( container,{
+        columnwidth: 250,
+        gutter: 30,
+        itemSelector: '.item'
+        });
+      });
+</script>
 {% endblock %}
