@@ -5,16 +5,15 @@
 
 {% block content %}
 {# view, 추천수 높은건 크거나 색이 다르게 #}
-<div = front_magazine> 
-        {% for articles in obejct_list%}
-        <a class="{% cycle 'item' 'item w2' 'item w2 h2' %}" href="{% url 'trblcms:article_detail' article.slug %}">{{ articles.title }}</a>
+<div = front_forum> 
+    <ul>
+        {% for articles in object_list%}
+        <li><a href="{% url 'trblcms:article_detail' articles.slug %}">{{ articles.title }}</a></li>
         {% endfor %}
+    </ul>
 {% endblock %}
 
 {% block footer %}
-{% endblock%}
-
-{% block base_script%}
 {% endblock%}
 
 {% block extra_script %}
