@@ -7,8 +7,8 @@
 {% load staticfiles%}
 
 {% block base_head%}
-    <link href="{% static 'navigation/css/nav.css' %}" media="all" rel="stylesheet"> 
-    <link href="{% static 'base/basegrid.css' %}" media="all" rel="stylesheet"> 
+    <link href="{% static 'css/nav.css' %}" media="all" rel="stylesheet"> 
+    <link href="{% static 'basegrid.css' %}" media="all" rel="stylesheet"> 
 {% endblock%}
 
 {% block header %}
@@ -28,6 +28,6 @@
 {% endblock%}
 
 {% block base_script%}
-<script src="{% static 'base/classie.js'%}"></script>
-<script src="{% static 'navigation/js/nav.js'%}"></script>
+<script src="{% static 'classie.js'%}"></script>
+<script src="{% static 'js/nav.js'%}"></script>
 {% endblock%}

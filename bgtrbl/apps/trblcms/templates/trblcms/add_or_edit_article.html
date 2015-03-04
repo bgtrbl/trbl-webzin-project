@@ -1,4 +1,4 @@
-{% extends 'trblcms/testbase.html' %}
+{% extends 'testbase.html' %}
 
 {% load staticfiles %}
 {% load bootstrap3 %}
@@ -19,11 +19,11 @@
 {% endblock %}
 
 {% block trblcms_content %}
-{% if pk %}
-<form method="POST" action="{% url 'trblcms:update_article' pk %}" class="form">
-{% else %}
-<form method="POST" action="{% url 'trblcms:save_article' %}" class="form">
-{% endif %}
+    {% if pk %}
+        <form method="POST" action="{% url 'trblcms:update_article' pk %}" class="form">
+    {% else %}
+        <form method="POST" action="{% url 'trblcms:save_article' %}" class="form">
+    {% endif %}
     {% csrf_token %}
     {{ article_form|crispy }} {# crispy form #}	
     {% buttons %}

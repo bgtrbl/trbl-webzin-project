@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% load bootstrap3 %}
+{% load trbl_tags %}
+
+{% block title %}
+    (no title)
+    {% get_article_form %}
+{% endblock %}
+
+{% block content %}
+    {% block trblcms_content %}
+        (no contest)
+    {% endblock %}
+
+
+<!-- modal 구현 부분; 나중에 따로 템플릿으로 정리 -->
+{% block my_modal_button %}{% endblock %}
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+    </div>
+    <div class="modal-body">
+        {% block my_modal_body%}
+            (no modal body)
+        {% endblock %}
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+            {% bootstrap_icon "menu-left" %}Close
+        </button>
+        <!-- button type="button" class="btn btn-primary">Save changes</button -->
+    </div>
+    </div>
+</div>
+</div>
+{% endblock %}
