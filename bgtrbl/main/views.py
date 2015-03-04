@@ -13,12 +13,12 @@ def allauthTest(request):
 
 class magazine(ListView):
     model = Article
-    template = "front_magazine.html" 
+    template_name = "front_magazine.html" 
     queryset = Article.objects.filter(category= Category.objects.get(pk=2))
 
 class forum(ListView):
     model = Article
-    template = "front_forum.html"
+    template_name = "front_forum.html"
     queryset = Article.objects.filter(category= Category.objects.get(pk=3))
 
 

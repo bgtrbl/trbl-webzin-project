@@ -5,12 +5,13 @@
 
 {% block content %}
     <ul>
-        {% for articles in obejct_list%}
-            <li><a href="{% url 'trblcms:article_detail' article.slug %}">{{ objects.title }}</a></li>
+        {% for articles in object_list %}
+            <li><a href="{% url 'trblcms:article_detail' articles.slug %}">{{ articles.title }}</a></li>
         {% endfor %}
 
     </ul>
 {% endblock %}
+
 {% block footer %}
 {% endblock%}
 
