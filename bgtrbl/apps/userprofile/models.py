@@ -17,7 +17,7 @@ class UserProfile(models.Model):
     website = models.URLField(blank=True, unique=True, null=True)
 
     def get_absolute_url(self):
-        return reverse('userprofile_detail',kwargs={'pk':self.id})
+        return reverse('userprofile:userprofile_detail',kwargs={'pk':self.id})
 
     def __str__(self):
         return self.user.username

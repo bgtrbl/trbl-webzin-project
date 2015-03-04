@@ -15,7 +15,7 @@ urlpatterns = patterns('',
     url(r'^trblcms/', include('bgtrbl.apps.trblcms.urls', namespace='trblcms')),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^userprofile/', include('bgtrbl.apps.userprofile.urls', namespace='userprofile')),
-    url(r'^avatar/', include('avatar.urls', namespace='avatar')),
+    url(r'^avatar/', include('avatar.urls')),
     url(r'^ckeditor/', include('ckeditor.urls')),
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': MEDIA_ROOT}),
 )
