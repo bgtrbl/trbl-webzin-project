@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Search
+{% endblock %}
+
+{% block content %}
+<form action="http://127.0.0.1:8000/search" method="get">
+    <input type="text" name="q">
+    <button type="submit">submit</button>
+</form>
+<ul>
+{% for result in page.object_list %}
+    <li>
+        <a href="{{ result.object.get_absolute_url }}">
+            {{ result.object.title }}
+        </a>
+        by <a href="{{ result.object.user.userprofile.get_absolute_url }}">
+            {{ result.object.user }}
+        </a>
+    </li>
+{% empty %}
+    <li> No results found. </il>
+{% endfor %}
+</ul>
+{% endblock %}

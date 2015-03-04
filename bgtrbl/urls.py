@@ -17,6 +17,7 @@ urlpatterns = patterns('',
     url(r'^userprofile/', include('bgtrbl.apps.userprofile.urls', namespace='userprofile')),
     url(r'^avatar/', include('avatar.urls')),
     url(r'^ckeditor/', include('ckeditor.urls')),
+    url(r'^search/', include('haystack.urls')),
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': MEDIA_ROOT}),
 )
 # temporary media url
