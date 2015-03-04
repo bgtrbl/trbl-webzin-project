@@ -4,15 +4,17 @@
 {# navigation tree #}
 {% load sitetree %}
 {% load bootstrap3 %}
-{% load staticfiles%}
+{% load staticfiles %}
 
-{% block base_head%}
-    <link href="{% static 'css/nav.css' %}" media="all" rel="stylesheet"> 
-{% endblock%}
+{% block base_head %}
+    <link href="{% static 'navigation/css/nav.css' %}" media="all" rel="stylesheet"> 
+    {% block extra_head %}
+    {% endblock %}
+{% endblock %}
 
 {% block header %}
     {% sitetree_menu from "root" include "trunk,topmenu" template "navigation/nav.html" %}
-{% endblock%}
+{% endblock %}
 
 {% block root_content %}
     <div>
@@ -23,9 +25,9 @@
 {% endblock %}
 
 {% block footer %}
-{% endblock%}
+{% endblock %}
 
-{% block base_script%}
-<script src="{% static 'classie.js'%}"></script>
-<script src="{% static 'js/nav.js'%}"></script>
-{% endblock%}
+{% block base_script %}
+<script src="{% static 'base/classie.js' %}"></script>
+<script src="{% static 'navigation/js/nav.js' %}"></script>
+{% endblock %}
