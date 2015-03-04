@@ -26,9 +26,9 @@ def updateUserProfile(request):
             user_profile = form.save(commit=False)
             user_profile.user = request.user
             user_profile.save()
-            return redirect('my_userprofile')
+            return redirect('userprofile:my_userprofile')
         # @todo url namespace: main
-        return redirect('edit_userprofile')
+        return redirect('userprofile:edit_userprofile')
     return redirect('main:home')
 
 
