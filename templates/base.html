@@ -8,19 +8,21 @@
 
 {% block base_head %}
     <link href="{% static 'navigation/css/nav.css' %}" media="all" rel="stylesheet"> 
+    <link href="{% static 'navigation/css/tabs.css' %}" media="all" rel="stylesheet">
     <link href="{% static 'base/base.css' %}" media="all" rel="stylesheet">
     {% block extra_head %}{% endblock %}
 {% endblock %}
 
 {% block header %}
-    {% sitetree_menu from "root" include "trunk,topmenu" template "navigation/nav.html" %}
+    {% sitetree_menu from "side" include "trunk,topmenu" template "navigation/nav.html" %}
+    {% sitetree_menu from "root" include "trunk,topmeun" template "navigation/nav_top.html" %}
     {% block extra_header %}{% endblock %}
 {% endblock %}
 
 {% block root_content %}
     <div>
         <button type="button" id="showLeftPush" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-th"></span>
-        </button> 
+        </button>
         {% bootstrap_messages %}
         {% block content %}(no content){% endblock %}
     </div>
