@@ -71,7 +71,7 @@ def wiki_scrap():
 
     print("Created Articles:")
     print(articles)
-    update_index()
+    print('to update index, run "index" command')
 
 
 def count_article():
@@ -86,6 +86,9 @@ def help_msg():
     keys.sort()
     for k in keys:
         msg += "  {} -  {}\n".format(k.ljust(16), COMMANDS[k]['desc'])
+
+    msg += "\n  Semicolon 으로 명령어 체이닝 가능:\n"
+    msg += "\n     (ex) # create;index;run"
     print(msg)
 
 
@@ -147,6 +150,13 @@ def run_shell():
     print("done")
 
 
+def tig_status():
+    try: subprocess.call(['tig', 'status'])
+    except KeyboardInterrupt:
+        pass
+    print("done")
+
+
 if __name__ == '__main__':
 
     SVR = Server()
@@ -162,10 +172,14 @@ if __name__ == '__main__':
     COMMANDS['?'] ={'func': help_msg, 'desc': '도움말'}
     COMMANDS['tree'] ={'func': show_tree, 'desc': '프로젝트 트리'}
     COMMANDS['shell'] ={'func': run_shell, 'desc': 'Django shell'}
+    COMMANDS['ts'] ={'func': tig_status, 'desc': 'tig status'}
+
 
     while True:
         try:
-            COMMANDS[input('\n# ')]['func']()
+            cmds = input('\n# ').split(';')
+            for _ in cmds:
+                COMMANDS[_.strip()]['func']()
         except KeyError:
             print("command not found - type '?' to see commands")
         except KeyboardInterrupt:
