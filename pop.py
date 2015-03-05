@@ -91,17 +91,13 @@ def help_msg():
 def quit_pop():
     print("\nbye~")
     # deleting server
-    del globals()['SVR']
+    globals()['SVR'].kill()
     exit()
 
 
 class Server(object):
     def __init__(self):
         self.PROC = None
-
-    def __del__(self):
-        if self.is_runing():
-            self.kill()
 
     def is_runing(self):
         return self.PROC is not None and self.PROC.poll() is None
