@@ -1,12 +1,16 @@
 import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bgtrbl.settings')
+
+print("setting up django ...")
+
 import django
 django.setup()
 
+print("importing apps ...")
 from bgtrbl.apps.trblcms.models import Article, Sequel, Comment, Category
-from helpers import wikiscrap
-
 from django.contrib.auth.models import User
+
+from helpers import wikiscrap
 from random import choice
 
 
@@ -31,7 +35,7 @@ def wiki_scrap():
             Category.objects.get(title='Magazin'),
             Category.objects.get(title='Forum'))
 
-    #helper function
+    # helper function
     def save_wiki(wikidoc):
         article = Article.objects.create(title=wikidoc['lang_title'],
                 body=wikidoc['body'], user=choice(User.objects.all()),
@@ -39,7 +43,7 @@ def wiki_scrap():
         article.tags.add(*wikidoc['tags'])
         return article
 
-    #getting inputs
+    # getting inputs
     while True:
         try:
             count = int(input('Article count: '))
@@ -71,14 +75,16 @@ def count_article():
 
 
 def help_msg():
-    msg = "Command List:\n"
+    msg = "pop.py command list:\n"
     msg += "  (총 {} 개 커맨드)\n\n".format(len(COMMANDS))
     for k, v in COMMANDS.items():
         msg += "  {} \n\t- {}\n".format(k, v['desc'])
     print(msg)
 
+
 def quit_pop():
     raise KeyboardInterrupt
+
 
 COMMANDS = {}
 COMMANDS['clear'] = {'func': clear_article, 'desc': '아티클 전체 삭제'}
@@ -86,6 +92,8 @@ COMMANDS['index'] = {'func': update_index, 'desc': '서치 인덱싱'}
 COMMANDS['create'] = {'func': wiki_scrap, 'desc': 'Wikipidea 아티클 스크래핑'}
 COMMANDS['count'] = {'func': count_article, 'desc': '아티클 카운트 정보'}
 COMMANDS['quit'] = {'func': quit_pop, 'desc': '종료'}
+COMMANDS['run'] = {'func': lambda : os.system('python3 manage.py runserver 0.0.0.0:8000'),
+                    'desc': '서버 실행 -> python3 manage.py runserver 0.0.0.0:8000'}
 COMMANDS['?'] ={'func': help_msg, 'desc': '도움말'}
 
 
