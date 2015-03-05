@@ -12,6 +12,11 @@ from django.contrib.auth.models import User
 
 from helpers import wikiscrap
 from random import choice
+import subprocess
+import datetime
+import time
+import signal
+import psutil
 
 
 def update_index():
@@ -78,26 +83,67 @@ def help_msg():
     msg = "pop.py command list:\n"
     msg += "  (총 {} 개 커맨드)\n\n".format(len(COMMANDS))
     for k, v in COMMANDS.items():
-        msg += "  {} \n\t- {}\n".format(k, v['desc'])
+        msg += "  {} -  {}\n".format(k.ljust(16), v['desc'])
     print(msg)
 
 
 def quit_pop():
-    raise KeyboardInterrupt
+    print("\nbye~")
+    exit()
 
 
-COMMANDS = {}
-COMMANDS['clear'] = {'func': clear_article, 'desc': '아티클 전체 삭제'}
-COMMANDS['index'] = {'func': update_index, 'desc': '서치 인덱싱'}
-COMMANDS['create'] = {'func': wiki_scrap, 'desc': 'Wikipidea 아티클 스크래핑'}
-COMMANDS['count'] = {'func': count_article, 'desc': '아티클 카운트 정보'}
-COMMANDS['quit'] = {'func': quit_pop, 'desc': '종료'}
-COMMANDS['run'] = {'func': lambda : os.system('python3 manage.py runserver 0.0.0.0:8000'),
-                    'desc': '서버 실행 -> python3 manage.py runserver 0.0.0.0:8000'}
-COMMANDS['?'] ={'func': help_msg, 'desc': '도움말'}
+class Server(object):
+    def __init__(self):
+        self.PROC = None
+
+    def __del__(self):
+        if self.is_runing():
+            self.kill()
+
+    def is_runing(self):
+        return self.PROC is not None and self.PROC.poll() is None
+
+    def status(self):
+        if self.is_runing():
+            print("server is currently running")
+            print("PID: {}".format(self.PROC.pid))
+        else:
+            print("no server is currently running")
+
+    def run(self):
+        if self.is_runing():
+            self.kill()
+        print("starting server...")
+        self.PROC = subprocess.Popen(['python3', 'manage.py', 'runserver', '0.0.0.0:8000'], shell=False)
+
+    def kill(self):
+        if self.is_runing():
+            root = psutil.Process(self.PROC.pid)
+            for child in root.children(recursive=True):
+                child.kill()
+            print("terminating server...")
+            while self.PROC.poll() is None:
+                time.sleep(0.5)
+            self.PROC = None
+        else:
+            print("error: no server is running")
+
 
 
 if __name__ == '__main__':
+
+    svr = Server()
+    COMMANDS = {}
+    COMMANDS['clear'] = {'func': clear_article, 'desc': '아티클 전체 삭제'}
+    COMMANDS['index'] = {'func': update_index, 'desc': '서치 인덱싱'}
+    COMMANDS['create'] = {'func': wiki_scrap, 'desc': 'Wikipidea 아티클 스크래핑'}
+    COMMANDS['count'] = {'func': count_article, 'desc': '아티클 카운트 정보'}
+    COMMANDS['quit'] = {'func': quit_pop, 'desc': '종료'}
+    COMMANDS['run'] = {'func': svr.run,
+                        'desc': '서버 실행 -> python3 manage.py runserver 0.0.0.0:8000'}
+    COMMANDS['kill'] = {'func': svr.kill, 'desc': 'kill server'}
+    COMMANDS['svr'] = {'func': svr.status, 'desc': 'server status'}
+    COMMANDS['?'] ={'func': help_msg, 'desc': '도움말'}
 
     while True:
         try:
@@ -105,5 +151,4 @@ if __name__ == '__main__':
         except KeyError:
             print("command not found - type '?' to see commands")
         except KeyboardInterrupt:
-            print("\nbye~")
-            exit()
+            COMMANDS['quit']['func']()
