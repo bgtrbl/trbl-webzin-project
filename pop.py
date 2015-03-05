@@ -87,8 +87,11 @@ def help_msg():
     print(msg)
 
 
+# exiting script
 def quit_pop():
     print("\nbye~")
+    # deleting server
+    del globals()['SVR']
     exit()
 
 
@@ -132,17 +135,17 @@ class Server(object):
 
 if __name__ == '__main__':
 
-    svr = Server()
+    SVR = Server()
     COMMANDS = {}
     COMMANDS['clear'] = {'func': clear_article, 'desc': '아티클 전체 삭제'}
     COMMANDS['index'] = {'func': update_index, 'desc': '서치 인덱싱'}
     COMMANDS['create'] = {'func': wiki_scrap, 'desc': 'Wikipidea 아티클 스크래핑'}
     COMMANDS['count'] = {'func': count_article, 'desc': '아티클 카운트 정보'}
     COMMANDS['quit'] = {'func': quit_pop, 'desc': '종료'}
-    COMMANDS['run'] = {'func': svr.run,
+    COMMANDS['run'] = {'func': SVR.run,
                         'desc': '서버 실행 -> python3 manage.py runserver 0.0.0.0:8000'}
-    COMMANDS['kill'] = {'func': svr.kill, 'desc': 'kill server'}
-    COMMANDS['svr'] = {'func': svr.status, 'desc': 'server status'}
+    COMMANDS['kill'] = {'func': SVR.kill, 'desc': 'kill server'}
+    COMMANDS['svr'] = {'func': SVR.status, 'desc': 'server status'}
     COMMANDS['?'] ={'func': help_msg, 'desc': '도움말'}
 
     while True:
