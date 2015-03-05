@@ -16,22 +16,24 @@ cats = (Category.objects.get(title='Wiki'),
 
 
 def save_wiki(wikidoc):
-    article = Article.objects.create(title=wikidoc['title'],
+    article = Article.objects.create(title=wikidoc['lang_title'],
             body=wikidoc['body'], user=choice(User.objects.all()),
             category=choice(cats))
     article.tags.add(*wikidoc['tags'])
     return article
 
+clear_article = lambda :[ (print(i), v.delete()) for i, v in enumerate(Article.objects.all()) ]
+
 if __name__ == '__main__':
     count = int(input('Article count: '))
 
     while True:
-        lang = input('language[{}]: '.format(wikiscrap.LANGS)).lower()
+        lang = input('language{}: '.format(wikiscrap.LANGS)).lower()
         if lang in wikiscrap.LANGS: break
 
     articles = []
     for _ in range(count):
-        print("{}: Creating an article from a random wikipedia page...".format(count))
+        print("{}: Creating an article from a random wikipedia page...".format(_))
         articles.append(save_wiki(wikiscrap.get_random_doc(lang)))
         print("{}: {} has been created!!".format(_, articles[-1]))
 
