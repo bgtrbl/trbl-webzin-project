@@ -16,7 +16,7 @@
     <li> {{ user_profile.dob|date }} </li>
     <li> {{ user_profile.gender }} </li>
     <li> {{ user_profile.website }} </li>
-    <li> {% avatar user_profile.user %} </li>
+    <li><a href="{% url 'avatar_change' %}">{% avatar user_profile.user %}</a></li>
     <li><a href="{% url 'userprofile:edit_userprofile' %}">edit</a></li>
 
 </ul>
