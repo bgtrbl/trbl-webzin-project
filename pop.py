@@ -10,12 +10,15 @@ from django.contrib.auth.models import User
 from random import choice
 
 
-WIKI = Category.objects.get(title='Wiki')
+cats = (Category.objects.get(title='Wiki'),
+        Category.objects.get(title='Magazin'),
+        Category.objects.get(title='Forum'))
 
 
 def save_wiki(wikidoc):
     article = Article.objects.create(title=wikidoc['title'],
-            body=wikidoc['body'], user=choice(User.objects.all()))
+            body=wikidoc['body'], user=choice(User.objects.all()),
+            category=choice(cats))
     article.tags.add(*wikidoc['tags'])
     return article
 
