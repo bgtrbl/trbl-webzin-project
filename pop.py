@@ -141,7 +141,9 @@ def show_tree():
 
 def run_shell():
     print("starting django shell...")
-    subprocess.call(['python3', 'manage.py', 'shell'])
+    try: subprocess.call(['python3', 'manage.py', 'shell'])
+    except KeyboardInterrupt:
+        pass
     print("done")
 
 
@@ -167,4 +169,5 @@ if __name__ == '__main__':
         except KeyError:
             print("command not found - type '?' to see commands")
         except KeyboardInterrupt:
+            print()
             COMMANDS['quit']['func']()
