@@ -4,10 +4,16 @@ import django
 django.setup()
 
 from bgtrbl.apps.trblcms.models import Article, Sequel, Comment, Category
-from bgtrbl.helpers import wikiscrap
+from helpers import wikiscrap
 
 from django.contrib.auth.models import User
 from random import choice
+
+
+def update_index():
+    print('updating search index...')
+    os.system('python3 manage.py update_index')
+    print("done")
 
 
 def clear_article():
@@ -16,12 +22,7 @@ def clear_article():
         print(i)
         v.delete()
     print("done")
-
-
-def update_index():
-    print('updating search index...')
-    os.system('python3 manage.py update_index')
-    print("done")
+    update_index()
 
 
 def wiki_scrap():
@@ -38,11 +39,20 @@ def wiki_scrap():
         article.tags.add(*wikidoc['tags'])
         return article
 
-    count = int(input('Article count: '))
-
+    #getting inputs
     while True:
-        lang = input('language{}: '.format(wikiscrap.LANGS)).lower()
-        if lang in wikiscrap.LANGS: break
+        try:
+            count = int(input('Article count: '))
+            lang = input('language{}: '.format(wikiscrap.LANGS)).lower()
+            if lang not in wikiscrap.LANGS:
+                raise ValueError
+        except ValueError:
+            print("wrong input")
+            continue
+        except KeyboardInterrupt:
+            print()
+            return
+        break
 
     articles = []
     for _ in range(count):
@@ -55,6 +65,11 @@ def wiki_scrap():
     update_index()
 
 
+def count_article():
+    articles = Article.objects.all()
+    print("Total {} article(s) are in the db".format(len(articles)))
+
+
 def help_msg():
     msg = "Command List:\n"
     msg += "  (총 {} 개 커맨드)\n\n".format(len(COMMANDS))
@@ -62,12 +77,15 @@ def help_msg():
         msg += "  {} \n\t- {}\n".format(k, v['desc'])
     print(msg)
 
+def quit_pop():
+    raise KeyboardInterrupt
 
 COMMANDS = {}
 COMMANDS['clear'] = {'func': clear_article, 'desc': '아티클 전체 삭제'}
 COMMANDS['index'] = {'func': update_index, 'desc': '서치 인덱싱'}
 COMMANDS['create'] = {'func': wiki_scrap, 'desc': 'Wikipidea 아티클 스크래핑'}
-COMMANDS['quit'] = {'func': lambda : exit(), 'desc': '종료'}
+COMMANDS['count'] = {'func': count_article, 'desc': '아티클 카운트 정보'}
+COMMANDS['quit'] = {'func': quit_pop, 'desc': '종료'}
 COMMANDS['?'] ={'func': help_msg, 'desc': '도움말'}
 
 
@@ -78,3 +96,6 @@ if __name__ == '__main__':
             COMMANDS[input('\n# ')]['func']()
         except KeyError:
             print("command not found - type '?' to see commands")
+        except KeyboardInterrupt:
+            print("\nbye~")
+            exit()
