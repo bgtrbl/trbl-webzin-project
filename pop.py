@@ -4,40 +4,33 @@ import django
 django.setup()
 
 from bgtrbl.apps.trblcms.models import Article, Sequel, Comment, Category
+from bgtrbl.helpers import wikiscrap
 
-# 사이트 구조 예시
-ROOT = Category.objects.create(title="root")
-MAGAZIN = Category.objects.create(title="Magazin", parent=ROOT)
-FORUM = Category.objects.create(title="Forum", parent=ROOT)
+from django.contrib.auth.models import User
+from random import choice
 
-REVIEWS = Category.objects.create(title="Reviews", parent=MAGAZIN)
-TUTORIALS = Category.objects.create(title="Tutorials", parent=MAGAZIN)
-GALLERY = Category.objects.create(title="Gallery", parent=FORUM)
-WIKI = Category.objects.create(title="Wiki", parent=FORUM)
 
-# Test articles and sequels
-article = Article.objects.create(title="Webzin Launching!!", body="v 0.0.1", category=ROOT)
-article.tags.add("launching!", "webzin", "notice")
-notice_sequel = Sequel.objects.create(title="Notice", description="Notices are here!", category=article.category)
-article.sequel = notice_sequel
-article.save()
+WIKI = Category.objects.get(title='Wiki')
 
-article = Article.objects.create(title="Notice test 1", body="notice body", category=ROOT)
-article.tags.add("notice")
-article.sequel = notice_sequel
-article.save()
 
-article = Article.objects.create(title="Magazin Test Article", body="good magazin", category=MAGAZIN)
-article.tags.add("test", "webzin")
+def save_wiki(wikidoc):
+    article = Article.objects.create(title=wikidoc['title'],
+            body=wikidoc['body'], user=choice(User.objects.all()))
+    article.tags.add(*wikidoc['tags'])
+    return article
 
-article = Article.objects.create(title="Something Review", body="a review body", category=REVIEWS)
-article.tags.add("test", "something", "review")
+if __name__ == '__main__':
+    count = int(input('Article count: '))
 
-article = Article.objects.create(title="Something Tutorial", body="a tutorial body", category=TUTORIALS)
-article.tags.add("test", "something", "tutorial", "random_tag1")
+    while True:
+        lang = input('language[{}]: '.format(wikiscrap.LANGS)).lower()
+        if lang in wikiscrap.LANGS: break
 
-article = Article.objects.create(title="Something Artwork", body="a art body", category=GALLERY)
-article.tags.add("test", "something", "Artwork", "random_tag1", "pony")
+    articles = []
+    for _ in range(count):
+        print("{}: Creating an article from a random wikipedia page...".format(count))
+        articles.append(save_wiki(wikiscrap.get_random_doc(lang)))
+        print("{}: {} has been created!!".format(count, articles[-1]))
 
-article = Article.objects.create(title="Wikipage about something", body="a something body", category=WIKI)
-article.tags.add("test", "something")
+    print("Created Articles:")
+    print(articles)
