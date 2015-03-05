@@ -89,9 +89,10 @@ def help_msg():
 
 # exiting script
 def quit_pop():
-    print("\nbye~")
     # deleting server
-    globals()['SVR'].kill()
+    if globals()['SVR'].is_running():
+        globals()['SVR'].kill()
+    print("\nbye~")
     exit()
 
 
@@ -99,24 +100,24 @@ class Server(object):
     def __init__(self):
         self.PROC = None
 
-    def is_runing(self):
+    def is_running(self):
         return self.PROC is not None and self.PROC.poll() is None
 
     def status(self):
-        if self.is_runing():
+        if self.is_running():
             print("server is currently running")
             print("PID: {}".format(self.PROC.pid))
         else:
             print("no server is currently running")
 
     def run(self):
-        if self.is_runing():
+        if self.is_running():
             self.kill()
         print("starting server...")
         self.PROC = subprocess.Popen(['python3', 'manage.py', 'runserver', '0.0.0.0:8000'], shell=False)
 
     def kill(self):
-        if self.is_runing():
+        if self.is_running():
             root = psutil.Process(self.PROC.pid)
             for child in root.children(recursive=True):
                 child.kill()
