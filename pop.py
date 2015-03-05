@@ -30,7 +30,7 @@ if __name__ == '__main__':
     for _ in range(count):
         print("{}: Creating an article from a random wikipedia page...".format(count))
         articles.append(save_wiki(wikiscrap.get_random_doc(lang)))
-        print("{}: {} has been created!!".format(count, articles[-1]))
+        print("{}: {} has been created!!".format(_, articles[-1]))
 
     print("Created Articles:")
     print(articles)
