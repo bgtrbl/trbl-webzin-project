@@ -2,16 +2,17 @@
 {% load staticfiles %}
 
 {% block extra_head %}
-    <link href="{% static 'front_forum/css/masonary.css' %}" media="all" rel="stylesheet"> 
+    <link href="{% static 'front_pages/css/masonary.css' %}" media="all" rel="stylesheet"> 
 {% endblock %}
 
 {% block extra_header %}
-    <div id=  
 {% endblock %}
 
 
 {% block content %}
-{# view, 추천수 높은건 크거나 색이 다르게 #}
+<a role="button" href="{% url 'trblcms:add_article' %}" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-pencil"></span></a>
+</button>
+{# view, 추천수 높은건 색이 다르게 #}
 <div id='front_forum'> 
     {% for articles in object_list%}
         <div class="item">
@@ -27,8 +28,8 @@
 {% endblock %}
 
 {% block extra_script %}
-<script src="{% static 'front_forum/js/masonary.js' %}"></script>
-<script src="{% static 'front_forum/js/imageloaded.js' %}"></script>
+<script src="{% static 'front_pages/js/masonary.js' %}"></script>
+<script src="{% static 'front_pages/js/imageloaded.js' %}"></script>
 <script>
     var container = document.querySelector('#front_forum');
     var msnry;
