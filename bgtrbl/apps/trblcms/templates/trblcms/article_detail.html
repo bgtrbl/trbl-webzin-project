@@ -30,11 +30,13 @@
         {% endfor %}</p>
     {% include 'trblcms/_share_buttons.html' %}
 
+    {% if request.user.is_authenticated and object.user == request.user %}
     <p>{% buttons %}
             <a href="{% url 'trblcms:edit_article' object.id %}" type="button" class="btn btn-primary">
                 {% bootstrap_icon "edit" %}[Edit]
             </a>
     {% endbuttons %}</p>
+    {% endif %}
     <!-- maybe get_comment_form can take and argument? like the article's id? -->
     {% get_comment_form 'article' object.id %}
     {% get_comments 'article' object.id %}
