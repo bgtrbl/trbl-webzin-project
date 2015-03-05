@@ -1,0 +1,14 @@
+{% load sitetree %}
+    
+<div class="tabs tabs-style-fillup">
+    <nav>
+    <ul>
+            {% for item in sitetree_items %}
+	        {% if item.has_children %}
+	            {% sitetree_children of item for menu template "navigation/sub_nav_top.html" %}
+                {% else %}
+                <li class="{% if item.is_current or item.in_current_branch %}active{% endif %}"><a href="{% sitetree_url for item %}"><span class="glyphicon {% cycle 'glyphicon-home' 'glyphicon-sunglasses' 'glyphicon-flash' 'glyphicon-search' %}"></span>{{ item.title_resolved }}</a> 
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </nav>
