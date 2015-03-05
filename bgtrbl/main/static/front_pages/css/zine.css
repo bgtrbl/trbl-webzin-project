@@ -1,0 +1,58 @@
+.wrapper {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    height: 95%;
+    background-color: #fff;
+}
+div.tutorial > .wrapper {
+    min-height: 150px;  
+}
+p.tit {
+    font-weight: bold;
+    font-size: 15px;
+    color: white;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+div.ttl {
+    width: 100%;
+    display: inline-block;
+    color: block;
+    background: #789A9F;
+}
+.tutorial .ttl {
+    background: #FF6600;
+}
+p.bdy {
+    font-size: 13px;
+    word-break:break-all;
+    margin: 10px;
+}
+p.dt {
+    font-size: 11px;
+    margin: 10px;
+    color: silver;
+    border-top: 1px dashed #789A9F;
+}
+.tutorial .dt {
+    border-top: 1px dashed #FF6600;
+}
+div.review {
+    height: 250px;
+    margin-top: 30px;
+}
+.toon {
+    margin-bottom: 20px;
+}
+div.tutorial {
+    margin-bottom: 30px;
+}
+.info {
+    width: 100%;
+    display: inline-block;
+    bottom: 0;
+    position: absolute;
+    
+}
