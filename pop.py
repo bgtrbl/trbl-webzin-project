@@ -82,8 +82,10 @@ def count_article():
 def help_msg():
     msg = "pop.py command list:\n"
     msg += "  (총 {} 개 커맨드)\n\n".format(len(COMMANDS))
-    for k, v in COMMANDS.items():
-        msg += "  {} -  {}\n".format(k.ljust(16), v['desc'])
+    keys = list(COMMANDS.keys())
+    keys.sort()
+    for k in keys:
+        msg += "  {} -  {}\n".format(k.ljust(16), COMMANDS[k]['desc'])
     print(msg)
 
 
@@ -129,6 +131,19 @@ class Server(object):
             print("error: no server is running")
 
 
+def show_tree():
+    tree_command = ['tree', '-C', '-I', '"migrations|__pycache__|static|media|whoosh_index|__init__.py"']
+    tree = subprocess.Popen(tree_command, stdout=subprocess.PIPE)
+    less = subprocess.Popen('less', stdin=tree.stdout)
+    less.wait()
+    print("done")
+
+
+def run_shell():
+    print("starting django shell...")
+    subprocess.call(['python3', 'manage.py', 'shell'])
+    print("done")
+
 
 if __name__ == '__main__':
 
@@ -139,11 +154,12 @@ if __name__ == '__main__':
     COMMANDS['create'] = {'func': wiki_scrap, 'desc': 'Wikipidea 아티클 스크래핑'}
     COMMANDS['count'] = {'func': count_article, 'desc': '아티클 카운트 정보'}
     COMMANDS['quit'] = {'func': quit_pop, 'desc': '종료'}
-    COMMANDS['run'] = {'func': SVR.run,
-                        'desc': '서버 실행 -> python3 manage.py runserver 0.0.0.0:8000'}
+    COMMANDS['run'] = {'func': SVR.run, 'desc': '서버 실행 -> 0.0.0.0:8000'}
     COMMANDS['kill'] = {'func': SVR.kill, 'desc': 'kill server'}
     COMMANDS['svr'] = {'func': SVR.status, 'desc': 'server status'}
     COMMANDS['?'] ={'func': help_msg, 'desc': '도움말'}
+    COMMANDS['tree'] ={'func': show_tree, 'desc': '프로젝트 트리'}
+    COMMANDS['shell'] ={'func': run_shell, 'desc': 'Django shell'}
 
     while True:
         try:
