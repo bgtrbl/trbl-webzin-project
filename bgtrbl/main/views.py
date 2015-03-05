@@ -19,7 +19,7 @@ class magazine(ListView):
 class forum(ListView):
     model = Article
     template_name = "front_forum.html"
-    queryset = Article.objects.filter(category= Category.objects.get(pk=3))
+    queryset = Article.objects.filter(category= Category.objects.get(pk=3))[:20]
 
 
     
