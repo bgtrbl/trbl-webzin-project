@@ -44,7 +44,7 @@ def pars_wiki(doc):
     body = doc.find(id='mw-content-text')
     body.noscript.extract()
     tags = [ _.replace(" ", "_") for _ in doc.find(id='mw-normal-catlinks').ul.strings ]
-    tags += 'wiki'
+    tags += ['wiki']
     return {
             'title': title,
             'body': body,

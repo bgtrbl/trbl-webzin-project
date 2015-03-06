@@ -22,16 +22,21 @@ import psutil
 def update_index():
     print('updating search index...')
     os.system('python3 manage.py update_index')
-    print("done")
 
 
 def clear_article():
-    print('clearing {} articles...'.format(len(Article.objects.all())))
-    for i, v in enumerate(Article.objects.all()):
-        print(i)
-        v.delete()
-    print("done")
-    update_index()
+    narticles = Article.objects.count()
+    print('clearing {} articles...'.format(narticles))
+    count = 0
+    try:
+        while Article.objects.exists():
+            Article.objects.last().delete()
+            count += 1
+            print("[{}] / {}".format(count, narticles-count))
+    except KeyboardInterrupt:
+        print('interrupted')
+        return
+    print("deleted {} articles".format(count))
 
 
 def wiki_scrap():
@@ -64,41 +69,54 @@ def wiki_scrap():
         break
 
     articles = []
-    for _ in range(count):
-        print("{}: Creating an article from a random wikipedia page...".format(_))
-        articles.append(save_wiki(wikiscrap.get_random_doc(lang)))
-        print("{}: {} has been created!!".format(_, articles[-1]))
+    try:
+        for _ in range(count):
+            print("{}: Creating an article from a random wikipedia page...".format(_))
+            articles.append(save_wiki(wikiscrap.get_random_doc(lang)))
+            print("{}: {} has been created!!".format(_, articles[-1]))
+    except KeyboardInterrupt:
+        print("interrupted")
+        return
 
-    print("Created Articles:")
-    print(articles)
-    print('to update index, run "index" command')
+        print("Created Articles:")
+        print(articles)
+        print('to update index, run "index" command')
+
+def count_objects():
+    import bgtrbl.settings
+    print("counting objects...")
+    counts = (
+        ('Categories', Category.objects.count()),
+        ('Sequels', Sequel.objects.count()),
+        ('Articles', Article.objects.count()),
+        ('Comments', Comment.objects.count()),
+        ('Tags', Article.tags.count()),
+    )
+    print("db: {}@{}".format(bgtrbl.settings.DATABASES['default']['NAME'],
+        bgtrbl.settings.DATABASES['default']['HOST']))
+    for model in counts:
+        print("  [{}] {}".format(model[1], model[0]))
 
 
-def count_article():
-    articles = Article.objects.all()
-    print("Total {} article(s) are in the db".format(len(articles)))
-
-
-def help_msg():
-    msg = "pop.py command list:\n"
-    msg += "  (총 {} 개 커맨드)\n\n".format(len(COMMANDS))
+def help_msg(verbose=False):
     keys = list(COMMANDS.keys())
     keys.sort()
+
+    msg = "pop.py command list:\n"
+    if verbose:
+        msg += "  (총 {} 개 커맨드)\n".format(len(COMMANDS))
+    msg += '\n'
     for k in keys:
         msg += "  {} -  {}\n".format(k.ljust(16), COMMANDS[k]['desc'])
+    if verbose:
+        msg += "\n  Semicolon 으로 명령어 체이닝:"
+        msg += "\n     (ex) # create;index;run\n"
+        msg += "\n  ! 로 shell 명령 실행:"
+        msg += "\n     (ex) # !ps"
+        msg += "\n          # !kill <pid>"
+        msg += "\n          # !git tree\n"
 
-    msg += "\n  Semicolon 으로 명령어 체이닝 가능:\n"
-    msg += "\n     (ex) # create;index;run"
     print(msg)
-
-
-# exiting script
-def quit_pop():
-    # deleting server
-    if globals()['SVR'].is_running():
-        globals()['SVR'].kill()
-    print("\nbye~")
-    exit()
 
 
 class Server(object):
@@ -123,9 +141,7 @@ class Server(object):
 
     def kill(self):
         if self.is_running():
-            root = psutil.Process(self.PROC.pid)
-            for child in root.children(recursive=True):
-                child.kill()
+            _kill_children(self.PROC)
             print("terminating server...")
             while self.PROC.poll() is None:
                 time.sleep(0.5)
@@ -139,22 +155,42 @@ def show_tree():
     tree = subprocess.Popen(tree_command, stdout=subprocess.PIPE)
     less = subprocess.Popen('less', stdin=tree.stdout)
     less.wait()
-    print("done")
 
 
 def run_shell():
     print("starting django shell...")
-    try: subprocess.call(['python3', 'manage.py', 'shell'])
-    except KeyboardInterrupt:
-        pass
-    print("done")
+    _excute('python3 manage.py shell')
 
 
-def tig_status():
-    try: subprocess.call(['tig', 'status'])
-    except KeyboardInterrupt:
-        pass
-    print("done")
+def _kill_children(proc):
+    root = psutil.Process(proc.pid)
+    for child in root.children(recursive=True):
+        child.terminate()
+
+
+def _excute(shell_command):
+    try:
+        proc = subprocess.Popen(shell_command.split(), shell=False)
+
+    except IndexError and FileNotFoundError:
+        print("command error")
+        return
+
+    if 'proc' in locals():
+        while proc.poll() is None:
+            try:
+                proc.wait()
+            except KeyboardInterrupt:
+                print("ignoring keyboard interrupt")
+                pass
+
+
+def quit_pop():
+    # deleting server
+    if globals()['SVR'].is_running():
+        globals()['SVR'].kill()
+    print("\nbye~")
+    exit()
 
 
 if __name__ == '__main__':
@@ -164,22 +200,31 @@ if __name__ == '__main__':
     COMMANDS['clear'] = {'func': clear_article, 'desc': '아티클 전체 삭제'}
     COMMANDS['index'] = {'func': update_index, 'desc': '서치 인덱싱'}
     COMMANDS['create'] = {'func': wiki_scrap, 'desc': 'Wikipidea 아티클 스크래핑'}
-    COMMANDS['count'] = {'func': count_article, 'desc': '아티클 카운트 정보'}
+    COMMANDS['count'] = {'func': count_objects, 'desc': 'db objects count info'}
     COMMANDS['quit'] = {'func': quit_pop, 'desc': '종료'}
     COMMANDS['run'] = {'func': SVR.run, 'desc': '서버 실행 -> 0.0.0.0:8000'}
     COMMANDS['kill'] = {'func': SVR.kill, 'desc': 'kill server'}
     COMMANDS['svr'] = {'func': SVR.status, 'desc': 'server status'}
     COMMANDS['?'] ={'func': help_msg, 'desc': '도움말'}
+    COMMANDS['??'] ={'func': lambda : help_msg(verbose=True), 'desc': '상세 도움말'}
     COMMANDS['tree'] ={'func': show_tree, 'desc': '프로젝트 트리'}
     COMMANDS['shell'] ={'func': run_shell, 'desc': 'Django shell'}
-    COMMANDS['ts'] ={'func': tig_status, 'desc': 'tig status'}
+    COMMANDS['ts'] ={'func': lambda : _excute('tig status'),
+            'desc': 'tig status'}
+    COMMANDS['gs'] ={'func': lambda: _excute('git status'),
+            'desc': 'git status'}
 
 
     while True:
         try:
-            cmds = input('\n# ').split(';')
-            for _ in cmds:
-                COMMANDS[_.strip()]['func']()
+            prompt = '\n{}> '.format(['OFF','ON'][SVR.is_running()])
+            cmds = input(prompt)
+            if cmds.startswith('!'):
+                _excute(cmds[1:])
+            else:
+                for count, cmd in enumerate(cmds.split(';')):
+                    COMMANDS[cmd.strip()]['func']()
+                    print("[ {} ] done".format(count))
         except KeyError:
             print("command not found - type '?' to see commands")
         except KeyboardInterrupt:
