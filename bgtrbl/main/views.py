@@ -4,8 +4,18 @@ from django.http import HttpResponse
 from django.views.generic import DetailView, ListView
 from bgtrbl.apps.trblcms.models import Category, Article
 
+from allauth.account.forms import LoginForm
+
+
+def _add_login_modal(user, context):
+    if not user.is_authenticated():
+        context['login_form'] = LoginForm()
+
+
 def home(request):
-    return render(request, 'main/home.html', {})
+    context = dict()
+    _add_login_modal(request.user, context)
+    return render(request, 'main/home.html', context)
 
 
 def allauthTest(request):
@@ -20,6 +30,7 @@ class magazine(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(magazine, self).get_context_data(**kwargs)
+        _add_login_modal(self.request.user, context)
         for i in self.queryset:
             context[i.title] = Article.objects.filter(category=i)
         return context
@@ -29,3 +40,8 @@ class forum(ListView):
     model = Article
     template_name = "front_forum.html"
     queryset = Article.objects.filter(category=Category.objects.get(pk=3))[:20]
+
+    def get_context_data(self, **kwargs):
+        context = super(magazine, self).get_context_data(**kwargs)
+        _add_login_modal(self.request.user, context)
+        return context
