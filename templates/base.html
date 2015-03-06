@@ -6,6 +6,8 @@
 {% load bootstrap3 %}
 {% load staticfiles %}
 
+{% load i18n %}
+
 {% block base_head %}
     <link href="{% static 'navigation/css/nav.css' %}" media="all" rel="stylesheet"> 
     <link href="{% static 'navigation/css/tabs.css' %}" media="all" rel="stylesheet">
@@ -26,6 +28,64 @@
         {% bootstrap_messages %}
         {% block content %}(no content){% endblock %}
     </div>
+
+    {% if 'modal_login_form' %}
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+
+                로그인 하세요~~
+                <h1>{% trans "Sign In" %}</h1>
+
+                {% if socialaccount.providers  %}
+                <p>{% blocktrans with site.name as site_name %}Please sign in with one
+                of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
+                for a {{site_name}} account and sign in below:{% endblocktrans %}</p>
+
+                <div class="socialaccount_ballot">
+
+                <ul class="socialaccount_providers">
+                    {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+                </ul>
+
+                <div class="login-or">{% trans 'or' %}</div>
+
+                </div>
+
+                {% include "socialaccount/snippets/login_extra.html" %}
+
+                {% else %}
+                <p>{% blocktrans %}If you have not created an account yet, then please
+                <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+                {% endif %}
+
+                <form class="login" method="POST" action="{% url 'account_login' %}">
+                {% csrf_token %}
+                {{ modal_login_form }}
+                {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
+                <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+                <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>
+                </form>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    {% bootstrap_icon "menu-left" %}Close
+                </button>
+                <!-- button type="button" class="btn btn-primary">Save changes</button -->
+            </div>
+            </div>
+        </div>
+        </div>
+    {% endif %}
 {% endblock %}
 
 {% block footer %}
