@@ -25,31 +25,29 @@ class ArticleDetailView(DetailView):
         return context
 
 
-# @? change it to use the trbl_tags?
-def addOrEditArticle(request, pk=None):
-    article = get_object_or_404(Article, id=pk, user=request.user) if pk else None     # 404 exception(accessing with weird slug) filtered
-    form = ArticleModelForm(instance=article)
+def addArticle(request):
+    form = ArticleModelForm(request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        article = form.save(commit=False)
+        article.user = request.user
+        article.save()
+        form.save_m2m()
+        return redirect(article.get_absolute_url())
+    return render(request, 'trblcms/add_or_edit_article.html', {'article_form': form})
+
+
+def editArticle(request, pk):
+    article= get_object_or_404(Article, id=pk, user=request.user)
+    form = ArticleModelForm(request.POST or None, instance=article)
+    if request.method == 'POST' and form.is_valid():
+        # @todo user authorization needed (if the user changed the category
+        # or slug to purposly change other Articles, than django must know)
+        article = form.save(commit=False)
+        article.user = request.user
+        article.save()
+        form.save_m2m()
+        return redirect(article.get_absolute_url())
     return render(request, 'trblcms/add_or_edit_article.html', {'article_form': form, 'pk': pk})
-
-
-def saveOrUpdateArticle(request, pk=None):
-    if request.method == 'POST':
-        article, created = Article.objects.get_or_create(id=pk, user=request.user)
-        form = ArticleModelForm(request.POST, instance=article)
-        if form.is_valid():
-            # @todo user authorization needed (if the user changed the category
-            # or slug to purposly change other Articles, than django must know)
-            article = form.save(commit=False)
-            article.user = request.user
-            article.save()
-            form.save_m2m()
-
-            # article slug or form slug
-            return redirect(article.get_absolute_url())
-        if created:
-            article.delete()
-        return redirect('trblcms:edit_article', pk=pk) # @!
-    return redirect('main:home')
 
 
 class SequelDetailView(DetailView):
@@ -57,28 +55,25 @@ class SequelDetailView(DetailView):
     template_naem = 'trblcms/sequel_detail.html'
 
 
-def addOrEditSequel(request, pk=None):
-    sequel = get_object_or_404(Sequel, id=pk, user=request.user) if pk else None
-    form = SequelModelForm(instance=sequel)
+def addSequel(request):
+    form = SequelModelForm(request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        sequel = form.save(commit=False)
+        sequel.user = request.user
+        sequel.save()
+        return redirect(sequel.get_absolute_url())
+    return render(request, 'trblcms/add_or_edit_sequel.html', {'sequel_form': form})
+
+
+def editSequel(request, pk):
+    sequel = get_object_or_404(Sequel, id=pk, user=request.user)
+    form = SequelModelForm(request.POST or None, instance=sequel)
+    if request.method == 'POST' and form.is_valid():
+        sequel = form.save(commit=False)
+        sequel.user = request.user
+        sequel.save()
+        return redirect(sequel.get_absolute_url())
     return render(request, 'trblcms/add_or_edit_sequel.html', {'sequel_form': form, 'pk': pk})
-
-
-def saveOrUpdateSequel(request, pk=None):
-    if request.method == 'POST':
-        sequel, created = Sequel.objects.get_or_create(id=pk,
-                user=request.user)
-        form = SequelModelForm(request.POST, instance=sequel)
-        if form.is_valid():
-            sequel = form.save(commit=False)
-            sequel.user = request.user
-            sequel.save()
-
-            # article slug or form slug
-            return redirect(sequel.get_absolute_url())
-        if created:
-            sequel.delete()
-        return redirect('trblcms:edit_sequel', pk=pk) # @!
-    return redirect('main:home')
 
 
 # @! security flaws

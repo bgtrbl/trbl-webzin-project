@@ -17,9 +17,9 @@
 
 {% block trblcms_content %}
 {% if pk %}
-<form method="POST" action="{% url 'trblcms:update_sequel' pk %}" class="form">
+<form method="POST" action="{% url 'trblcms:edit_sequel' pk %}" class="form">
 {% else %}
-<form method="POST" action="{% url 'trblcms:save_sequel' %}" class="form">
+<form method="POST" action="{% url 'trblcms:add_sequel' %}" class="form">
 {% endif %}
     {% csrf_token %}
     {{ sequel_form|crispy }} {# crispy form #}	
