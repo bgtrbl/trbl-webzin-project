@@ -7,14 +7,14 @@ from bgtrbl.apps.trblcms.models import Category, Article
 from allauth.account.forms import LoginForm
 
 
-def _add_login_modal(user, context):
+def _add_modal_login_form(user, context):
     if not user.is_authenticated():
-        context['login_form'] = LoginForm()
+        context['modal_login_form'] = LoginForm()
 
 
 def home(request):
     context = dict()
-    _add_login_modal(request.user, context)
+    _add_modal_login_form(request.user, context)
     return render(request, 'main/home.html', context)
 
 
@@ -30,7 +30,7 @@ class magazine(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(magazine, self).get_context_data(**kwargs)
-        _add_login_modal(self.request.user, context)
+        _add_modal_login_form(self.request.user, context)
         for i in self.queryset:
             context[i.title] = Article.objects.filter(category=i)
         return context
@@ -43,5 +43,5 @@ class forum(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(magazine, self).get_context_data(**kwargs)
-        _add_login_modal(self.request.user, context)
+        _add_modal_login_form(self.request.user, context)
         return context
