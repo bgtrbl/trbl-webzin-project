@@ -4,6 +4,7 @@
 {% load crispy_forms_tags %}
 {% load bootstrap3 %}
 {% load trbl_tags %}
+{% load avatar_tags %}
 
 {# bootstrap_css #}
 {# bootstrap_javascript #}
@@ -13,15 +14,22 @@
 {% endblock %}
 
 {% block trblcms_content %}
-<ul>
+<table id="table-style">
     {% for article in object_list %}
-        <li>{{ article.created_at|date }} - 
-        <a href="{% url 'trblcms:article_detail' article.slug %}">
-            {{ article.title|truncatewords:10 }}</a></li>
+        <tr>
+            <td class="col-md-5"><a href="{% url 'trblcms:article_detail' article.slug %}">
+                    {{ article.title|truncatewords:10 }}</a></td>
+            <td class="col-md-2"><a href="{{ article.user.userprofile.get_absolute_url }}">
+                {% avatar article.user 18 %}
+                {{ article.user }}</a></td>
+            <td class="col-md-2">{{ article.created_at|date }}</td>
+        </tr>
     {% empty %}
-        <li>No articles yet.</li>
+    <tr>
+        <td>No articles yet.</td>
+    </tr>
     {% endfor %}
-</ul>
+</table>
 {% endblock %}
 
 {% block my_modal_body %}

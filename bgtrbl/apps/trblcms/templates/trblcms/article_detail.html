@@ -1,9 +1,9 @@
 {% extends 'trblcms/testbase.html' %}
 
-{# load staticfiles #}
 {% load bootstrap3 %}
 {% load crispy_forms_tags %}
 {% load trbl_tags %}
+{% load avatar_tags %}
 
 {# bootstrap_css #}
 {# bootstrap_javascript #}
@@ -19,7 +19,7 @@
 
     <h1>{{ object.title }}</h1>
 
-    <p>User - <a href="{{ object.user.userprofile.get_absolute_url }}">{{ object.user }}</a></p>
+    <p>By <a href="{{ object.user.userprofile.get_absolute_url }}">{% avatar object.user 25 %} {{ object.user }}</a></p>
     <p>Created at - {{ object.created_at|date }}</p>
     <p>Modified at - {{ object.modified_at|date }}</p>
     <p>Sequel - {{ object.sequel }}</p>
