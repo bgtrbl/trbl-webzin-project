@@ -1,20 +1,11 @@
 {% load sitetree %}
 
 <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
-{% for item in sitetree_items %}
-
-    {% if item.has_children %}
-        {% sitetree_children of item for menu template "navigation/sub_nav.html" %}
+    {% if not user.is_authenticated %}
+        <a type="button" data-toggle="modal" data-target="#myModal">Login</a>
     {% else %}
+        {% for item in sitetree_items %}
         <a href="{% sitetree_url for item %}">{{ item.title_resolved }}</a> 
+        {% endfor %}
     {% endif %}
-
-{% endfor %}
-
-{% if not user.is_authenticated %}
-<!-- Button trigger modal -->
-<a type="button" data-toggle="modal" data-target="#myModal">
-    로그인 하세요~~
-</a>
-{% endif %}
 </nav>

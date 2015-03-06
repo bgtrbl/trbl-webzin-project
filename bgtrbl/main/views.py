@@ -42,6 +42,6 @@ class forum(ListView):
     queryset = Article.objects.filter(category=Category.objects.get(pk=3))[:20]
 
     def get_context_data(self, **kwargs):
-        context = super(magazine, self).get_context_data(**kwargs)
+        context = super(forum, self).get_context_data(**kwargs)
         _add_modal_login_form(self.request.user, context)
         return context
