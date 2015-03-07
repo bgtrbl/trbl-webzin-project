@@ -22,25 +22,10 @@ def allauthTest(request):
     return render(request, 'main/allauth_test.html', {})
 
 
-<<<<<<< HEAD
 def magazine(request):
     magazin_category = get_object_or_404(Category, title='Magazin')
     context = {sub.title: sub.article_set.all() for sub in magazin_category.get_descendants()}
     return render(request, 'front_magazine.html', context)
-=======
-class Magazine(ListView):
-    model = Category
-    template_name = "front_magazine.html"
-    context_object_name = "category"
-    queryset = Category.objects.filter(parent=Category.objects.get(title='Magazin'))
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        _add_modal_login_form(self.request.user, context)
-        for i in self.queryset:
-            context[i.title] = Article.objects.filter(category=i)
-        return context
->>>>>>> 60c4423cca8e2da0e11ec5e7f42180f31c18ff1e
 
 
 class Forum(ListView):
