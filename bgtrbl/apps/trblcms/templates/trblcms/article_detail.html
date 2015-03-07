@@ -5,10 +5,10 @@
 {% load trbl_tags %}
 {% load trblcomment_tags %}
 {% load avatar_tags %}
+{% load staticfiles %}
 
 {# bootstrap_css #}
 {# bootstrap_javascript #}
-{% load staticfiles %}
 
 {% block extra_head %}
 <link href="{% static 'article_detail/detail.css'%}" media="all" rel="stylesheet">
@@ -24,7 +24,8 @@
         <h1>{{ object.title }}</h1>
         {% avatar object.user 40 %}
         <a href="{{ object.user.userprofile.get_absolute_url }}">{{ object.user }}</a>  
-        </div>
+    </div>
+
     <div class="bdy">
         <p>Created at - {{ object.created_at|date }}</p>
         <p>Modified at - {{ object.modified_at|date }}</p>
@@ -44,12 +45,14 @@
         {% endbuttons %}</p>
         {% endif %}
     </div>
-        <!-- maybe get_comment_form can take and argument? like the article's id? -->
+
     <div class-"cmmnt">
-            {% get_comment_form 'article' object.id %}
-            {% get_comments 'article' object.id %}
+        {% get_comment_form 'article' object.id %}
+        {% get_comments 'article' object.id %}
     </div>
+
     </div>
+
     <div class="rcm col-md-4"></div>
 {% endblock %}
 
