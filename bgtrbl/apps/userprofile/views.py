@@ -36,4 +36,13 @@ def updateUserProfile(request):
 # login required
 def myUserProfile(request):
     user_profile = UserProfile.objects.get(user=request.user)
-    return render(request, 'userprofile/my_userprofile.html', {'user_profile': user_profile})
+    article_set = user_profile.user.article_set
+    sequel_set = user_profile.user.sequel_set
+    comment_set = user_profile.user.comment_set
+    return render(request, 'userprofile/my_userprofile.html',
+                {
+                    'user_profile': user_profile,
+                    'recent_articles': article_set.get_recent(5),
+                    'recent_sequels': sequel_set.get_recent(5),
+                    'recent_comments': comment_set.get_recent(5),
+                })

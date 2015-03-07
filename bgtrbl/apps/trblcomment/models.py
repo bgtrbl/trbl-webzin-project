@@ -12,21 +12,35 @@ class CommentThread(models.Model):
         return str(self.id)
 
 
+class CommentQuerySet(models.QuerySet):
+    def get_recent(self, n):
+        result = []
+        i = self.order_by('-modified_at').iterator()
+        for _ in range(n):
+            try:
+                result.append(next(i))
+            except StopIteration:
+                break
+        return result
+
+
 # possible commented item(with CommentedItemMixin) for tree style commenting
 class Comment(models.Model):
     # @todo user
-    # comment 는 마지막 변경시간만 가지고 있음
-    date = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
     # optional author submission
     user = models.ForeignKey(User)
     text = models.TextField()
     parent_thread = models.ForeignKey(CommentThread)
 
+    objects = CommentQuerySet.as_manager()
+
     def __str__(self):
         return "{}: {}".format(self.parent_thread, self.text[:80])
 
     class Meta:
-        ordering = ["date"]
+        ordering = ["created_at"]
 
 
 # @? commentedItem mixin?, signal?

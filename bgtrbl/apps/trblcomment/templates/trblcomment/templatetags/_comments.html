@@ -1,4 +1,5 @@
 {% load bootstrap3 %}
+{% load avatar_tags %}
 
 {% block comments_content %}
 <ul>
@@ -6,8 +7,9 @@
     <li>
         {{ comment.text }}
         by <a href="{{ comment.user.userprofile.get_absolute_url }}">
+            {% avatar comment.user 18 %}
             {{ comment.user }}</a>
-        at {{ comment.date }}
+        at {{ comment.modified_at|date }}
     </li>
     {% endfor %}
 </ul>

@@ -18,6 +18,11 @@
     <li> {{ user_profile.website }} </li>
     <li><a href="{% url 'avatar_change' %}">{% avatar user_profile.user %}</a></li>
     <li><a href="{% url 'userprofile:edit_userprofile' %}">edit</a></li>
-
+    <li> Recent Activities (5 items maximum): </li>
+    <ul>
+        <li> 최근 글 : {{ recent_articles }} </li>
+        <li> 최근 시퀄: {{ recent_sequels }} </li>
+        <li> 최근 댓글: {{ recent_comments }} </li>
+    </ul>
 </ul>
 {% endblock %}

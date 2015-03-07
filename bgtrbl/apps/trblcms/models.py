@@ -52,6 +52,19 @@ class Category(SluggedItemMixin):
         return "{}: {}".format(self.level, self.title)
 
 
+# Article model's custom query set to customize default 'objects' manager
+class ArticleSequelQuerySet(models.QuerySet):
+    def get_recent(self, n):
+        result = []
+        i = self.order_by('-created_at').iterator()
+        for _ in range(n):
+            try:
+                result.append(next(i))
+            except StopIteration:
+                break
+        return result
+
+
 # @? signal based count?
 class Sequel(SluggedItemMixin, CommentedItemMixin):
     user = models.ForeignKey(User)
@@ -64,6 +77,8 @@ class Sequel(SluggedItemMixin, CommentedItemMixin):
     # @? True 시 다른유저도 Sequel 에 추가 가능?
     public = models.BooleanField(default=False)
 
+    objects = ArticleSequelQuerySet.as_manager()
+
     def get_absolute_url(self):
         return reverse('trblcms:sequel_detail', kwargs={'slug': self.slug})
 
@@ -74,12 +89,6 @@ class Sequel(SluggedItemMixin, CommentedItemMixin):
 
     class Meta:
         ordering = ["-created_at"]
-
-
-# Article model's custom query set to customize default 'objects' manager
-class ArticleQuerySet(models.QuerySet):
-    def published(self, value=True):
-        return self.filter(published=value)
 
 
 class Article(SluggedItemMixin, CommentedItemMixin):
@@ -98,7 +107,7 @@ class Article(SluggedItemMixin, CommentedItemMixin):
     category = models.ForeignKey(Category, blank=True, null=True)
 
     # applying custom query set as manager
-    objects = ArticleQuerySet.as_manager()
+    objects = ArticleSequelQuerySet.as_manager()
 
     def get_absolute_url(self):
         return reverse('trblcms:article_detail', kwargs={'slug': self.slug})
