@@ -1,4 +1,4 @@
-{% extends 'trblcms/testbase.html' %}
+{% extends 'base.html' %}
 
 {% load bootstrap3 %}
 {% load crispy_forms_tags %}
@@ -8,37 +8,49 @@
 
 {# bootstrap_css #}
 {# bootstrap_javascript #}
+{% load staticfiles %}
 
-{% block title %}
-    Article detail
+{% block extra_head %}
+<link href="{% static 'article_detail/detail.css'%}" media="all" rel="stylesheet">
 {% endblock %}
 
-{% block trblcms_content %}
+{% block content %}
     {% include 'trblcms/_fb_sdk.html' %}
     {% include 'trblcms/_tw_sdk.html' %}
     {% include 'trblcms/_ggl_sdk.html' %}
 
-    <h1>{{ object.title }}</h1>
+    <div class="detail col-md-8">
+        <div class="top">
+        <h1>{{ object.title }}</h1>
+        {% avatar object.user 40 %}
+        <a href="{{ object.user.userprofile.get_absolute_url }}">{{ object.user }}</a>  
+        </div>
+    <div class="bdy">
+        <p>Created at - {{ object.created_at|date }}</p>
+        <p>Modified at - {{ object.modified_at|date }}</p>
+        <p>Sequel - {{ object.sequel }}</p>
+        <p>{{ object.body|safe }}</p>
+        <p>Tags -
+            {% for tag in object.tags.all %}
+                {{ tag }} 
+            {% endfor %}</p>
+        {% include 'trblcms/_share_buttons.html' %}
 
-    <p>By <a href="{{ object.user.userprofile.get_absolute_url }}">{% avatar object.user 25 %} {{ object.user }}</a></p>
-    <p>Created at - {{ object.created_at|date }}</p>
-    <p>Modified at - {{ object.modified_at|date }}</p>
-    <p>Sequel - {{ object.sequel }}</p>
-    <p>{{ object.body|safe }}</p>
-    <p>Tags -
-        {% for tag in object.tags.all %}
-            {{ tag }} 
-        {% endfor %}</p>
-    {% include 'trblcms/_share_buttons.html' %}
-
-    {% if request.user.is_authenticated and object.user == request.user %}
-    <p>{% buttons %}
-            <a href="{% url 'trblcms:edit_article' object.id %}" type="button" class="btn btn-primary">
-                {% bootstrap_icon "edit" %}[Edit]
-            </a>
-    {% endbuttons %}</p>
-    {% endif %}
-    <!-- maybe get_comment_form can take and argument? like the article's id? -->
-    {% get_comment_form 'article' object.id %}
-    {% get_comments 'article' object.id %}
+        {% if request.user.is_authenticated and object.user == request.user %}
+        <p>{% buttons %}
+                <a href="{% url 'trblcms:edit_article' object.id %}" type="button" class="btn btn-primary">
+                    {% bootstrap_icon "edit" %}[Edit]
+                </a>
+        {% endbuttons %}</p>
+        {% endif %}
+    </div>
+        <!-- maybe get_comment_form can take and argument? like the article's id? -->
+    <div class-"cmmnt">
+            {% get_comment_form 'article' object.id %}
+            {% get_comments 'article' object.id %}
+    </div>
+    </div>
+    <div class="rcm col-md-4"></div>
 {% endblock %}
+
+{% block footer %}{% endblock %}
