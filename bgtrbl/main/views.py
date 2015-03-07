@@ -28,12 +28,7 @@ def magazine(request):
     return render(request, 'front_magazine.html', context)
 
 
-class Forum(ListView):
-    model = Article
-    template_name = "front_forum.html"
-    queryset = Article.objects.filter(category=Category.objects.filter(title='Forum'))[:20]
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        _add_modal_login_form(self.request.user, context)
-        return context
+def forum(request):
+    forum_category = get_object_or_404(Category, title="Forum")
+    context = {sub.title: sub.article_set.all() for sub in forum_category.get_descendants()}
+    return render(request, 'front_forum.html', context)

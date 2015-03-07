@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
 
-from .views import home, allauthTest, Forum, magazine
+from .views import home, allauthTest, forum, magazine
 
 
 urlpatterns = patterns('',
@@ -9,7 +9,7 @@ urlpatterns = patterns('',
     url(r'^allauth_test/', allauthTest, name='allauth_test'),
     url(r'^flatpage/(?P<url>.*)$', 'django.contrib.flatpages.views.flatpage', name='flatpage'),
     url(r'^magazine/', magazine, name='magazine'),
-    url(r'^forum/', Forum.as_view(), name='forum'),
+    url(r'^forum/', forum, name='forum'),
 
 )
 

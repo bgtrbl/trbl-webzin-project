@@ -12,22 +12,34 @@
 {% block content %}
 <a role="button" href="{% url 'trblcms:add_article' %}" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-pencil"></span></a>
 </button>
-{# view, 추천수 높은건 색이 다르게 #}
-<div id='front_forum'> 
-    {% for article in object_list %}
+
+<!-- view, 추천수 높은건 색이 다르게--> 
+<div id='front_forum'>  
+    <!-- wiki --> 
+        {% for item in Wiki %}
         <div class="item">
-            <a href="{% url 'trblcms:article_detail' article.slug %}"><img src="http://imgs.tuts.dragoart.com/how-to-draw-princess-cadence-my-little-pony_1_000000012723_5.png" /><p><strong>{{ article.title }}</strong></p></a>
-            <p>{{ article.user.name }}</p>
-            <p id="date">{{ article.created_at|date }}</p>
+            <a href="{% url 'trblcms:article_detail' item.slug %}"><img src="http://imgs.tuts.dragoart.com/how-to-draw-princess-cadence-my-little-pony_1_000000012723_5.png" /><p><strong>{{ item.title }}</strong></p></a>
+            <p>{{ item.user.name }}</p>
+            <p id="date">{{ item.created_at|date }}</p>
         </div>
-    {% endfor %}
+        {% endfor %}
 </div>
+
+    {% for item in Gallery %}
+    <div class="item">
+        <a href="{% url 'trblcms:article_detail' item.slug %}"><img src="http://imgs.tuts.dragoart.com/how-to-draw-princess-cadence-my-little-pony_1_000000012723_5.png" /><p><strong>{{ item.title }}</strong></p></a>
+        <p>{{ item.user.name }}</p>
+        <p id="date">{{ item.created_at|date }}</p>
+    </div>
+    {% endfor %}
 {% endblock %}
 
 {% block footer %}
 {% endblock %}
 
 {% block extra_script %}
+
+<!--grid script -->
 <script src="{% static 'front_pages/js/masonary.js' %}"></script>
 <script src="{% static 'front_pages/js/imageloaded.js' %}"></script>
 <script>
@@ -41,4 +53,5 @@
         });
       });
 </script>
+
 {% endblock %}
