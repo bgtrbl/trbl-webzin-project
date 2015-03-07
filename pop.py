@@ -41,9 +41,7 @@ def clear_article():
 
 def wiki_scrap():
     # category lists
-    CATS = (Category.objects.get(title='Wiki'),
-            Category.objects.get(title='Magazin'),
-            Category.objects.get(title='Forum'))
+    CATS = Category.objects.filter(level=2)
 
     # helper function
     def save_wiki(wikidoc):
@@ -73,7 +71,7 @@ def wiki_scrap():
         for _ in range(count):
             print("{}: Creating an article from a random wikipedia page...".format(_))
             articles.append(save_wiki(wikiscrap.get_random_doc(lang)))
-            print("{}: {} has been created!!".format(_, articles[-1]))
+            print("{}: {} has been created in {}!!".format(_, articles[-1], articles[-1].category))
     except KeyboardInterrupt:
         print("interrupted")
         return
@@ -81,6 +79,7 @@ def wiki_scrap():
         print("Created Articles:")
         print(articles)
         print('to update index, run "index" command')
+
 
 def count_objects():
     import bgtrbl.settings
