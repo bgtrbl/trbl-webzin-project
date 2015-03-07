@@ -11,6 +11,19 @@
 {% block extra_head %}
 <script src={% static "ckeditor/ckeditor/ckeditor.js" %}>
 </script>
+<script>
+    $(document).ready(function(){
+        // set a function that switches its states after the first
+        // submission to block duplicated submission
+        $("#article_form").submit(function() {
+            $(this).submit(function() {
+                return false;
+            });
+            $("#article_submit").attr("disabled", true);
+            return true;
+        });
+    });
+</script>
 {% endblock %}
 
 
@@ -20,15 +33,14 @@
 
 {% block trblcms_content %}
     {% if pk %}
-        <form method="POST" action="{% url 'trblcms:edit_article' pk %}" class="form">
+        <form method="POST" id="article_form" action="{% url 'trblcms:edit_article' pk %}" class="form">
     {% else %}
-        <form method="POST" action="{% url 'trblcms:add_article' %}" class="form">
+        <form method="POST" id="article_form" action="{% url 'trblcms:add_article' %}" class="form">
     {% endif %}
     {% csrf_token %}
     {{ article_form|crispy }} {# crispy form #}	
     {% buttons %}
-        <button type="submit" class="btn btn-primary"
-                onclick="this.disabled=true;this.innerHTML='Sending, please wait ...';this.form.submit();" >
+        <button type="submit" id="article_submit" class="btn btn-primary">
             {% bootstrap_icon "star" %} Submit
         </button>
     {% endbuttons %}
