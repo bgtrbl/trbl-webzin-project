@@ -1,0 +1,18 @@
+{% load avatar_tags %}
+
+<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+    {% if not user.is_authenticated %}
+        <a type="button" data-toggle="modal" data-target="#myModal">Login</a>
+    {% else %}
+    <a href="{% url 'avatar_change' %}">{% avatar request.user 100 %}</a>
+    {% with profile=request.user.userprofile %}
+    <p>{{ profile.user }}</p>  
+    <p>{{ profile.bio }}</p>  
+    <p>{{ profile.dob|date }}</p>  
+    <p>{{ profile.gender }}</p>  
+    <p>{{ profile.website }}</p>  
+    {% endwith %}
+    <a href="{% url 'userprofile:edit_userprofile' %}">edit</a>
+    <a href="{% url 'account_logout' %}">logout</a> 
+    {% endif %}
+</nav>

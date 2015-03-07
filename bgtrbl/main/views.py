@@ -26,7 +26,7 @@ class Magazine(ListView):
     model = Category
     template_name = "front_magazine.html"
     context_object_name = "category"
-    queryset = Category.objects.filter(parent=Category.objects.filter(title='Magazin'))
+    queryset = Category.objects.filter(parent=Category.objects.get(title='Magazin'))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

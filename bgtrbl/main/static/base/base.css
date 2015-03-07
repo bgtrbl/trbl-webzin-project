@@ -4,3 +4,13 @@ body {
     margin-left: auto;
     background: #F7F1E7;
 }
+#myModal .modal-content {
+    width: 60%;
+    
+}
+#myModal li {
+    display: inline;
+    list-style-type: none;
+}
+
+
