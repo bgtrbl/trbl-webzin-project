@@ -7,51 +7,91 @@
 
 {% block content %}
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-6">
-<!--main article-->
-            <div class="col-md-12"><img class="img-responsive" src="http://fc04.deviantart.net/fs70/f/2011/350/4/5/my_little_pony_fim_six_mane_wallpaper_by_bluedragonhans-d4j9n4k.png"/></div>
-<!--review-->
-            <div class="col-md-12">
-                <div class="col-md-6 review">
-                    <div class="wrapper">
-                        <a href="/"><img class="img-responsive thm" src="http://www.joseilbo.com/gisa_img/1352216363.jpg" /><div class="ttl"><p class="tit">우리집강아지가 복슬인데요?</p></div></a>
-                        <p class="bdy">허허허허허허허허허허허허허허허헣허허허허허</p>
-                        <span class="info"></span>
-                    </div>
-                </div> 
-                {% for review in Reviews %}
-                    <div class="col-md-6 review">
-                        <div class="wrapper">
-                            <a href="{% url 'trblcms:article_detail' review.slug %}"><div class="ttl"><p class="tit">{{ review.title }}</p></div></a> 
-                            <p class="bdy">{{ review.body|truncatewords:30|striptags }}</p>
-                            <p class='dt'>{{ review.created_at|date }}</p> 
-                            <span class="info"></span>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
+<div class="row">
+
+<div class="col-md-6">
+
+    <!--main article-->
+    <div class="col-md-12">
+        <img class="img-responsive" src="http://fc04.deviantart.net/fs70/f/2011/350/4/5/my_little_pony_fim_six_mane_wallpaper_by_bluedragonhans-d4j9n4k.png"/></div> 
+
+    <!--review-->
+    <div class="col-md-12">
+
+        <div class="col-md-6 review">
+        <div class="wrapper">
+
+            <a href="/">
+                <img class="img-responsive thm" src="http://www.joseilbo.com/gisa_img/1352216363.jpg" />
+                <div class="ttl"><p class="tit">
+                    우리집강아지가 복슬인데요?
+                </p></div>
+            </a>
+            <p class="bdy">허허허허허허허허허허허허허허허헣허허허허허</p>
+            <span class="info"></span>
         </div>
-<!--tutorial-->
-        <div class="col-md-4">
-            {% for tutorial in Tutorials%} 
-                <div class="col-md-12 tutorial">
-                    <div class="wrapper">
-                        <a href="{% url 'trblcms:article_detail' tutorial.slug %}"><div class="ttl"><p class="tit">{{ tutorial.title }}</p></div></a> 
-                        <p class="bdy">{{ tutorial.body|truncatewords:30|striptags }}</p>
-                        <li><p class='dt'>{{ tutorial.created_at|date }}</p></li> 
-                        <span class="info"></span>
-                    </div>
-                </div>
-            {% endfor%}
-        </div><!--toon-->
-        <div class="col-md-2">
-                <div class="col-md-12 toon"><img class="img-responsive" src="https://i1.ytimg.com/sh/7YFnn-JE4Zw/showposter.jpg?v=5073624b" /></div>
-                <div class="col-md-12 toon"><img class="img-responsive" src="http://img2.wikia.nocookie.net/__cb20110818114258/looneytunes/images/8/80/Tiny_toons_vs_batman_ad-5.jpg" /></div>
-                <div class="col-md-12 toon"><img class="img-responsive" src="http://craphound.com/images/1381392_48ed_625x1000.jpg" /></div>
-                <div class="col-md-12 toon"><img class="img-responsive" src="http://img3.wikia.nocookie.net/__cb20130404235352/angrybirds/images/0/0b/Toons_stella.png" /></div>
+        </div> 
+
+        {% for item in Reviews %}
+        <div class="col-md-6 review">
+        <div class="wrapper">
+            <a href="{% url 'trblcms:article_detail' item.slug %}">
+                <div class="ttl"><p class="tit">
+                    {{ item.title }}
+                </p></div>
+            </a> 
+            <p class="bdy">
+                {{ item.body|truncatewords:30|striptags }}
+            </p>
+            <p class='dt'>
+                {{ item.created_at|date }}
+            </p> 
+            <span class="info"></span>
         </div>
+        </div>
+        {% endfor %}
+
     </div>
+
+</div>
+
+<!--tutorial-->
+<div class="col-md-4">
+{% for item in Tutorials %} 
+
+    <div class="col-md-12 tutorial"><div class="wrapper">
+        <a href="{% url 'trblcms:article_detail' item.slug %}"><div class="ttl"><p class="tit">
+            {{ item.title }}
+        </p></div></a> 
+        <p class="bdy">
+            {{ item.body|truncatewords:30|striptags }}
+        </p>
+        <li><p class='dt'>
+            {{ item.created_at|date }}
+        </p></li> 
+        <span class="info"></span>
+    </div></div>
+
+{% endfor%}
+</div>
+
+<!--toon-->
+<div class="col-md-2">
+    <div class="col-md-12 toon">
+        <img class="img-responsive" src="https://i1.ytimg.com/sh/7YFnn-JE4Zw/showposter.jpg?v=5073624b" />
+    </div>
+    <div class="col-md-12 toon">
+        <img class="img-responsive" src="http://img2.wikia.nocookie.net/__cb20110818114258/looneytunes/images/8/80/Tiny_toons_vs_batman_ad-5.jpg" />
+    </div>
+    <div class="col-md-12 toon">
+        <img class="img-responsive" src="http://craphound.com/images/1381392_48ed_625x1000.jpg" />
+    </div>
+    <div class="col-md-12 toon">
+        <img class="img-responsive" src="http://img3.wikia.nocookie.net/__cb20130404235352/angrybirds/images/0/0b/Toons_stella.png" />
+    </div>
+</div>
+
+</div>
 </div>
 {% endblock %}
 
@@ -59,5 +99,4 @@
 {% endblock%}
 
 {% block extra_script %}
-</script>
 {% endblock %}

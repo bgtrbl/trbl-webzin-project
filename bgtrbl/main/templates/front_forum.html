@@ -14,11 +14,11 @@
 </button>
 {# view, 추천수 높은건 색이 다르게 #}
 <div id='front_forum'> 
-    {% for articles in object_list%}
+    {% for article in object_list %}
         <div class="item">
-            <a href="{% url 'trblcms:article_detail' articles.slug %}"><img src="http://imgs.tuts.dragoart.com/how-to-draw-princess-cadence-my-little-pony_1_000000012723_5.png" /><p><strong>{{ articles.title }}</strong></p></a>
-            <p>{{ articles.user.name }}</p>
-            <p id="date">{{ articles.created_at|date }}</p>
+            <a href="{% url 'trblcms:article_detail' article.slug %}"><img src="http://imgs.tuts.dragoart.com/how-to-draw-princess-cadence-my-little-pony_1_000000012723_5.png" /><p><strong>{{ article.title }}</strong></p></a>
+            <p>{{ article.user.name }}</p>
+            <p id="date">{{ article.created_at|date }}</p>
         </div>
     {% endfor %}
 </div>
