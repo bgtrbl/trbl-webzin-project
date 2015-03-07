@@ -7,7 +7,8 @@ import django
 django.setup()
 
 print("importing apps ...")
-from bgtrbl.apps.trblcms.models import Article, Sequel, Comment, Category
+from bgtrbl.apps.trblcms.models import Article, Sequel, Category
+from bgtrbl.apps.trblcomment.models import Comment, CommentThread
 from django.contrib.auth.models import User
 
 from helpers import wikiscrap
@@ -89,6 +90,7 @@ def count_objects():
         ('Sequels', Sequel.objects.count()),
         ('Articles', Article.objects.count()),
         ('Comments', Comment.objects.count()),
+        ('Comment threads', CommentThread.objects.count()),
         ('Tags', Article.tags.count()),
     )
     print("db: {}@{}".format(bgtrbl.settings.DATABASES['default']['NAME'],

@@ -11,8 +11,8 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.views.generic.edit import FormView
 
-from .models import Article, Comment, Sequel, Category
-from .forms import ArticleModelForm, CommentForm, SequelModelForm
+from .models import Article, Sequel, Category
+from .forms import ArticleModelForm, SequelModelForm
 
 
 class ArticleDetailView(DetailView):
@@ -74,24 +74,6 @@ def editSequel(request, pk):
         sequel.save()
         return redirect(sequel.get_absolute_url())
     return render(request, 'trblcms/add_or_edit_sequel.html', {'sequel_form': form, 'pk': pk})
-
-
-# @! security flaws
-# @todo eventually pk has to go, and from would pass things in post to deal
-# with redirection
-# @idea or maybe getting next="url" whith GET method also would be nice...
-def saveComment(request, content_type, pk):
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid() and ContentType.objects.filter(model=content_type).exists():
-            commented_item = ContentType.objects.get(model=content_type).model_class().objects.get(id=pk)
-            Comment.objects.create(user=request.user,
-                    text=form.cleaned_data['text'],
-                    parent_thread=commented_item.child_thread)
-        else: print("form valid({}); content type({}) isn't matching".format(form.is_valid(), content_type))
-    # @? comment redirection... where to go if fails?
-    # @todo support many content type that inherits CommentedItemMixin
-    return redirect(commented_item.get_absolute_url())
 
 
 class SequelEditView(FormView):

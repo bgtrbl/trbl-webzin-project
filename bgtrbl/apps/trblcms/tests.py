@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .models import Article, Sequel, Category, Comment
+from .models import Article, Sequel, Category
 
 
 # 작성중...

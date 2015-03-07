@@ -10,7 +10,7 @@
 
 {% block comment_form_content %}
 
-<form method="POST" action="{% url 'trblcms:save_comment' content_type pk %}" class="form">
+<form method="POST" action="{% url 'trblcomment:save_comment' content_type pk %}" class="form">
     {% csrf_token %}
     {{ comment_form|crispy }} {# crispy form #}	
     {% buttons %}

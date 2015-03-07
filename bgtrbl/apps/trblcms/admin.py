@@ -14,11 +14,6 @@ class ArticleAdmin(admin.ModelAdmin):
     list_display = ("title", "created_at", "modified_at", "published")
 
 
-class CommentAdmin(admin.ModelAdmin):
-    list_display = ("parent_thread", "user", "text")
-
-
 admin.site.register(models.Category, CategoryAdmin)
 admin.site.register(models.Sequel, SequelAdmin)
 admin.site.register(models.Article, ArticleAdmin)
-admin.site.register(models.Comment, CommentAdmin)

@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib import admin
-from .models import Article, Comment, Sequel
+from .models import Article, Sequel
 from ckeditor.widgets import CKEditorWidget
 
 
@@ -19,14 +19,3 @@ class SequelModelForm(forms.ModelForm):
     class Meta:
         model = Sequel
         exclude = ['child_thread', 'user']
-
-
-# for security reason(when changing server state, use POST other than GET)
-# parent_thread is in the form
-class CommentForm(forms.Form):
-    text = forms.CharField(max_length=500, required=True)
-
-    #class Meta:
-        #model = Comment
-        #fields = ('author', 'body')
-        #widgets = {'parent_thread': forms.HiddenInput()}
