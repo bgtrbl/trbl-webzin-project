@@ -14,9 +14,15 @@
     {% csrf_token %}
     {{ comment_form|crispy }} {# crispy form #}	
     {% buttons %}
-        <button type="submit" class="btn btn-primary">
-            {% bootstrap_icon "star" %} Submit
-        </button>
+        {# 변수 선언 로컬 영역 설정은 이렇게 하는듯 #}
+        {% with "star" as icon_name %}
+        {# Javascript disabling submit button after the first click, #}
+        {# preventing multiple submittion from one form #}
+            <button type="submit" class="btn btn-primary"
+                onclick="this.disabled=true;this.innerHTML='Sending, please wait ...';this.form.submit();" >
+                {% bootstrap_icon icon_name %} Submit
+            </button>
+        {% endwith %}
     {% endbuttons %}
 </form>
 
