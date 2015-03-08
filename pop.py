@@ -45,10 +45,13 @@ def wiki_scrap():
     CATS = Category.objects.filter(level=2)
 
     # helper function
-    def save_wiki(wikidoc):
+    def save_wiki(wikidoc, c, u):
+        c = Category.objects.get(title=c) if c else choice(CATS)
+        u = User.objects.get(username=u) if u else choice(User.objects.all())
+
         article = Article.objects.create(title=wikidoc['lang_title'],
-                body=wikidoc['body'], user=choice(User.objects.all()),
-                category=choice(CATS))
+                body=wikidoc['body'], user=u,
+                category=c)
         article.tags.add(*wikidoc['tags'])
         return article
 
@@ -56,10 +59,20 @@ def wiki_scrap():
     while True:
         try:
             count = int(input('Article count: '))
-            lang = input('language{}: '.format(wikiscrap.LANGS)).lower()
-            if lang not in wikiscrap.LANGS:
-                raise ValueError
-        except ValueError:
+
+            lang = input('language[random] {}: '.format(wikiscrap.LANGS)).lower()
+            if lang and lang not in wikiscrap.LANGS:
+                raise KeyError
+
+            cats = input('category[random] {}: '.format(CATS))
+            if cats and not Category.objects.filter(title=cats).exists():
+                raise KeyError
+
+            user_name = input('user[random] : ') or choice(User.objects.all()).username
+            if user_name and not User.objects.filter(username=user_name).exists():
+                raise KeyError
+
+        except (ValueError, KeyError):
             print("wrong input")
             continue
         except KeyboardInterrupt:
@@ -70,16 +83,20 @@ def wiki_scrap():
     articles = []
     try:
         for _ in range(count):
-            print("{}: Creating an article from a random wikipedia page...".format(_))
-            articles.append(save_wiki(wikiscrap.get_random_doc(lang)))
-            print("{}: {} has been created in {}!!".format(_, articles[-1], articles[-1].category))
+            print("{}: Creating an article from a random page...".format(_))
+            wikidoc = wikiscrap.get_random_doc(lang)
+            if wikidoc:
+                articles.append(save_wiki(wikidoc, cats, user_name))
+                print("{}: {} has been created in {}!!".format(_, articles[-1], articles[-1].category))
+            else:
+                print("skipping...")
     except KeyboardInterrupt:
         print("interrupted")
         return
 
-        print("Created Articles:")
-        print(articles)
-        print('to update index, run "index" command')
+    print("Created Articles:")
+    print(articles)
+    print('to update index, run "index" command')
 
 
 def count_objects():

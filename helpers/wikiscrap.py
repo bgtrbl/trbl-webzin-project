@@ -1,5 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
+from random import choice
+_s = lambda x: str(x)
 
 
 # resource settings: lang -> url, pars
@@ -24,6 +26,10 @@ RESOURCES = {
             'url': lambda : "https://mirror.enha.kr"+ \
                     BeautifulSoup(requests.get("https://mirror.enha.kr/random").text).meta.attrs['content'].split('=')[-1],
             'pars': lambda x: pars_enha(x)},
+
+        'xkcd': {
+            'url': lambda : "http://c.xkcd.com/random/comic/",
+            'pars': lambda x: pars_xkcd(x)},
         }
 
 
@@ -31,7 +37,11 @@ LANGS = list(RESOURCES.keys())
 
 
 def get_random_doc(lang):
+    lang = lang or choice(LANGS)
     resp = requests.get(RESOURCES[lang]['url']())
+    if not resp.ok:
+        print("fetch error")
+        return None
     result =  RESOURCES[lang]['pars'](BeautifulSoup(resp.text))
     result['lang_title'] = '[{}] {}'.format(lang, result['title'])
     return result
@@ -59,3 +69,16 @@ def pars_enha(doc):
             'body': body,
             'tags': ['엔하'],
             }
+
+
+def pars_xkcd(doc):
+    title = doc.find('div', attrs={'id': 'ctitle'}).extract()
+    transcript = doc.find('div', attrs={'id': 'transcript'}).extract()
+    transcript = transcript.string.replace('\n', "<br>")
+    comic = doc.find('div', attrs={'id': 'comic'}).extract()
+    return {
+            'title': title.string,
+            'body': str(comic)+str(transcript),
+            'tags': ['xkcd'],
+            }
+

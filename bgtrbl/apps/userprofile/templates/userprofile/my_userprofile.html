@@ -20,9 +20,27 @@
     <li><a href="{% url 'userprofile:edit_userprofile' %}">edit</a></li>
     <li> Recent Activities (5 items maximum): </li>
     <ul>
-        <li> 최근 글 : {{ recent_articles }} </li>
-        <li> 최근 시퀄: {{ recent_sequels }} </li>
-        <li> 최근 댓글: {{ recent_comments }} </li>
+        <li> 최근 글 : 
+            <ul>
+            {% for item in recent_articles %}
+                <li> <a href="{{ item.get_absolute_url }}">{{ item }}</a> </li>
+            {% endfor %}
+            </ul>
+        </li>
+        <li> 최근 시퀄:
+            <ul>
+            {% for item in recent_sequels %}
+                <li> <a href="{{ item.get_absolute_url }}">{{ item }}</a> </li>
+            {% endfor %}
+            </ul>
+        </li>
+        <li> 최근 댓글:
+            <ul>
+            {% for item in recent_comments %}
+                <li> <a href="{{ item.get_absolute_url }}">{{ item }}</a> </li>
+            {% endfor %}
+            </ul>
+        </li>
     </ul>
 </ul>
 {% endblock %}
