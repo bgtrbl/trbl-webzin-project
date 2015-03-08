@@ -2,21 +2,36 @@
 
 <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
 
-    {% if not user.is_authenticated %}
-        <a type="button" data-toggle="modal" data-target="#myModal">Login</a>
+    {% with request.user.userprofile as profile %}
 
-    {% else %}
-        <a href="{% url 'userprofile:my_userprofile' %}">{% avatar request.user 100 %}</a>
-        
-        <a>{{ request.user }}</a>  
-        {% with request.user.userprofile as profile %}
-            <a>{{ profile.bio }}</a>  
-            <a>{{ profile.dob|date }}</a>  
-            <a>{{ profile.gender }}</a>  
-            <a>{{ profile.website }}</a>  
-            <a href="{% url 'userprofile:edit_userprofile' %}">edit</a>
-            <a href="{% url 'account_logout' %}">logout</a> 
-        {% endwith %}
+    <div class="tabs-framed tabs-framed-right boxed">
 
-    {% endif %}
+        <div class="tab-content">
+
+            <div class="tab-pane fade in active" id="profile1">
+                <div class="profile-image">
+                {% avatar request.user 250 %}
+                </div>
+
+                <div class="bottom"> 
+                    <div class="profile-desc">
+                        <h3 class="profile-title">{{ profile.user }}</h3>
+                        <span class="profile-subtitle">{{ profile.bio|safe }}</span>
+                    </div>
+
+                    <ul class="profile-links clearfix">
+                        <li class="profile-views"><a href="{% url 'account_logout' %}"><i class="icon-small-author"></i>logout</a></li>
+                    <li class="profile-likes"><a href="#"><i class="icon-small-like"></i>12 980</a></li>
+                    <li class="profile-comments"><a href="#"><i class="icon-small-comment"></i>9 156</a></li>
+                    </ul>
+                </div> 
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endwith %}
+
 </nav>
+

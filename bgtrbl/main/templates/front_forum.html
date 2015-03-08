@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block extra_head %}
-    <link href="{% static 'front_pages/css/masonary.css' %}" media="all" rel="stylesheet"> 
+    <link href="{% static 'masonary.css' %}" media="all" rel="stylesheet"> 
 {% endblock %}
 
 {% block extra_header %}
@@ -10,7 +10,7 @@
 
 
 {% block content %}
-<a role="button" href="{% url 'trblcms:add_article' %}" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-pencil"></span></a>
+<a type="button" href="{% url 'trblcms:add_article' %}" class="btn"><i class="glyphicon glyphicon-pencil"></i><span>write</span></a>
 </button>
 
 <!-- view, 추천수 높은건 색이 다르게--> 

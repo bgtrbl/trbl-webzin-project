@@ -25,6 +25,7 @@ def allauthTest(request):
 def magazine(request):
     magazin_category = get_object_or_404(Category, title='Magazin')
     context = {sub.title: sub.article_set.all() for sub in magazin_category.get_descendants()}
+    _add_modal_login_form(request.user, context)
     return render(request, 'front_magazine.html', context)
 
 
@@ -32,3 +33,8 @@ def forum(request):
     forum_category = get_object_or_404(Category, title="Forum")
     context = {sub.title: sub.article_set.all() for sub in forum_category.get_descendants()}
     return render(request, 'front_forum.html', context)
+
+    def get_context_data(self, **kwargs):
+        context = super(forum, self).get_context_data(**kwargs)
+        _add_modal_login_form(self.request.user, context)
+        return context

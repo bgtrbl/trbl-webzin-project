@@ -1,14 +1,28 @@
 {% load sitetree %}
     
-<div class="tabs tabs-style-fillup">
-<nav>
-    <ul>
-        {% for item in sitetree_items %}
-            <li class="{% if item.is_current %}active{% endif %}"><a href="{% sitetree_url for item %}"><span class="glyphicon {% cycle 'glyphicon-home' 'glyphicon-ice-lolly-tasted' 'glyphicon-search' %}"></span>{{ item.title_resolved }}</a></li> 
-	    {% if item.has_children %}
-	        {% sitetree_children of item for menu template "navigation/sub_nav_top.html" %}
-            {% endif %}
-        {% endfor %}
-    </ul>
-</nav>
-</div>
+
+<ul class="menu boxed clearfix bg-image-home">
+
+    {% for item in sitetree_items %}
+    <li class="{% if item.is_current %}active{% endif %}" id="nav_active"><a href="{% sitetree_url for item %}"><i class="menu-icon {% cycle 'menu-icon-3' 'menu-icon-2' 'menu-icon-1' %}"></i>{{ item.title_resolved }}</a></li> 
+    {% endfor %}
+
+    {% if not user.is_authenticated %}
+    <li class="side_toggle"><a data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon glyphicon-usd"></i></a></li>
+    {% else %}
+    <li class="side_toggle"><a id="showLeftPush"><i class="glyphicon glyphicon-chevron-left"></i></a></li>
+    
+    <script>
+    var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+        showLeftPush = document.getElementById( 'showLeftPush' ),
+        body = document.body;
+
+    showLeftPush.onclick = function() {
+        classie.toggle( this, 'active' );
+        classie.toggle( body, 'cbp-spmenu-push-toright' );
+        classie.toggle( menuLeft, 'cbp-spmenu-open' );
+    };
+    </script>
+    {% endif %}
+
+</ul>

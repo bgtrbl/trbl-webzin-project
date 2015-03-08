@@ -8,15 +8,18 @@
     list-style-type: none;
 }
 .signin, .signup {
-    margin-top: 20px auto auto 0;
-    display: inline; 
+    width: 120px; 
+    line-height:100px;
+    margin-left: 25px;
 }
 label.control-label {
     display: none; /* login form label hide*/
 }
 ul.socialaccount_providers {
-    margin-bottom: 10px
+    margin-bottom: 15px
 }
-li.socialaccount_providers .google {
-    color: red; !important;
+.clean {
+    margin-top: 15px;
+    display:inline block;
 }
+

@@ -1,4 +1,4 @@
-{% extends 'testbase.html' %}
+{% extends 'base.html' %}
 
 {% load staticfiles %}
 {% load bootstrap3 %}
@@ -31,7 +31,7 @@
     Add an article
 {% endblock %}
 
-{% block trblcms_content %}
+{% block content %}
     {% if pk %}
         <form method="POST" id="article_form" action="{% url 'trblcms:edit_article' pk %}" class="form">
     {% else %}

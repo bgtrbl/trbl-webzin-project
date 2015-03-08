@@ -20,6 +20,7 @@
     <footer>
     {% block footer %}{% endblock %}
     </footer>
+    {% block modal %}{% endblock %}
 {% if not 'javascript_in_head'|bootstrap_setting %}{% bootstrap_javascript jquery=True %}{% endif %}
 {% block extra_script %}{% endblock %}
 {% block base_script %}{% endblock %}

@@ -10,10 +10,15 @@
 {% load i18n %}
 
 {% block base_head %}
-    <link href="{% static 'navigation/css/nav.css' %}" media="all" rel="stylesheet"> 
-    <link href="{% static 'navigation/css/tabs.css' %}" media="all" rel="stylesheet">
-    <link href="{% static 'base/base.css' %}" media="all" rel="stylesheet">
+    <link href="{% static 'nav.css' %}" media="all" rel="stylesheet"> 
+    <link href="{% static 'tabs.css' %}" media="all" rel="stylesheet">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <!--snippet script, css-->
+    <link href="{% static 'style.css' %}" media="all" rel="stylesheet">
+    <script src="{% static 'js/general.js' %}"></script>
+    <link href="{% static 'base.css' %}" media="all" rel="stylesheet">
+    
     {% block extra_head %}{% endblock %}
 {% endblock %}
 
@@ -27,12 +32,9 @@
 {% endblock %}
 
 {% block root_content %}
-    <div>
-        <button type="button" id="showLeftPush" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-th"></span>
-        </button>
+    <!--snippet button style change-->
         {% bootstrap_messages %}
         {% block content %}(no content){% endblock %}
-    </div>
 
     {% if 'modal_login_form' %}
         <!-- Modal -->
@@ -41,19 +43,19 @@
             <div class="modal-content">
             <div class="modal-body">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h1>{% trans "Sign In" %}</h1>
+                <h1 style="text-align:center;margin-bottom:30px;">{% trans "Sign In" %}</h1>
 
-
+            
                 {% if socialaccount.providers  %}
-
                 <div class="socialaccount_ballot">
 
-                <ul class="socialaccount_providers">
-                    {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-                </ul>
+                    <ul class="socialaccount_providers">
+                        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+                    </ul>
 
-                {% include "socialaccount/snippets/login_extra.html" %}
+                    {% include "socialaccount/snippets/login_extra.html" %}
 
+                </div>
                 {% endif %}
 
                 <form class="login" method="POST" action="{% url 'account_login' %}">
@@ -62,11 +64,16 @@
                 {% if redirect_field_value %}
                 <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                 {% endif %}
-                <p><a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a></p>
-                <button class="btn btn-primary" type="submit">{% trans "Sign In" %}</button>
+
+                <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+                <div class="clearfix">
+                <div class="clean">
+                <button class="btn signin" type="submit"><span>{% trans "Sign In" %}</span></button>
+                <button class="btn btn-red signup" href="{% url 'account_signup' %}"><span>sign up</span></button>
+                </div>
+                </div>
                 </form>
                 
-                <button type="button" class="btn btn-primary" href="{{ signup_url }}">sign up</button>
             </div>
             </div>
         </div>
@@ -77,7 +84,9 @@
 {% block footer %}
 {% endblock %}
 
+{% block modal %}
+    {% include 'account/login_form.html'%}
+{% endblock %}
 {% block base_script %}
-<script src="{% static 'base/classie.js' %}"></script>
-<script src="{% static 'navigation/js/nav.js' %}"></script>
+<script src="{% static 'js/classie.js' %}"></script>
 {% endblock %}
