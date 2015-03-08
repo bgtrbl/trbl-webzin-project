@@ -1,0 +1,22 @@
+
+/* login */
+#myModal .modal-content {
+    width: 60%;
+}
+#myModal li {
+    display: inline;
+    list-style-type: none;
+}
+.signin, .signup {
+    margin-top: 20px auto auto 0;
+    display: inline; 
+}
+label.control-label {
+    display: none; /* login form label hide*/
+}
+ul.socialaccount_providers {
+    margin-bottom: 10px
+}
+li.socialaccount_providers .google {
+    color: red; !important;
+}
