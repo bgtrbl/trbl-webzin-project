@@ -25,19 +25,19 @@ def update_index():
     os.system('python3 manage.py update_index')
 
 
-def clear_article():
-    narticles = Article.objects.count()
-    print('clearing {} articles...'.format(narticles))
+def clear_objects(o):
+    n = o.objects.count()
+    print('clearing {} {}...'.format(n, o))
     count = 0
     try:
-        while Article.objects.exists():
-            Article.objects.last().delete()
+        while o.objects.exists():
+            o.objects.last().delete()
             count += 1
-            print("[{}] / {}".format(count, narticles-count))
+            print("[{}] / {}".format(count, n-count))
     except KeyboardInterrupt:
         print('interrupted')
         return
-    print("deleted {} articles".format(count))
+    print("deleted {} {}".format(count, o))
 
 
 def wiki_scrap():
@@ -215,7 +215,11 @@ if __name__ == '__main__':
 
     SVR = Server()
     COMMANDS = {}
-    COMMANDS['clear'] = {'func': clear_article, 'desc': '아티클 전체 삭제'}
+    COMMANDS['clear_article'] = {'func': lambda : clear_objects(Article), 'desc': '아티클 전체 삭제'}
+    COMMANDS['clear_sequel'] = {'func': lambda : clear_objects(Sequel), 'desc': '시퀄 전체 삭제'}
+    COMMANDS['clear_comment'] = {'func': lambda : clear_objects(Comment), 'desc': '댓글 전체 삭제'}
+    COMMANDS['clear_thread'] = {'func': lambda : clear_objects(CommentThread), 'desc': '쓰레드 전체 삭제'}
+    COMMANDS['clear'] = {'func': lambda : [clear_objects(_) for _ in (Article, Sequel, Comment, CommentThread)], 'desc': '다 삭제'}
     COMMANDS['index'] = {'func': update_index, 'desc': '서치 인덱싱'}
     COMMANDS['create'] = {'func': wiki_scrap, 'desc': 'Wikipidea 아티클 스크래핑'}
     COMMANDS['count'] = {'func': count_objects, 'desc': 'db objects count info'}
