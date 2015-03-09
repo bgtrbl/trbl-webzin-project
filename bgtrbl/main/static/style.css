@@ -936,26 +936,30 @@ p.italic {font-style: italic;}
     width: 10.5%;
     float: left;
 }
+
 /*side toggle*/
 .menu > li.trbl_sideToggle {
     width: 50px;
-    margin-top: 10px;
     margin-right: 250px;
 }
 .menu > li.trbl_sideToggle i {
-    font-size: 30px; 
+    font-size: 25px; 
+    padding-bottom: 0;
 }
 
 
-.menu > li > a {
+.menu > li > a:not(.trbl_sideToggle) {
     display: block;
     font-family: "Allerta", sans-serif;
     font-size: 15px;
     font-weight: 400;
     color: #34495e;
+    size: 25px;
+    height: 55px;
     text-align: center;
     line-height: 18px;
-    padding: 9px 5px 15px;
+    margin-bottom: 0;
+    padding: 15px 5px 15px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
