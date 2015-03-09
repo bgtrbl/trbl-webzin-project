@@ -2,10 +2,17 @@
 {% load staticfiles %}
 
 {% block extra_head %}
- <link href="{% static 'front_pages/css/zine.css' %}" media="all" rel="stylesheet">
+ <link href="{% static 'zine.css' %}" media="all" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
+<!-- index panel -->
+<div class="trbl_indexPanel">
+    <a href="" class="trbl_R"></a>
+    <p class="trbl_Tu"></P>
+    <p class="trbl_T"></P>
+</div>
+
 <div class="container-fluid">
 <div class="row">
 
@@ -18,36 +25,23 @@
     <!--review-->
     <div class="col-md-12">
 
-        <div class="col-md-6 review">
-        <div class="wrapper">
-
-            <a href="/">
-                <img class="img-responsive thm" src="http://www.joseilbo.com/gisa_img/1352216363.jpg" />
-                <div class="ttl"><p class="tit">
-                    우리집강아지가 복슬인데요?
-                </p></div>
-            </a>
-            <p class="bdy">허허허허허허허허허허허허허허허헣허허허허허</p>
-            <span class="info"></span>
-        </div>
+        <div class="col-md-6 trbl_review">
+            <div class="clearfix">
+            <div class="trbl_r"></div>
+            <a href="/" class="trbl_title">
+            </div>
+            <img class="img-responsive thm" src="http://www.joseilbo.com/gisa_img/1352216363.jpg" />
+            우리집강아지가 복슬인데요?</a><p class="trbl_body">허허허허허허허허허허허허허허허헣허허허허허
         </div> 
 
         {% for item in Reviews %}
-        <div class="col-md-6 review">
-        <div class="wrapper">
-            <a href="{% url 'trblcms:article_detail' item.slug %}">
-                <div class="ttl"><p class="tit">
-                    {{ item.title }}
-                </p></div>
-            </a> 
-            <p class="bdy">
-                {{ item.body|truncatewords:30|striptags }}
-            </p>
-            <p class='dt'>
-                {{ item.created_at|date }}
-            </p> 
-            <span class="info"></span>
-        </div>
+        <div class="col-md-6 trbl_review">
+            <div class="clearfix">
+            <div class="trbl_r"></div>
+                <a href="{% url 'trblcms:article_detail' item.slug %}" class="trbl_title">{{ item.title }}</a> 
+                <p class="trbl_body">{{ item.body|truncatewords:30|striptags }}</p>
+            </div>
+            <p>{{ item.created_at|date }}</p> 
         </div>
         {% endfor %}
 
@@ -56,27 +50,36 @@
 </div>
 
 <!--tutorial-->
-<div class="col-md-4">
+<div class="col-md-4 trbl_tutorial">
 {% for item in Tutorials %} 
 
-    <div class="col-md-12 tutorial"><div class="wrapper">
-        <a href="{% url 'trblcms:article_detail' item.slug %}"><div class="ttl"><p class="tit">
-            {{ item.title }}
-        </p></div></a> 
-        <p class="bdy">
-            {{ item.body|truncatewords:30|striptags }}
-        </p>
-        <li><p class='dt'>
-            {{ item.created_at|date }}
-        </p></li> 
-        <span class="info"></span>
-    </div></div>
+    <div class="col-md-12">
+        <div class="clearfix">
+            <div class="trbl_tu"></div>
+            <a href="{% url 'trblcms:article_detail' item.slug %}" class="trbl_title">{{ item.title }}</a> 
+        </div>
+        <p class="trbl_body">{{ item.body|truncatewords:30|striptags }}</p>
+        <p class="trbl_date">{{ item.created_at|date }}</p> 
+    </div>
 
 {% endfor%}
 </div>
 
 <!--toon-->
 <div class="col-md-2">
+{# toon
+    {% for item in Toon %} 
+
+        <div class="col-md-12 trbl_toon">
+            <div class="clearfix">
+                <div class="trbl_t"></div>
+                <a href="{% url 'trblcms:article_detail' item.slug %}" class="trbl_title">{{ item.title }}</a> 
+            </div>
+            <p class="trbl_body">{{ item.body|truncatewords:30|striptags }}</p>
+            <p class="trbl_date">{{ item.created_at|date }}</p> 
+        </div>
+    {% endfor%}
+#}
     <div class="col-md-12 toon">
         <img class="img-responsive" src="https://i1.ytimg.com/sh/7YFnn-JE4Zw/showposter.jpg?v=5073624b" />
     </div>

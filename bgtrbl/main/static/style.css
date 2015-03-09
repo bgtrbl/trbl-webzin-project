@@ -90,9 +90,7 @@ body {
     font-family: 'Open Sans', sans-serif;
     font-size: 14px;
     font-weight: 600;
-    color: #3f3a46;
-	position: relative;
-    background: url(images/bg.jpg) center top repeat;
+    position: relative;
     background-size: 100% auto;
 }
 .ie7 body {background: none; filter:none; font-size:20px; color: #333; text-align: center; padding-top: 200px;}
@@ -696,7 +694,7 @@ p.italic {font-style: italic;}
 /* Tabs */
 /*-----------------------------------*/
 
-.tabs-framed {position: relative; margin-bottom: 30px;}
+.tabs-framed {position: relative;}
 
 .tabs-framed .bg-image-heart {background-position: right -10px top 3px;}
 .tabs-framed .bg-image-clock {background-position: right -27px top -15px;}
@@ -929,40 +927,32 @@ p.italic {font-style: italic;}
 .slicknav_menu {display: none;}
 .menu.bg-image-home {background-position: -56px -46px;}
 /* Level 0 */
-.menu {z-index: 999;}
+.menu {
+    z-index: 999;
+    width: 100%;
+}
 .menu li {position: relative;}
 .menu > li {
-    width: 8.5%;
-    float: right;
-}
-.menu > li.active {
-    background: #d6927b;
+    width: 10.5%;
+    float: left;
 }
 /*side toggle*/
-.menu > li.side_toggle {
-    width: 40px;
-    margin-right: 670px;        
+.menu > li.trbl_sideToggle {
+    width: 50px;
+    margin-top: 10px;
+    margin-right: 250px;
+}
+.menu > li.trbl_sideToggle i {
+    font-size: 30px; 
 }
 
-.menu > li.side_toggle > a {
-    width: 100%;
-    font-size: 30px;
-    padding-top: 22px;
-    height: 85px;
-}
-.menu > li.side_toggle > a:active {
-    -webkit-transition: width 2s;
-    -ms-transition: width 2s;
-    -o-transition: width 2s;
-    transition: width 2s;
-}
 
 .menu > li > a {
     display: block;
     font-family: "Allerta", sans-serif;
     font-size: 15px;
     font-weight: 400;
-    color: #fff;
+    color: #34495e;
     text-align: center;
     line-height: 18px;
     padding: 9px 5px 15px;
@@ -973,9 +963,9 @@ p.italic {font-style: italic;}
 .menu > li:first-child > a {border-left: none;}
 .menu > li:hover > a,
 .menu > li.hover > a {
-    background: #d6927b;
+    background: #2980B9;
     box-shadow: inset 5px 2px 3px rgba(144, 27, 42, 0.16);
-    color: #423F3F !important;
+    color: #fff !important; 
 }
 .menu-icon {
     display: block;
@@ -985,11 +975,10 @@ p.italic {font-style: italic;}
     background: url(images/icons/menu-icons.png) 0 0 no-repeat;
 }
 
-ul.menu { 
-    background: #423F3F;
-    box-shadow: none !important;
-    -moz-box-shadow: none !important;
-    -webkit-box-shadow: none !important;
+.menu > li.active a {
+    background: #2980B9;
+    box-shadow: inset 5px 2px 3px rgba(144, 27, 42, 0.16);
+    color: #fff;
 }
 
 .menu > li.
@@ -1034,7 +1023,7 @@ ul.menu {
     font-size: 15px;
     font-weight: 700;
     line-height: normal;
-    color: #423F3F;
+    color: #3498db;
     text-transform: uppercase;
     padding: 10px 12px;
     border-top: 1px solid #f3f3f3;

@@ -1,5 +1,13 @@
+/* @main */
+body {
+    background: #ECF0F1;
+}
+header {
+    margin-bottom: 20px;
+}
 
-/* login */
+
+/* @login */
 #myModal .modal-content {
     width: 60%;
 }
@@ -12,9 +20,8 @@
     line-height:100px;
     margin-left: 25px;
 }
-label.control-label {
-    display: none; /* login form label hide*/
-}
+
+/* login social providers image */
 ul.socialaccount_providers {
     margin-bottom: 15px
 }
@@ -23,3 +30,53 @@ ul.socialaccount_providers {
     display:inline block;
 }
 
+
+/* @writingpage ckeditor */
+
+.trbl_ckeditorForm {
+}
+
+#div_id_title, #div_id_bod, #div_id_sequel, #div_id_cetegory, #div_id_tags {
+    background: #34495E; 
+}
+input.form_control {
+    border: 1px solid red;
+    box-shadow: none;
+}
+
+/* label */
+.control-label > span.asteriskField {
+    display: none; /* required field '*' 제거*/
+
+}
+
+.trbl_ckeditorForm .control-label {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 1000; 
+    display: block;
+    height: 40px;
+} 
+
+
+/* form */
+.form_control {
+    box-shadow: none;
+    border: none;
+}
+
+
+/* indexPanel */
+.trbl_indexPanel {
+    float: left;
+    position: fixed; 
+}
+.trbl_R, .trbl_Tu, .trbl_T {
+    display: block;
+    width: 30px;
+    margin: 0;
+    height: 100px;
+}
+.trbl_R {background: #F1C40F;}
+.trbl_Tu {background: #2ECC71;}
+.trbl_T {background: #9B59B6;}

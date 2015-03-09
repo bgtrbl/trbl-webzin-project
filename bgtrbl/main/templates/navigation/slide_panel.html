@@ -1,37 +1,32 @@
 {% load avatar_tags %}
 
 <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+    <div class="col-md-12 tabs-framed tabs-framed-right">
 
-    {% with request.user.userprofile as profile %}
-
-    <div class="tabs-framed tabs-framed-right boxed">
-
-        <div class="tab-content">
-
-            <div class="tab-pane fade in active" id="profile1">
-                <div class="profile-image">
-                {% avatar request.user 250 %}
-                </div>
-
-                <div class="bottom"> 
-                    <div class="profile-desc">
-                        <h3 class="profile-title">{{ profile.user }}</h3>
-                        <span class="profile-subtitle">{{ profile.bio|safe }}</span>
-                    </div>
-
-                    <ul class="profile-links clearfix">
-                        <li class="profile-views"><a href="{% url 'account_logout' %}"><i class="icon-small-author"></i>logout</a></li>
-                    <li class="profile-likes"><a href="#"><i class="icon-small-like"></i>12 980</a></li>
-                    <li class="profile-comments"><a href="#"><i class="icon-small-comment"></i>9 156</a></li>
-                    </ul>
-                </div> 
+        <div class="col-me-12 tab-content">
+            <div class="profile-image">
+            {% avatar request.user 250 %}
             </div>
 
+            <div class="bottom"> 
+                <div class="profile-desc">
+                {% with request.user.userprofile as profile %}
+                <h3 class="profile-title">{{ profile.user }}</h3>
+                <span class="profile-subtitle">{{ profile.bio|safe }}</span>
+                {% endwith %}
+                </div>
+
+                <ul class="profile-links clearfix">
+                    <li class="profile-views"><a href="{% url 'account_logout' %}">
+                    <i class="icon-small-author"></i>logout</a></li>
+                <li class="profile-likes"><a href="#"><i class="icon-small-like"></i>12 980</a></li>
+                <li class="profile-comments"><a href="#"><i class="icon-small-comment"></i>9 156</a></li>
+                </ul>
+            </div> 
         </div>
 
     </div>
 
-    {% endwith %}
-
+    <div class="col-md-12">history</div>
 </nav>
 
