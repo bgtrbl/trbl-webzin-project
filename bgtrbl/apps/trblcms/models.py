@@ -8,6 +8,8 @@ from bgtrbl.apps.trblcomment.models import CommentedItemMixin
 
 from ckeditor.fields import RichTextField
 
+from bs4 import BeautifulSoup
+
 
 # baseclass -> mixin class
 class SluggedItemMixin(models.Model):
@@ -108,6 +110,21 @@ class Article(SluggedItemMixin, CommentedItemMixin):
 
     # applying custom query set as manager
     objects = ArticleSequelQuerySet.as_manager()
+
+
+    # save method override 해서 url field에 헤더이미지 추가하는 로직작성 예정
+    # 지금은 그냥 첫번째 이미지를 가져옴
+    def get_header_img(self):
+        try:
+            return self._get_img_tags().pop(0).attrs
+        except IndexError:
+            pass
+
+        return None
+
+    def _get_img_tags(self):
+        soup = BeautifulSoup(str(self.body))
+        return soup.find_all('img')
 
     def get_absolute_url(self):
         return reverse('trblcms:article_detail', kwargs={'slug': self.slug})

@@ -11,27 +11,46 @@
 
 {% block content %}
 <a type="button" href="{% url 'trblcms:add_article' %}" class="btn"><i class="glyphicon glyphicon-pencil"></i><span>write</span></a>
+
+<!-- 현우 이버튼 테그 뭐임?? -->
 </button>
+<!-- 현우 이버튼 테그 뭐임?? -->
 
 <!-- view, 추천수 높은건 색이 다르게--> 
 <div id='front_forum'>  
-    <!-- wiki --> 
-        {% for item in Wiki %}
-        <div class="item">
-            <a href="{% url 'trblcms:article_detail' item.slug %}"><img src="http://imgs.tuts.dragoart.com/how-to-draw-princess-cadence-my-little-pony_1_000000012723_5.png" /><p><strong>{{ item.title }}</strong></p></a>
-            <p>{{ item.user.name }}</p>
-            <p id="date">{{ item.created_at|date }}</p>
-        </div>
-        {% endfor %}
-</div>
 
-    {% for item in Gallery %}
+    <!-- wiki --> 
+    {% for item in Wiki %}
     <div class="item">
-        <a href="{% url 'trblcms:article_detail' item.slug %}"><img src="http://imgs.tuts.dragoart.com/how-to-draw-princess-cadence-my-little-pony_1_000000012723_5.png" /><p><strong>{{ item.title }}</strong></p></a>
+        <a href="{% url 'trblcms:article_detail' item.slug %}">
+            <img src="http://imgs.tuts.dragoart.com/how-to-draw-princess-cadence-my-little-pony_1_000000012723_5.png" />
+            <p><strong>{{ item.title }}</strong></p>
+        </a>
         <p>{{ item.user.name }}</p>
         <p id="date">{{ item.created_at|date }}</p>
     </div>
     {% endfor %}
+
+</div>
+
+<div id='front_gallery'>  
+
+    <!-- gallery --> 
+    {% for item in Gallery %}
+    <div class="item">
+        <a href="{% url 'trblcms:article_detail' item.slug %}">
+            {% if item.get_header_img.src %}
+                <img src="{{ item.get_header_img.src }}" />
+            {% endif %}
+            <p><strong>{{ item.title }}</strong></p>
+        </a>
+        <p>{{ item.user.name }}</p>
+        <p id="date">{{ item.created_at|date }}</p>
+    </div>
+    {% endfor %}
+
+</div>
+
 {% endblock %}
 
 {% block footer %}
