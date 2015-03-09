@@ -14,10 +14,7 @@ django-markdown-deux==1.0.5
 django-sitetree==1.2.1
 django-taggit==0.12.2
 django-uuslug==1.0.3
-gnureadline==6.3.3
 gunicorn==19.2.1
-ipdb==0.8
-ipython==2.4.1
 markdown2==2.3.0
 oauthlib==0.7.2
 Pillow==2.7.0
