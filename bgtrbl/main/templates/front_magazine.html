@@ -25,22 +25,14 @@
     <!--review-->
     <div class="col-md-12">
 
-        <div class="col-md-6 trbl_review">
-            <div class="clearfix">
-            <div class="trbl_r"></div>
-            <a href="/" class="trbl_title">
-            </div>
-            <img class="img-responsive thm" src="http://www.joseilbo.com/gisa_img/1352216363.jpg" />
-            우리집강아지가 복슬인데요?</a><p class="trbl_body">허허허허허허허허허허허허허허허헣허허허허허
-        </div> 
-
         {% for item in Reviews %}
         <div class="col-md-6 trbl_review">
+            <img class="img-responsive thm" src="http://www.joseilbo.com/gisa_img/1352216363.jpg" />
             <div class="clearfix">
-            <div class="trbl_r"></div>
+                <div class="trbl_r"></div>
                 <a href="{% url 'trblcms:article_detail' item.slug %}" class="trbl_title">{{ item.title }}</a> 
-                <p class="trbl_body">{{ item.body|truncatewords:30|striptags }}</p>
             </div>
+            <p class="trbl_body">{{ item.body|truncatewords:30|striptags }}</p>
             <p>{{ item.created_at|date }}</p> 
         </div>
         {% endfor %}
@@ -67,19 +59,6 @@
 
 <!--toon-->
 <div class="col-md-2">
-{# toon
-    {% for item in Toon %} 
-
-        <div class="col-md-12 trbl_toon">
-            <div class="clearfix">
-                <div class="trbl_t"></div>
-                <a href="{% url 'trblcms:article_detail' item.slug %}" class="trbl_title">{{ item.title }}</a> 
-            </div>
-            <p class="trbl_body">{{ item.body|truncatewords:30|striptags }}</p>
-            <p class="trbl_date">{{ item.created_at|date }}</p> 
-        </div>
-    {% endfor%}
-#}
     <div class="col-md-12 toon">
         <img class="img-responsive" src="https://i1.ytimg.com/sh/7YFnn-JE4Zw/showposter.jpg?v=5073624b" />
     </div>

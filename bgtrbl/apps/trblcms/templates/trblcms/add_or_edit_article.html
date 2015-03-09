@@ -42,20 +42,19 @@
 
         {% csrf_token %}
         {% crispy article_form %} {# crispy form #}	
-        </div>
+        </form>
+        
 
         <div class="col-md-4 col-md-offset-8">
         {% buttons %}
-            <a type="submit" id="trbl_articleSubmit" class="btn btn-primary">
-                <span>{% bootstrap_icon "star" %}Submit</span>
-            </a>
+            <button type="submit" form="trbl_articleForm" id="trbl_articleSubmit" class="btn">
+            <span>{% bootstrap_icon "menu-left" %}Submit</span></button>
             <a action="action" type="button" value="Back" onclick="history.go(-1);" class="btn btn-red">
                 <span>{% bootstrap_icon "menu-left" %}Cancel</span>
             </a>
         {% endbuttons %}
         </div>
 
-        </form>
     </div>
 <script>
     CKEDITOR.replace("body", { customConfig : "{% static 'ckeditor/trblcms_config.js' %}",

@@ -2,9 +2,6 @@
 body {
     background: #ECF0F1;
 }
-header {
-    margin-bottom: 20px;
-}
 
 
 /* @login */
@@ -37,7 +34,6 @@ ul.socialaccount_providers {
 }
 
 #div_id_title, #div_id_bod, #div_id_sequel, #div_id_cetegory, #div_id_tags {
-    background: #34495E; 
 }
 input.form_control {
     border: 1px solid red;
