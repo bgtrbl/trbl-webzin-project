@@ -19,7 +19,7 @@ def home(request):
     # 이미지 임시 홀더 (design_comps/img)
     import os
     IMG_DIR = os.path.join(settings.MEDIA_ROOT,'design_comps','img')
-    context['images']=["/media/design_comps/img/{}".format(_) for _ in os.listdir(IMG_DIR)]
+    context['images']=["/media/design_comps/img/{}".format(_) for _ in os.listdir(IMG_DIR) if not _.startswith(".")]
 
     return render(request, 'main/home.html', context)
 
