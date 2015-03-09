@@ -6,6 +6,7 @@ from bgtrbl.apps.trblcms.models import Category, Article
 
 from allauth.account.forms import LoginForm
 
+from django.conf import settings
 
 def _add_modal_login_form(user, context):
     if not user.is_authenticated():
@@ -14,7 +15,12 @@ def _add_modal_login_form(user, context):
 
 def home(request):
     context = dict()
-    _add_modal_login_form(request.user, context)
+
+    # 이미지 임시 홀더 (design_comps/img)
+    import os
+    IMG_DIR = os.path.join(settings.MEDIA_ROOT,'design_comps','img')
+    context['images']=["/media/design_comps/img/{}".format(_) for _ in os.listdir(IMG_DIR)]
+
     return render(request, 'main/home.html', context)
 
 

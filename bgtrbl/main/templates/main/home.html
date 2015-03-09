@@ -9,8 +9,17 @@
 {% block content %}
     배고프다!<br>
     Apple fritters?
-<p>
-    <img src="http://s.mlpforums.com/uploads/post_images/img-487511-1-mlp-cutedash.png" alt="rd">
-</p>
+
+    <p>
+        <img
+        src="http://overachiever.typepad.com/.a/6a00d8341ce4d453ef0167617eba5e970b-pi" alt="apple_fritters">
+    </p>
+
+    {% for image in images %}
+    <p>
+        <img src="{{ image }}" alt="img-{{ forloop.counter0 }}">
+    </p>
+    {% endfor %}
+
 <!-- div class="fb-like" data-share="true" data-width="450" data-show-faces="true"></div -->
 {% endblock %}
