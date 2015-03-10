@@ -12,10 +12,36 @@
 {% block content %}
 <ul>
     <li> {{ object.user.username }} </li>
-    <li> {{ object.bio }} </li>
+    <li> {{ object.bio|safe }} </li>
     <li> {{ object.dob|date }} </li>
     <li> {{ object.gender }} </li>
     <li> {{ object.website }} </li>
+
     <li> {% avatar object.user %} </li>
+
+    <li> Recent Activities (5 items maximum): </li>
+    <ul>
+        <li> 최근 글 :
+            <ul>
+            {% for item in recent_acts.articles %}
+                <li> <a href="{{ item.get_absolute_url }}">{{ item }}</a> </li>
+            {% endfor %}
+            </ul>
+        </li>
+        <li> 최근 시퀄:
+            <ul>
+            {% for item in recent_acts.sequels %}
+                <li> <a href="{{ item.get_absolute_url }}">{{ item }}</a> </li>
+            {% endfor %}
+            </ul>
+        </li>
+        <li> 최근 댓글:
+            <ul>
+            {% for item in recent_acts.comments %}
+                <li> <a href="{{ item.get_absolute_url }}">{{ item }}</a> </li>
+            {% endfor %}
+            </ul>
+        </li>
+    </ul>
 </ul>
 {% endblock %}

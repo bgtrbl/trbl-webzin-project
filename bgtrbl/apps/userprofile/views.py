@@ -10,6 +10,15 @@ class UserProfileDetail(DetailView):
     model = UserProfile
     template_name = 'userprofile/userprofile_detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.get_object().user
+        context['recent_acts'] = { 'articles': user.article_set.get_recent(5),
+                                   'sequels': user.sequel_set.get_recent(5),
+                                   'comments': user.comment_set.get_recent(5)}
+        return context
+
+
 
 def editUserProfile(request):
     user_profile = UserProfile.objects.get(user=request.user)
