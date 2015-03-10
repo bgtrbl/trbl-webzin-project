@@ -7,16 +7,16 @@
 {% endblock %}
 
 {% block content %}
-    배고프다!<br>
-    Apple fritters?
-
     <p>
-        <img src="http://overachiever.typepad.com/.a/6a00d8341ce4d453ef0167617eba5e970b-pi" alt="apple_fritters">
+        <h2>배고프다! ...</h2>
+        <h5>Apple fritters?</h5>
     </p>
 
     {% for image in images %}
     <p>
-        <img src="{{ image }}" alt="img-{{ forloop.counter0 }}">
+        <a href="{{ image }}">
+            <img src="{{ image }}" alt="img-{{ forloop.counter0 }}">
+        </a>
     </p>
     {% endfor %}
 
