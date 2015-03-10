@@ -175,6 +175,13 @@ def show_tree():
     less.wait()
 
 
+def db_info():
+    import bgtrbl.settings
+    print("DB  : {}".format(bgtrbl.settings.DATABASES['default']['NAME']))
+    print("USER: {}".format(bgtrbl.settings.DATABASES['default']['USER']))
+    print("HOST: {}".format(bgtrbl.settings.DATABASES['default']['HOST']))
+    print("NAME: {}".format(bgtrbl.settings.DATABASES['default']['PORT']))
+
 def run_shell():
     print("starting django shell...")
     _excute('python3 manage.py shell')
@@ -221,6 +228,7 @@ if __name__ == '__main__':
     COMMANDS['clear_thread'] = {'func': lambda : clear_objects(CommentThread), 'desc': '쓰레드 전체 삭제'}
     COMMANDS['clear'] = {'func': lambda : [clear_objects(_) for _ in (Article, Sequel, Comment, CommentThread)], 'desc': '다 삭제'}
     COMMANDS['index'] = {'func': update_index, 'desc': '서치 인덱싱'}
+    COMMANDS['db'] = {'func': db_info, 'desc': 'Database info'}
     COMMANDS['create'] = {'func': wiki_scrap, 'desc': 'Wikipidea 아티클 스크래핑'}
     COMMANDS['count'] = {'func': count_objects, 'desc': 'db objects count info'}
     COMMANDS['quit'] = {'func': quit_pop, 'desc': '종료'}
