@@ -87,7 +87,7 @@ class Sequel(SluggedItemMixin, CommentedItemMixin):
     #def get_edit_url(self):
 
     def __str__(self):
-        return self.title
+        return "{}: {}".format(self.title, self.category.title)
 
     class Meta:
         ordering = ["-created_at"]
@@ -132,7 +132,7 @@ class Article(SluggedItemMixin, CommentedItemMixin):
     #def get_edit_url(self):
 
     def __str__(self):
-        return "{}: {}".format(self.title, self.sequel)
+        return "{}: {}: {}".format(self.title, self.sequel.title, self.category.title)
 
     class Meta:
         ordering = ["-created_at"]

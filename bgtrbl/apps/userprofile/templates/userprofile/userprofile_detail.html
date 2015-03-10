@@ -39,21 +39,27 @@
     <li> 글 :
         <ul>
         {% for item in recent_acts.articles %}
-            <li> <a href="{{ item.get_absolute_url }}">{{ item }}</a> </li>
+            <li> <a href="{{ item.get_absolute_url }}">{{ item.title }}</a> </li>
+        {% empty %}
+            <li>안적음 ...</li>
         {% endfor %}
         </ul>
     </li>
     <li> 시퀄:
         <ul>
         {% for item in recent_acts.sequels %}
-            <li> <a href="{{ item.get_absolute_url }}">{{ item }}</a> </li>
+            <li> <a href="{{ item.get_absolute_url }}">{{ item.title }}</a> </li>
+        {% empty %}
+            <li>안적음 ...</li>
         {% endfor %}
         </ul>
     </li>
     <li> 댓글:
         <ul>
         {% for item in recent_acts.comments %}
-            <li> <a href="{{ item.get_absolute_url }}">{{ item }}</a> </li>
+            <li> <a href="{{ item.get_absolute_url }}">{{ item.title }}</a> </li>
+        {% empty %}
+            <li>안적음 ...</li>
         {% endfor %}
         </ul>
     </li>
