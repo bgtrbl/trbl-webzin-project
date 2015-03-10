@@ -24,35 +24,37 @@
     {% for item in Wiki %}
 
         <div class="col-md-6">
-            <div class= trbl_articleTop">
-                    {% if item.get_header_img.src %}
-                    <img class="trbl_thumbnail" href="{% url 'trblcms:article_detail' item.slug%}" 
-                    src="{{ item.get_header_img.src }}" />
-                    {% endif %}
-                <div class="clearfix">
-
-                <div class="trbl_w"></div>
-                <a href="{% url 'trblcms:article_detail' item.slug %}">
-                    {{ item.title }}
-                </a>
-                </div>
-            </div>
+        <div class="trbl_wrapper">
             
+            <div class= "trbl_articleTop">         
+                {% if item.get_header_img.src %}
+                <a href="{% url 'trblcms:article_detail' item.slug%}">
+                <img class="trbl_thumbnail" src="{{ item.get_header_img.src }}" />
+                </a>
+                {% endif %}
+
+                <div class="clearfix">
+                    <span class="trbl_user">
+                    <a href="{{ item.user.userprofile.get_absolute_url }}">
+                    {% avatar item.user.get_username 30 %}
+                    </a>
+
+                    <a href="{% url 'trblcms:article_detail' item.slug %}" class="trbl_title">
+                        {{ item.title }}
+                    </a>
+                    </span>
+                </div>
+
+            </div>
+                
             <div class="trbl_articleBottom">
                 <p class="trbl_body">{{ item.body|truncatewords:30|striptags }}</p>
-                
-                <span class="trbl_user">
-                <a href="{{ item.user.userprofile.get_absolute_url }}" class="trbl_userName">
-                    {% avatar item.user.get_username 30 %} 
-                    {{ item.user.get_username }}
-                </a>
-                </span>
-
                 <p class="trbl_date">{{ item.created_at|date }}</p>
-            </div>
+            </div>     
+
+        </div>
         </div>
     {% endfor %}
-
     </div>
 
         <!-- gallery --> 
@@ -60,27 +62,32 @@
     {% for item in Gallery %}
 
         <div class="col-md-6">
-        <div class="trbl_articleTop">
-            {% if item.get_header_img.src %}
-            <img class="trbl_thumbnail" href="{% url 'trblcms:article_detail' item.slug %}" 
-            src="{{ item.get_header_img.src }}" />
-            {% endif %}
+        <div class="trbl_wrapper">
+            <div class="trbl_articleTop">
+                {% if item.get_header_img.src %}
+                <a href="{% url 'trblcms:article_detail' item.slug%}">
+                <img class="trbl_thumbnail" src="{{ item.get_header_img.src }}" />
+                </a>
+                {% endif %}
 
-            <div class="clearfix">
-            <div class="trbl_g"></div>
-            <a href="{% url 'trblcms:article_detail' item.slug %}">{{ item.title }}</a>
+                <div class="clearfix">
+                    <span class="trbl_user">
+                    <a href="{{ item.user.userprofile.get_absolute_url }}" >
+                        {% avatar item.user.get_username 30 %}
+                    </a>
+                    
+                    <a href="{% url 'trblcms:article_detail' item.slug %}" class="trbl_title">
+                        {{ item.title }}
+                    </a>
+                    </span>
+                </div>
+
             </div>
-        </div>
 
-        <div class="trbl_articlebottom">
-            <span class="trbl_user">
-            <a href="{{ item.user.userprofile.get_absolute_url }}" class="trbl_userName">
-                {% avatar item.user.get_username 30 %}
-                {{ item.user.get_username }}
-            </a>
-            </span>
-
-            <p class="trbl_date">{{ item.created_at|date }}</p>
+            <div class="trbl_articlebottom"> 
+                <p class="trbl_body">{{ item.body|truncatewords:30|striptags }}</p>
+                <p class="trbl_date">{{ item.created_at|date }}</p>
+            </div>
         </div>
         </div>
     {% endfor %}
