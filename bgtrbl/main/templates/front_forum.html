@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load avatar_tags %}
 
 {% block extra_head %}
     <link href="{% static 'masonary.css' %}" media="all" rel="stylesheet"> 
@@ -12,65 +13,83 @@
 {% block content %}
 <a type="button" href="{% url 'trblcms:add_article' %}" class="btn"><i class="glyphicon glyphicon-pencil"></i><span>write</span></a>
 
-<!-- 현우 이버튼 테그 뭐임?? -->
-</button>
-<!-- 현우 이버튼 테그 뭐임?? -->
+<div class="trbl_categoryPanel">
+    <a href="" class="trbl_panelW"></a>
+    <a href="" class="trbl_panelG"></a>
+</div>
 
-<!-- view, 추천수 높은건 색이 다르게--> 
-<div id='front_forum'>  
+<div class="container-fluid">
 
-    <!-- wiki --> 
+    <div class="col-md-6 trbl_wiki">
     {% for item in Wiki %}
-    <div class="item">
-        <a href="{% url 'trblcms:article_detail' item.slug %}">
-            <img src="http://imgs.tuts.dragoart.com/how-to-draw-princess-cadence-my-little-pony_1_000000012723_5.png" />
-            <p><strong>{{ item.title }}</strong></p>
-        </a>
-        <p>{{ item.user.name }}</p>
-        <p id="date">{{ item.created_at|date }}</p>
-    </div>
+
+        <div class="col-md-6">
+            <div class= trbl_articleTop">
+                    {% if item.get_header_img.src %}
+                    <img class="trbl_thumbnail" href="{% url 'trblcms:article_detail' item.slug%}" 
+                    src="{{ item.get_header_img.src }}" />
+                    {% endif %}
+                <div class="clearfix">
+
+                <div class="trbl_w"></div>
+                <a href="{% url 'trblcms:article_detail' item.slug %}">
+                    {{ item.title }}
+                </a>
+                </div>
+            </div>
+            
+            <div class="trbl_articleBottom">
+                <p class="trbl_body">{{ item.body|truncatewords:30|striptags }}</p>
+                
+                <span class="trbl_user">
+                <a href="{{ item.user.userprofile.get_absolute_url }}" class="trbl_userName">
+                    {% avatar item.user.get_username 30 %} 
+                    {{ item.user.get_username }}
+                </a>
+                </span>
+
+                <p class="trbl_date">{{ item.created_at|date }}</p>
+            </div>
+        </div>
     {% endfor %}
 
-</div>
+    </div>
 
-<div id='front_gallery'>  
-
-    <!-- gallery --> 
+        <!-- gallery --> 
+    <div class="col-md-6 trbl_gallery">  
     {% for item in Gallery %}
-    <div class="item">
-        <a href="{% url 'trblcms:article_detail' item.slug %}">
+
+        <div class="col-md-6">
+        <div class="trbl_articleTop">
             {% if item.get_header_img.src %}
-                <img src="{{ item.get_header_img.src }}" />
+            <img class="trbl_thumbnail" href="{% url 'trblcms:article_detail' item.slug %}" 
+            src="{{ item.get_header_img.src }}" />
             {% endif %}
-            <p><strong>{{ item.title }}</strong></p>
-        </a>
-        <p>{{ item.user.name }}</p>
-        <p id="date">{{ item.created_at|date }}</p>
-    </div>
+
+            <div class="clearfix">
+            <div class="trbl_g"></div>
+            <a href="{% url 'trblcms:article_detail' item.slug %}">{{ item.title }}</a>
+            </div>
+        </div>
+
+        <div class="trbl_articlebottom">
+            <span class="trbl_user">
+            <a href="{{ item.user.userprofile.get_absolute_url }}" class="trbl_userName">
+                {% avatar item.user.get_username 30 %}
+                {{ item.user.get_username }}
+            </a>
+            </span>
+
+            <p class="trbl_date">{{ item.created_at|date }}</p>
+        </div>
+        </div>
     {% endfor %}
-
+    </div>
 </div>
-
 {% endblock %}
 
 {% block footer %}
 {% endblock %}
 
 {% block extra_script %}
-
-<!--grid script -->
-<script src="{% static 'front_pages/js/masonary.js' %}"></script>
-<script src="{% static 'front_pages/js/imageloaded.js' %}"></script>
-<script>
-    var container = document.querySelector('#front_forum');
-    var msnry;
-    imagesLoaded( container, function() {
-        msnry = new Masonry( container,{
-        columnwidth: 250,
-        gutter: 30,
-        itemSelector: '.item'
-        });
-      });
-</script>
-
 {% endblock %}

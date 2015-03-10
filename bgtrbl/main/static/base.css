@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 /* @main */
 
 /* 횡 스크롤 방지코드 너어봄 
@@ -8,6 +9,7 @@ html, body {
             overflow-x: hidden;
 }
 
+/* @base */
 body {background: #ECF0F1;}
 header { 
     background: black;
@@ -15,6 +17,7 @@ header {
 .trbl_content {
     padding-top: 30px;
 }
+
 
 /* @login */
 #myModal .modal-content {
@@ -30,7 +33,7 @@ header {
     margin-left: 25px;
 }
 
-/* login social providers image */
+    /* login social providers image */
 ul.socialaccount_providers {
     margin-bottom: 15px
 }
@@ -40,7 +43,40 @@ ul.socialaccount_providers {
 }
 
 
-/* @writingpage ckeditor */
+/* categoryPanel */
+.trbl_categoryPanel {
+    float: left;
+    position: fixed; 
+}
+.trbl_panelR, .trbl_panelTu, .trbl_panelT, .trbl_panelW .trbl_panelG {
+    display: block;
+    width: 30px;
+    height: 91px;
+    margin: 0;
+}
+.trbl_panelR {background: #F1C40F;}
+.trbl_panelTu {background: #2ECC71;}
+.trbl_panelT {background: #9B59B6;}
+.trbl_panelW {background: #9B59B6;}
+.trbl_panelG {background: #9B59B6;}
+
+/* mark for article title */
+.trbl_r, .trbl_t, .trbl_tu, .trbl_w, .trbl_g {
+    float: left;
+    height: 23px;
+    width: 23px;
+    margin-top: 0px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+.trbl_r {background: #F1C40F;}
+.trbl_t {background: #2ECC71;}
+.trbl_tu {background:#9B59B6;}
+.trbl_w {background: #3498DB;}
+.trbl_g {background: #E74C3C}
+
+
+/* writingpage ckeditor */
 input.form_control {
     border: 1px solid red;
     box-shadow: none;
@@ -67,65 +103,38 @@ input.form_control {
 }
 
 
-/* indexPanel */
-.trbl_indexPanel {
-    float: left;
-    position: fixed; 
-}
-.trbl_R, .trbl_Tu, .trbl_T {
-    display: block;
-    width: 30px;
-    margin: 0;
-    height: 100px;
-}
-.trbl_R {background: #F1C40F;}
-.trbl_Tu {background: #2ECC71;}
-.trbl_T {background: #9B59B6;}
-
-
-/* magazine */
+/* Magazine & Forum grid */
+    /* grid */
 .container-fluid p { width: 100%; display: inline-block; font-weight: bold;
     font-size: 15px;
     margin-left: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
 }
-p.trbl_body {
-    display: block;
-    margin-top: 10px 0 0 0;
-    white-space: nowrp;
-    background: #fff !important;
-    border-style dotted solid;
-}
-.trbl_review .trbl_toon, .trbl_tutorial {
-    padding: 0;
-}
-.trbl_review > .col-md-6 {
-    margin-top: 30px; 
-}
 
-/* title, body, date */
-.trbl_title {
-    float: left;
-    margin-left: 5px;
-    margin-top : 5px;
-    width: 90%;
+.trbl_articleTop {margin-bottom: 3px;}
+.trbl_articleBottom {margin-bottom: 20px;}
+.trbl_articleTop > .clearfix {margin-top: 5px;}
+.trbl_review { margin-top: 20px;}
+
+    /* detail */
+.trbl_articleTop .trbl_title {
+    width: 100%;
     font-size: 18px;
-    display: inline-block;
 }
-
-/*category panel review, toon, tutorial*/
-.trbl_r, .trbl_t, .trbl_tu {
-    float: left;
+.trbl_articleTop .trbl_thumbnail { max-width: 100%; min-width: 90%;}
+.trbl_articleBottom p.trbl_date {
     margin-top: 5px;
-    height: 20px;
-    width: 20px;
-}
-.trbl_r {background: #F1C40F;}
-.trbl_t {background: #2ECC71;}
-.trbl_tu {background:#9B59B6;}
-
-p.trbl_date {
+    text-align: right;
     font-size: 11px;
+}
+.trbl_articleBottom .trbl_user { height: 30px;}
+.trbl_articleBottom .trbl_user img { vertical-align: middle;}
+.trbl_articleBottom .trbl_user a { color: black; padding-left: 5px;}
+
+/* forum */
+.trbl_wiki img, .trbl_gallery img {
+    max-width: 100%;
+    max-height: 100%; 
 }
 

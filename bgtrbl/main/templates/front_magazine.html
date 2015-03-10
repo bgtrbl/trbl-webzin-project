@@ -1,76 +1,115 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load avatar_tags %}
+
 
 {% block extra_head %}
 {% endblock %}
 
 {% block content %}
-<!-- index panel -->
-<div class="trbl_indexPanel">
-    <a href="" class="trbl_R"></a>
-    <p class="trbl_Tu"></P>
-    <p class="trbl_T"></P>
+<!-- category panel -->
+<div class="trbl_categoryPanel">
+    <a href="" class="trbl_panelR"></a>
+    <a href="" class="trbl_panelTu"></a>
+    <a href="" class="trbl_panelT"></a>
 </div>
 
 <div class="container-fluid">
 <div class="row">
 
-<div class="col-md-6">
-
+    <div class="col-md-6">
     <!--main article-->
-    <div class="col-md-12">
-        <img class="img-responsive" src="http://fc04.deviantart.net/fs70/f/2011/350/4/5/my_little_pony_fim_six_mane_wallpaper_by_bluedragonhans-d4j9n4k.png" /></div> 
+        <div class="col-md-12 trbl_topImg">
+            <img class="img-responsive" 
+            src="http://fc04.deviantart.net/fs70/f/2011/350/4/5/my_little_pony_fim_six_mane_wallpaper_by_bluedragonhans-d4j9n4k.png" />
+        </div> 
 
     <!--review-->
     <div class="col-md-12 trbl_review">
+    {% for item in Reviews %}
 
-        {% for item in Reviews %}
         <div class="col-md-6">
-            <img class="img-responsive thm" src="http://www.joseilbo.com/gisa_img/1352216363.jpg" />
-            <div class="clearfix">
+        <div class="trbl_articleTop">
+            {% if item.get_header_img.src %}
+            <img class="trbl_thumbnail" href="{% url 'trblcms:article_detail' item.slug %}" 
+            src="{{ item.get_header_img.src }}" />
+            {% endif%}
+
+            <div class="clearfix"> 
                 <div class="trbl_r"></div>
                 <a href="{% url 'trblcms:article_detail' item.slug %}" class="trbl_title">{{ item.title }}</a> 
             </div>
-            <p class="trbl_body">{{ item.body|truncatewords:30|striptags }}</p>
-            <p>class="trbl_date">{{ item.created_at|date }}</p> 
         </div>
-        {% endfor %}
+
+        <div class="trbl_articleBottom">
+            <p class="trbl_body">{{ item.body|truncatewords:30|striptags }}</p>
+
+            <span class="trbl_user">
+            <a href="{{ item.user.userprofile.get_absolute_url }}" class="trbl_userName">
+                {% avatar item.user.get_username 30 %} 
+                {{ item.user.get_username }}
+            </a>
+            </span>
+
+            <p class="trbl_date">{{ item.created_at|date }}</p> 
+        </div>
+        </div>
+    {% endfor %}
 
     </div>
 
-</div>
+    </div>
 
 <!--tutorial-->
-<div class="col-md-4 trbl_tutorial">
-{% for item in Tutorials %} 
+    <div class="col-md-4 trbl_tutorial">
+    {% for item in Tutorials %} 
 
-    <div class="col-md-12">
-        <div class="clearfix">
-            <div class="trbl_tu"></div>
-            <a href="{% url 'trblcms:article_detail' item.slug %}" class="trbl_title">{{ item.title }}</a> 
+        <div class="col-md-12">
+        <div class="trbl_articleTop">
+            {% if item.get_header_img.src %}
+            <img class="trbl_thumbnail" href="{% url 'trblcms:article_detail' item.slug %}" 
+            src="{{ item.get_header_img.src }}" />
+            {% endif%}
+
+            <div class="clearfix">
+                <div class="trbl_tu"></div>
+                <a href="{% url 'trblcms:article_detail' item.slug %}" class="trbl_title">{{ item.title }}</a> 
+            </div> 
         </div>
-        <p class="trbl_body">{{ item.body|truncatewords:30|striptags }}</p>
-        <p class="trbl_date">{{ item.created_at|date }}</p> 
-    </div>
+            
 
-{% endfor%}
-</div>
+        <div class= "trbl_articleBottom">
+            <p class="trbl_body">{{ item.body|truncatewords:30|striptags }}</p>
+
+            <span class="trbl_user">
+            <a href="{{ item.user.userprofile.get_absolute_url }}" class="trbl_userName">
+                {% avatar item.user.get_username 30 %} 
+                {{ item.user.get_username }}
+            </a>
+            </span>
+
+            <p class="trbl_date">{{ item.created_at|date }}</p> 
+        </div>
+        </div>
+
+    {% endfor%}
+    </div>
 
 <!--toon-->
-<div class="col-md-2 trbl_toon">
-    <div class="col-md-12 toon">
-        <img class="img-responsive" src="https://i1.ytimg.com/sh/7YFnn-JE4Zw/showposter.jpg?v=5073624b" />
+    <div class="col-md-2 trbl_toon">
+        <div class="col-md-12 toon">
+            <img class="img-responsive" src="https://i1.ytimg.com/sh/7YFnn-JE4Zw/showposter.jpg?v=5073624b" />
+        </div>
+        <div class="col-md-12 toon">
+            <img class="img-responsive" src="http://img2.wikia.nocookie.net/__cb20110818114258/looneytunes/images/8/80/Tiny_toons_vs_batman_ad-5.jpg" />
+        </div>
+        <div class="col-md-12 toon">
+            <img class="img-responsive" src="http://craphound.com/images/1381392_48ed_625x1000.jpg" />
+        </div>
+        <div class="col-md-12 toon">
+            <img class="img-responsive" src="http://img3.wikia.nocookie.net/__cb20130404235352/angrybirds/images/0/0b/Toons_stella.png" />
+        </div>
     </div>
-    <div class="col-md-12 toon">
-        <img class="img-responsive" src="http://img2.wikia.nocookie.net/__cb20110818114258/looneytunes/images/8/80/Tiny_toons_vs_batman_ad-5.jpg" />
-    </div>
-    <div class="col-md-12 toon">
-        <img class="img-responsive" src="http://craphound.com/images/1381392_48ed_625x1000.jpg" />
-    </div>
-    <div class="col-md-12 toon">
-        <img class="img-responsive" src="http://img3.wikia.nocookie.net/__cb20130404235352/angrybirds/images/0/0b/Toons_stella.png" />
-    </div>
-</div>
 
 </div>
 </div>

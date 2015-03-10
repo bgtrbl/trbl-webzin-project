@@ -128,7 +128,8 @@ def create_sequel():
         print('createing a sequel ...')
         _a = choice(articles)
         title = '[seq] {}'.format(_a.title)
-        description = '<img src="{}" art="sequel-image">'.format(_a.get_header_img()['src'])
+        img = _a.get_header_img()
+        description = '<img src="{}">'.format(img['src']) if img else ''
         sequel = Sequel.objects.create(user=user, title=title,
                                     description=description, category=category)
         for a in articles:
