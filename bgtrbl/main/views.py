@@ -28,7 +28,7 @@ def home(request):
     "tumblr_lmyk6v85ho1qla8s3o1_500.jpg"]
 
     context['images'] = [ "/media/design_comps/img/{}".format(_) for _ in i_1 ]
-
+    _add_modal_login_form(request.user, context)
     return render(request, 'main/home.html', context)
 
 
