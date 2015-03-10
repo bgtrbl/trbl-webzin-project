@@ -113,14 +113,18 @@ def create_sequel():
         category = choice(Category.objects.filter(level=2))
         print('selected category:', category)
 
+        # 아티클 가져오기
         print('getting articles ...')
         if not category.article_set.filter(category=category, sequel=None, user=user).exists():
             print('empty set returned, skipping ...')
             continue
         articles = category.article_set.filter(category=category, sequel=None, user=user).all()
-        print('choosing ...', articles)
-        articles = sample(list(articles), randrange(1, len(articles)))
 
+        print('choosing ...', articles)
+        # 랜덤으로 아티클 뽑기
+        if len(articles) != 1:
+            articles = sample(list(articles), randrange(1, len(articles)))
+        # 시퀄 만들기
         print('createing a sequel ...')
         sequel = Sequel.objects.create(user=user, title=choice(articles).title,
                                     description=choice(articles).body, category=category)
@@ -132,7 +136,10 @@ def create_sequel():
         print('\t related articles: {}'.format(sequel.article_set.all()))
         sequels.append(sequel)
 
-    print('\ncreated {} sequels: {}'.format(len(sequels), sequel))
+    if sequels:
+        print('\ncreated {} sequels: {}'.format(len(sequels), sequels))
+    else:
+        print('\nno sequel created')
 
 
 def count_objects():
