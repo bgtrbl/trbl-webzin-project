@@ -33,24 +33,20 @@
                 </a>
                 {% endif %}
 
-                <div class="clearfix">
-                    <span class="trbl_user">
-                    <a href="{{ item.user.userprofile.get_absolute_url }}">
-                    {% avatar item.user.get_username 30 %}
-                    </a>
+                <span class="trbl_user">
+                <a href="{{ item.user.userprofile.get_absolute_url }}">
+                {% avatar item.user.get_username 30 %}
+                </a>
 
-                    <a href="{% url 'trblcms:article_detail' item.slug %}" class="trbl_title">
-                        {{ item.title }}
-                    </a>
-                    </span>
-                </div>
+                <a href="{% url 'trblcms:article_detail' item.slug %}" class="trbl_title">
+                    {{ item.title }}
+                </a>
+                </span>
 
             </div>
                 
-            <div class="trbl_articleBottom">
                 <p class="trbl_body">{{ item.body|truncatewords:30|striptags }}</p>
                 <p class="trbl_date">{{ item.created_at|date }}</p>
-            </div>     
 
         </div>
         </div>
@@ -63,6 +59,7 @@
 
         <div class="col-md-6">
         <div class="trbl_wrapper">
+
             <div class="trbl_articleTop">
                 {% if item.get_header_img.src %}
                 <a href="{% url 'trblcms:article_detail' item.slug%}">
@@ -70,24 +67,19 @@
                 </a>
                 {% endif %}
 
-                <div class="clearfix">
-                    <span class="trbl_user">
-                    <a href="{{ item.user.userprofile.get_absolute_url }}" >
-                        {% avatar item.user.get_username 30 %}
-                    </a>
-                    
-                    <a href="{% url 'trblcms:article_detail' item.slug %}" class="trbl_title">
-                        {{ item.title }}
-                    </a>
-                    </span>
-                </div>
-
+                <span class="trbl_forumTitleSpan">
+                <a href="{{ item.user.userprofile.get_absolute_url }}" >
+                    {% avatar item.user.get_username 30 %}
+                </a>
+                
+                <a href="{% url 'trblcms:article_detail' item.slug %}" class="trbl_title">
+                    {{ item.title }}
+                </a>
+                </span>
             </div>
 
-            <div class="trbl_articlebottom"> 
-                <p class="trbl_body">{{ item.body|truncatewords:30|striptags }}</p>
-                <p class="trbl_date">{{ item.created_at|date }}</p>
-            </div>
+            <p class="trbl_body">{{ item.body|truncatewords:30|striptags }}</p>
+            <p class="trbl_date">{{ item.created_at|date }}</p>
         </div>
         </div>
     {% endfor %}
