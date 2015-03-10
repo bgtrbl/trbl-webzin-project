@@ -1,8 +1,11 @@
 /* @main */
-body {
-    background: #ECF0F1;
+body {background: #ECF0F1;}
+header { 
+    background: black;
 }
-
+.trbl_content {
+    padding-top: 30px;
+}
 
 /* @login */
 #myModal .modal-content {
@@ -29,12 +32,6 @@ ul.socialaccount_providers {
 
 
 /* @writingpage ckeditor */
-
-.trbl_ckeditorForm {
-}
-
-#div_id_title, #div_id_bod, #div_id_sequel, #div_id_cetegory, #div_id_tags {
-}
 input.form_control {
     border: 1px solid red;
     box-shadow: none;
@@ -43,7 +40,6 @@ input.form_control {
 /* label */
 .control-label > span.asteriskField {
     display: none; /* required field '*' 제거*/
-
 }
 
 .trbl_ckeditorForm .control-label {
@@ -76,3 +72,51 @@ input.form_control {
 .trbl_R {background: #F1C40F;}
 .trbl_Tu {background: #2ECC71;}
 .trbl_T {background: #9B59B6;}
+
+
+/* magazine */
+.container-fluid p { width: 100%; display: inline-block; font-weight: bold;
+    font-size: 15px;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+p.trbl_body {
+    display: block;
+    margin-top: 10px 0 0 0;
+    white-space: nowrp;
+    background: #fff !important;
+    border-style dotted solid;
+}
+.trbl_review .trbl_toon, .trbl_tutorial {
+    padding: 0;
+}
+.trbl_review > .col-md-6 {
+    margin-top: 30px; 
+}
+
+/* title, body, date */
+.trbl_title {
+    float: left;
+    margin-left: 5px;
+    margin-top : 5px;
+    width: 90%;
+    font-size: 18px;
+    display: inline-block;
+}
+
+/*category panel review, toon, tutorial*/
+.trbl_r, .trbl_t, .trbl_tu {
+    float: left;
+    margin-top: 5px;
+    height: 20px;
+    width: 20px;
+}
+.trbl_r {background: #F1C40F;}
+.trbl_t {background: #2ECC71;}
+.trbl_tu {background:#9B59B6;}
+
+p.trbl_date {
+    font-size: 11px;
+}
+

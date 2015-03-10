@@ -34,7 +34,10 @@
 {% block root_content %}
     <!--snippet button style change-->
         {% bootstrap_messages %}
+
+        <div class="trbl_content">
         {% block content %}(no content){% endblock %}
+        </div>
 
     {% if 'modal_login_form' %}
         <!-- Modal -->

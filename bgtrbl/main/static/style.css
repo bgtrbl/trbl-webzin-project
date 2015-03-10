@@ -944,7 +944,7 @@ p.italic {font-style: italic;}
 }
 .menu > li.trbl_sideToggle i {
     font-size: 25px; 
-    padding-bottom: 0;
+    text-align: center;
 }
 
 
@@ -953,13 +953,13 @@ p.italic {font-style: italic;}
     font-family: "Allerta", sans-serif;
     font-size: 15px;
     font-weight: 400;
-    color: #34495e;
-    size: 25px;
+    color: #fff;
+    font-size: 17px;
     height: 55px;
     text-align: center;
     line-height: 18px;
     margin-bottom: 0;
-    padding: 15px 5px 15px;
+    padding: 17px 5px 15px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
