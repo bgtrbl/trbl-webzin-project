@@ -26,6 +26,7 @@ urlpatterns = patterns('',
     url(r'^ckeditor/', include('ckeditor.urls')),
     url(r'^search/', include('haystack.urls')),
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': MEDIA_ROOT}),
+    url(r'^flatpage/(?P<url>.*)$', 'django.contrib.flatpages.views.flatpage', name='flatpage'),
     url(r'^robots.txt$', lambda r: HttpResponse("User-agent: *\nDisallow: /", content_type="text/plain")),
 )
 # temporary media url 나중에 지워야함
