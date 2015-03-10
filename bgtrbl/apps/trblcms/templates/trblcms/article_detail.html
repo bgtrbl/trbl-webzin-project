@@ -29,7 +29,9 @@
     <div class="bdy">
         <p>Created at - {{ object.created_at|date }}</p>
         <p>Modified at - {{ object.modified_at|date }}</p>
-        <p>Sequel - {{ object.sequel }}</p>
+        {% if object.sequel %}
+            <p>Sequel - <a href="{{ object.sequel.get_absolute_url }}">{{ object.sequel }}</a></p>
+        {% endif %}
         <p>{{ object.body|safe }}</p>
         <p>Tags -
             {% for tag in object.tags.all %}

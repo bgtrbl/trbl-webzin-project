@@ -68,7 +68,7 @@ def wiki_scrap():
             if cats and not Category.objects.filter(title=cats).exists():
                 raise KeyError
 
-            user_name = input('user[random] : ') or choice(User.objects.all()).username
+            user_name = input('user[random] : ')
             if user_name and not User.objects.filter(username=user_name).exists():
                 raise KeyError
 
@@ -126,8 +126,11 @@ def create_sequel():
             articles = sample(list(articles), randrange(1, len(articles)))
         # 시퀄 만들기
         print('createing a sequel ...')
-        sequel = Sequel.objects.create(user=user, title=choice(articles).title,
-                                    description=choice(articles).body, category=category)
+        _a = choice(articles)
+        title = '[seq] {}'.format(_a.title)
+        description = '<img src="{}" art="sequel-image">'.format(_a.get_header_img()['src'])
+        sequel = Sequel.objects.create(user=user, title=title,
+                                    description=description, category=category)
         for a in articles:
             a.sequel = sequel
             a.save()
