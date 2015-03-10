@@ -2,7 +2,6 @@
 {% load staticfiles %}
 
 {% block extra_head %}
- <link href="{% static 'zine.css' %}" media="all" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -20,20 +19,20 @@
 
     <!--main article-->
     <div class="col-md-12">
-        <img class="img-responsive" src="http://fc04.deviantart.net/fs70/f/2011/350/4/5/my_little_pony_fim_six_mane_wallpaper_by_bluedragonhans-d4j9n4k.png"/></div> 
+        <img class="img-responsive" src="http://fc04.deviantart.net/fs70/f/2011/350/4/5/my_little_pony_fim_six_mane_wallpaper_by_bluedragonhans-d4j9n4k.png" /></div> 
 
     <!--review-->
-    <div class="col-md-12">
+    <div class="col-md-12 trbl_review">
 
         {% for item in Reviews %}
-        <div class="col-md-6 trbl_review">
+        <div class="col-md-6">
             <img class="img-responsive thm" src="http://www.joseilbo.com/gisa_img/1352216363.jpg" />
             <div class="clearfix">
                 <div class="trbl_r"></div>
                 <a href="{% url 'trblcms:article_detail' item.slug %}" class="trbl_title">{{ item.title }}</a> 
             </div>
             <p class="trbl_body">{{ item.body|truncatewords:30|striptags }}</p>
-            <p>{{ item.created_at|date }}</p> 
+            <p>class="trbl_date">{{ item.created_at|date }}</p> 
         </div>
         {% endfor %}
 
@@ -58,7 +57,7 @@
 </div>
 
 <!--toon-->
-<div class="col-md-2">
+<div class="col-md-2 trbl_toon">
     <div class="col-md-12 toon">
         <img class="img-responsive" src="https://i1.ytimg.com/sh/7YFnn-JE4Zw/showposter.jpg?v=5073624b" />
     </div>
