@@ -1,4 +1,13 @@
 /* @main */
+
+/* 횡 스크롤 방지코드 너어봄 
+ * http://stackoverflow.com/questions/17756649/disable-the-horizontal-scroll
+ * */
+html, body {
+        max-width: 100%;
+            overflow-x: hidden;
+}
+
 body {background: #ECF0F1;}
 header { 
     background: black;
