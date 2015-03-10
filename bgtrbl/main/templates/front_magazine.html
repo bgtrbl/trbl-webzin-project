@@ -44,9 +44,10 @@
         <div class="trbl_articleBottom">
             <p class="trbl_body">{{ item.body|truncatewords:30|striptags }}</p>
 
-            <span class="trbl_user">
+            <span class="trbl_user clearfix">
             <a href="{{ item.user.userprofile.get_absolute_url }}">
                 {% avatar item.user.get_username 30 %} 
+                {{ item.user.get_username }}
             </a>
             </span>
 

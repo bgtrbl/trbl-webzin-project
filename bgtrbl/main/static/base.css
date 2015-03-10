@@ -61,7 +61,7 @@ ul.socialaccount_providers {
 .trbl_panelG {background: #9B59B6;}
 
 /* mark for article title */
-.trbl_r, .trbl_t, .trbl_tu, .trbl_w, .trbl_g {
+.trbl_r, .trbl_t, .trbl_tu,{
     float: left;
     height: 23px;
     width: 23px;
@@ -107,12 +107,11 @@ input.form_control {
     /* grid */
 .container-fluid p { width: 100%; display: inline-block; font-weight: bold;
     font-size: 15px;
-    margin-left: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-.trbl_wrapper {height: 500px;}
+.trbl_forumWrapper {height: 400px;}
 .trbl_articleTop {margin-bottom: 3px;}
 .trbl_articleTop .clearfix {margin-top: 5px;}
 .trbl_articleBottom {
@@ -126,17 +125,18 @@ input.form_control {
     width: 100%;
     font-size: 18px;
 }
-.trbl_articleTop .trbl_thumbnail { max-width: 100%; min-width: 100%; max-height: 300px;}
+.trbl_articleBottom p.trbl_body {overflow: auto; margin-left: 0;}
+.trbl_articleTop .trbl_thumbnail {margin-bottom: 10px; max-width: 100%; min-width: 100%; max-height: 300px;}
 .trbl_articleBottom .trbl_date {
     margin-top: 5px;
     text-align: right;
     font-size: 11px;
 }
 .trbl_articleTop .trbl_user img {vertical-align: middle;}
-.trbl_articleBottom .trbl_user { height: 30px; text-align: right;}
+.trbl_articleTop .trbl_user {margin-top: 10px; height: 30px; text-align: right;}
+.trbl_articleBottom .trbl_user {margin-top: 10px; height: 30px; text-align: right;}
 .trbl_articleBottom .trbl_user img { vertical-align: middle;}
-.trbl_articleBottom .trbl_user a { color: black; padding-left: 5px; height: 100%;}
+.trbl_articleBottom .trbl_user a { float:left; color: black; padding-left: 5px; width: 100%; height: 100%;}
 .trbl_articleTop .trbl_forumTitleSpan {margin-top: 10px}
-.trbl_forumTitleSpan img {} 
 /* forum */
 

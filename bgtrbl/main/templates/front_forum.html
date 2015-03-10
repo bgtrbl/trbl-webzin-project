@@ -24,7 +24,7 @@
     {% for item in Wiki %}
 
         <div class="col-md-6">
-        <div class="trbl_wrapper">
+        <div class="trbl_forumWrapper">
             
             <div class= "trbl_articleTop">         
                 {% if item.get_header_img.src %}
@@ -33,7 +33,7 @@
                 </a>
                 {% endif %}
 
-                <span class="trbl_user">
+                <span class="trbl_user clearfix">
                 <a href="{{ item.user.userprofile.get_absolute_url }}">
                 {% avatar item.user.get_username 30 %}
                 </a>
@@ -64,10 +64,9 @@
                 {% if item.get_header_img.src %}
                 <a href="{% url 'trblcms:article_detail' item.slug%}">
                 <img class="trbl_thumbnail" src="{{ item.get_header_img.src }}" />
-                </a>
-                {% endif %}
+                </a> {% endif %}
 
-                <span class="trbl_forumTitleSpan">
+                <span class="trbl_user clearfix">
                 <a href="{{ item.user.userprofile.get_absolute_url }}" >
                     {% avatar item.user.get_username 30 %}
                 </a>

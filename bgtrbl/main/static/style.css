@@ -1046,12 +1046,12 @@ p.italic {font-style: italic;}
 
 /* Responsive */
 @media (max-width: 991px) {
-    .menu > li > a {font-size: 13px;}
-    .menu ul li a {font-size: 12px;}
+    .menu > li > a {font-size: 7px;}
+    .menu > li.trbl_sideToggle {margin-right: 100;}
 }
-@media (max-width: 767px) {
-    .menu, .menu-icon {display: none;}
-    .slicknav_menu {display: block;}
+@media (max-width: 798px) {
+    .menu > li > a {overflow: hidden;}
+    .menu > li.trbl_sideToggle {margin-right: 0;}
 }
 
 /*-----------------------------------*/
