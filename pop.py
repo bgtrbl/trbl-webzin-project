@@ -12,7 +12,7 @@ from bgtrbl.apps.trblcomment.models import Comment, CommentThread
 from django.contrib.auth.models import User
 
 from helpers import wikiscrap
-from random import choice
+from random import choice, sample, randrange
 import subprocess
 import datetime
 import time
@@ -99,6 +99,42 @@ def wiki_scrap():
     print('to update index, run "index" command')
 
 
+def create_sequel():
+    while True:
+        try: n = int(input('Sequel count: '))
+        except ValueError: continue
+        break
+
+    sequels = []
+    for trial in range(n):
+        print('trial:', trial)
+        user = choice(User.objects.all())
+        print('selected user:', user)
+        category = choice(Category.objects.filter(level=2))
+        print('selected category:', category)
+
+        print('getting articles ...')
+        if not category.article_set.filter(category=category, sequel=None, user=user).exists():
+            print('empty set returned, skipping ...')
+            continue
+        articles = category.article_set.filter(category=category, sequel=None, user=user).all()
+        print('choosing ...', articles)
+        articles = sample(list(articles), randrange(1, len(articles)))
+
+        print('createing a sequel ...')
+        sequel = Sequel.objects.create(user=user, title=choice(articles).title,
+                                    description=choice(articles).body, category=category)
+        for a in articles:
+            a.sequel = sequel
+            a.save()
+
+        print('{} sequel saved'.format(sequel))
+        print('\t related articles: {}'.format(sequel.article_set.all()))
+        sequels.append(sequel)
+
+    print('\ncreated {} sequels: {}'.format(len(sequels), sequel))
+
+
 def count_objects():
     import bgtrbl.settings
     print("counting objects...")
@@ -182,6 +218,7 @@ def db_info():
     print("HOST: {}".format(bgtrbl.settings.DATABASES['default']['HOST']))
     print("NAME: {}".format(bgtrbl.settings.DATABASES['default']['PORT']))
 
+
 def run_shell():
     print("starting django shell...")
     _excute('python3 manage.py shell')
@@ -222,14 +259,15 @@ if __name__ == '__main__':
 
     SVR = Server()
     COMMANDS = {}
-    COMMANDS['clear_article'] = {'func': lambda : clear_objects(Article), 'desc': '아티클 전체 삭제'}
-    COMMANDS['clear_sequel'] = {'func': lambda : clear_objects(Sequel), 'desc': '시퀄 전체 삭제'}
-    COMMANDS['clear_comment'] = {'func': lambda : clear_objects(Comment), 'desc': '댓글 전체 삭제'}
-    COMMANDS['clear_thread'] = {'func': lambda : clear_objects(CommentThread), 'desc': '쓰레드 전체 삭제'}
-    COMMANDS['clear'] = {'func': lambda : [clear_objects(_) for _ in (Article, Sequel, Comment, CommentThread)], 'desc': '다 삭제'}
+    COMMANDS['clr_a'] = {'func': lambda : clear_objects(Article), 'desc': '아티클 전체 삭제'}
+    COMMANDS['clr_s'] = {'func': lambda : clear_objects(Sequel), 'desc': '시퀄 전체 삭제'}
+    COMMANDS['clr_c'] = {'func': lambda : clear_objects(Comment), 'desc': '댓글 전체 삭제'}
+    COMMANDS['clr_t'] = {'func': lambda : clear_objects(CommentThread), 'desc': '쓰레드 전체 삭제'}
+    COMMANDS['clr'] = {'func': lambda : [clear_objects(_) for _ in (Article, Sequel, Comment, CommentThread)], 'desc': '다 삭제'}
     COMMANDS['index'] = {'func': update_index, 'desc': '서치 인덱싱'}
     COMMANDS['db'] = {'func': db_info, 'desc': 'Database info'}
-    COMMANDS['create'] = {'func': wiki_scrap, 'desc': 'Wikipidea 아티클 스크래핑'}
+    COMMANDS['crt'] = {'func': wiki_scrap, 'desc': 'Wikipidea 아티클 스크래핑'}
+    COMMANDS['crt_s'] = {'func': create_sequel, 'desc': '랜덤 시퀄링'}
     COMMANDS['count'] = {'func': count_objects, 'desc': 'db objects count info'}
     COMMANDS['quit'] = {'func': quit_pop, 'desc': '종료'}
     COMMANDS['run'] = {'func': SVR.run, 'desc': '서버 실행 -> 0.0.0.0:8000'}

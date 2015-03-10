@@ -74,7 +74,8 @@ def pars_enha(doc):
 def pars_xkcd(doc):
     title = doc.find('div', attrs={'id': 'ctitle'}).extract()
     transcript = doc.find('div', attrs={'id': 'transcript'}).extract()
-    transcript = transcript.string.replace('\n', "<br>")
+    if transcript:
+        transcript = transcript.string.replace('\n', "<br>")
     comic = doc.find('div', attrs={'id': 'comic'}).extract()
     return {
             'title': title.string,
