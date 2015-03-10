@@ -8,8 +8,9 @@ from bgtrbl.apps.trblcomment.models import CommentedItemMixin
 
 from ckeditor.fields import RichTextField
 
-from bs4 import BeautifulSoup
+from .helpers import get_visible_string
 
+from bs4 import BeautifulSoup
 
 # baseclass -> mixin class
 class SluggedItemMixin(models.Model):
@@ -116,20 +117,22 @@ class Article(SluggedItemMixin, CommentedItemMixin):
     # 지금은 그냥 첫번째 이미지를 가져옴
     def get_header_img(self):
         try:
-            return self._get_img_tags().pop(0).attrs
+            return self._img_tags().pop(0).attrs
         except IndexError:
             pass
 
         return None
 
-    def _get_img_tags(self):
-        soup = BeautifulSoup(str(self.body))
-        return soup.find_all('img')
+    def _img_tags(self):
+        return BeautifulSoup(self.body).find_all('img')
+
+    # 짧은 바디 줌
+    def get_body_string(self):
+        body_text_tags = BeautifulSoup(self.body).findAll(text=True)
+        return get_visible_string(body_text_tags)
 
     def get_absolute_url(self):
         return reverse('trblcms:article_detail', kwargs={'slug': self.slug})
-
-    #def get_edit_url(self):
 
     def __str__(self):
         return "{}: {}: {}".format(self.title, self.sequel.title, self.category.title)

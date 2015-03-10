@@ -45,7 +45,7 @@
 
             </div>
                 
-                <p class="trbl_body">{{ item.body|truncatewords:30|striptags }}</p>
+                <p class="trbl_body">{{ item.get_body_string|truncatewords:10 }}</p>
                 <p class="trbl_date">{{ item.created_at|date }}</p>
 
         </div>
@@ -77,7 +77,7 @@
                 </span>
             </div>
 
-            <p class="trbl_body">{{ item.body|truncatewords:30|striptags }}</p>
+            <p class="trbl_body">{{ item.get_body_string|truncatewords:10 }}</p>
             <p class="trbl_date">{{ item.created_at|date }}</p>
         </div>
         </div>
