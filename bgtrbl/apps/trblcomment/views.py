@@ -20,7 +20,9 @@ def saveComment(request, content_type, pk):
             Comment.objects.create(user=request.user,
                     text=form.cleaned_data['text'],
                     parent_thread=commented_item.child_thread)
-        else: print("form valid({}); content type({}) isn't matching".format(form.is_valid(), content_type))
+        else:
+            # @404
+            print("form valid({}); content type({}) isn't matching".format(form.is_valid(), content_type))
     # @? comment redirection... where to go if fails?
     # @todo support many content type that inherits CommentedItemMixin
     return redirect(commented_item.get_absolute_url())
