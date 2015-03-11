@@ -3,25 +3,22 @@
 {% load crispy_forms_tags %}
 
 
-{% block bootstrap3_extra_head %}
-<!--script src={% static "ckeditor/ckeditor.js" %}>
-</script-->
-{% endblock %}
-
 {% block extra_head %}
-    <script>
-        $(document).ready(function(){
-            // set a function that switches its states after the first
-            // submission to block duplicated submission
-            $("#comment_form").submit(function() {
-                $(this).submit(function() {
-                    return false;
-                });
-                $("#comment_submit").attr("disabled", true);
-                return true;
+<script src={% static "ckeditor/ckeditor/ckeditor.js" %}>
+</script>
+<script>
+    $(document).ready(function(){
+        // set a function that switches its states after the first
+        // submission to block duplicated submission
+        $("#comment_form").submit(function() {
+            $(this).submit(function() {
+                return false;
             });
+            $("#comment_submit").attr("disabled", true);
+            return true;
         });
-    </script>
+    });
+</script>
 {% endblock %}
 
 
@@ -42,10 +39,8 @@
             </button>
         {% endwith %}
     {% endbuttons %}
-
 </form>
-
-<!--script>
-    CKEDITOR.replace("body", {customConfig :  "{% static 'ckeditor/trblcms_config.js' %}" });
-</script-->
+<script>
+    CKEDITOR.replace('text', {customConfig :  "{% static 'ckeditor/trblcomment_config.js' %}" });
+</script>
 {% endblock %}

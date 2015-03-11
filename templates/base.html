@@ -34,11 +34,11 @@
 
 {% block root_content %}
     <!--snippet button style change-->
-        {% bootstrap_messages %}
+    {% bootstrap_messages %}
 
-        <div class="trbl_content">
+    <div class="trbl_content">
         {% block content %}(no content){% endblock %}
-        </div>
+    </div>
 
     {% if 'modal_login_form' %}
         <!-- Modal -->
@@ -46,10 +46,12 @@
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-body">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h1 style="text-align:center;margin-bottom:30px;">{% trans "Sign In" %}</h1>
-
-            
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h1 style="text-align:center;margin-bottom:30px;">
+                    {% trans "Sign In" %}
+                </h1>
+        
                 {% if socialaccount.providers  %}
                 <div class="socialaccount_ballot">
 
@@ -89,8 +91,10 @@
 {% endblock %}
 
 {% block modal %}
+    {# 이거 되는거 맞나? #}
     {% include 'account/login_form.html'%}
 {% endblock %}
+
 {% block base_script %}
 <script src="{% static 'js/classie.js' %}"></script>
 {% endblock %}
