@@ -10,11 +10,51 @@ html, body {
 
 /* @base */
 body {background: #ECF0F1;}
-header { 
-    background: black;
-}
 .trbl_content {
-    padding-top: 30px;
+    padding-top: 8%;
+}
+
+
+/* navigation */
+.trbl_navBar {
+    position: fixed;
+    width: 100%;
+    height: 8%;
+    background: #2c3e50;
+    z-index: 5000;
+    top: 0;
+    left: 0;
+}
+.trbl_navBar > li {
+    height: 100%;
+    position: relative;
+    font-size: 20px;
+    text-align: center;
+    float: left;
+    width: 10%;
+}
+.trbl_navBar > li a {
+    color: #ecf0f1;
+    position: relative;
+    top: 30%;
+}
+.trbl_navBar > li.trbl_sideToggle {
+    margin-left: 0;
+    width: 3%;
+}
+.trbl_navBar > li.trbl_marginLeft {
+    width: 40%;
+}
+
+.trbl_navBar > li:hover:not(.trbl_marginLeft) {
+    background: #34495e;
+    bottom: 3%;
+    right: 0.5%;
+    transition: all 0.5s ease; 
+    -webkit-transition: all 0.5s ease; 
+    -moz-transition: all 0.5s ease; 
+    -o-transition: all 0.5s ease; 
+    
 }
 
 
@@ -59,7 +99,7 @@ ul.socialaccount_providers {
 .trbl_panelW {background: #9B59B6;}
 .trbl_panelG {background: #9B59B6;}
 
-/* mark for article title */
+    /* mark for article title */
 .trbl_r, .trbl_t, .trbl_tu,{
     float: left;
     height: 23px;
@@ -80,6 +120,7 @@ input.form_control {
     border: 1px solid red;
     box-shadow: none;
 }
+
 
 /* label */
 .control-label > span.asteriskField {

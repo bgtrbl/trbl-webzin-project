@@ -1,13 +1,13 @@
 {% load sitetree %}
     
 
-<ul class="menu clearfix">
+<ul class="trbl_navBar clearfix">
 
     {% if not user.is_authenticated %}
-    <li class="trbl_sideToggle"><a data-toggle="modal" data-target="#myModal"><i class="glyphicon  glyphicon-user"></i></a></li>
+    <li class="trbl_sideToggle"><a class="trbl_menu" data-toggle="modal" data-target="#myModal"><i class="glyphicon  glyphicon-user"></i></a></li>
     {% else %}
-    <li class="trbl_sideToggle"><a id="trbl_showLeftPush"><i class="glyphicon glyphicon glyphicon-align-justify"></i></a></li>
-    <!--script 이동?, 외부로 빼면 login 되지 않은 상태에서 script 오류 (getElementById)  --> 
+    <li class="trbl_sideToggle"><a class="trbl_menu" id="trbl_showLeftPush"><i class="glyphicon glyphicon glyphicon-align-justify"></i></a></li>
+    <!--login script-->
     <script>
     var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
         showLeftPush = document.getElementById( 'trbl_showLeftPush' ),
@@ -20,9 +20,9 @@
     };
     </script>
     {% endif %}
-
+    <li class="trbl_marginLeft"></li>
     {% for item in sitetree_items %}
-    <li class="{% if item.is_current %}active{% endif %} trbl_menu"><a href="{% sitetree_url for item %}">{{ item.title_resolved }}</a></li> 
+    <li class="{% if item.is_current %}active{% endif %}"><a class="trbl_menu" href="{% sitetree_url for item %}">{{ item.title_resolved }}</a></li> 
     {% endfor %}
 
 </ul>

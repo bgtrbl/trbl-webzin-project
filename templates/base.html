@@ -18,8 +18,7 @@
     <link href="{% static 'style.css' %}" media="all" rel="stylesheet">
     <script src="{% static 'js/general.js' %}"></script>
     <link href="{% static 'base.css' %}" media="all" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />​
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />    
     {% block extra_head %}{% endblock %}
 {% endblock %}
 
@@ -27,9 +26,7 @@
     <div class="side-panel">
         {% include "navigation/slide_panel.html" %}
     </div>
-    <div class="top-nav">
         {% sitetree_menu from "root" include "trunk,topmeun" template "navigation/nav_top.html" %}
-    </div>
 {% endblock %}
 
 {% block root_content %}
@@ -71,7 +68,8 @@
                 <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                 {% endif %}
 
-                <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+                <a class="button secondaryAction" href="{% url 'account_reset_password' %}">
+                {% trans "Forgot Password?" %}</a>
                 <div class="clearfix">
                 <div class="clean">
                 <button class="btn signin" type="submit"><span>{% trans "Sign In" %}</span></button>

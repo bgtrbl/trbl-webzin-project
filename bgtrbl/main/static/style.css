@@ -938,14 +938,6 @@ p.italic {font-style: italic;}
 }
 
 /*side toggle*/
-.menu > li.trbl_sideToggle {
-    width: 50px;
-    margin-right: 250px;
-}
-.menu > li.trbl_sideToggle i {
-    font-size: 25px; 
-    text-align: center;
-}
 
 
 .menu > li > a:not(.trbl_sideToggle) {
