@@ -56,6 +56,18 @@
 	text-decoration: none;
 }
 
+/* from foghorn */
+#trbl_markdown ul {
+	list-style: square;
+	padding-left:1.2em;
+}
+
+#trbl_markdown ol {
+	padding-left:1.2em;
+}
+
+/* 여기까지 */
+
 #trbl_markdown #message {
 	border-radius: 6px;
 	border: 1px solid #ccc;
