@@ -21,50 +21,52 @@
     <!--main article-->
         <div class="col-md-12 trbl_topImg">
             <!-- 하드코딩 -->
-            <img class="img-responsive" src="/media/design_comps/img/013_252.jpg" /> </div> 
+            <img class="img-responsive" src="/media/design_comps/img/013_252.jpg" /> 
+        </div> 
 
     <!--review-->
-    <div class="col-md-12 trbl_review">
-    {% for item in Reviews %}
+        <div class="col-md-12 trbl_review">
+        {% for item in Reviews %}
 
-        <div class="col-md-6 col-sm-6 col-xs-12">
-        <div class="trbl_articleTop">
-            {% if item.get_header_img.src %}
-            <img class="trbl_thumbnail" href="{% url 'trblcms:article_detail' item.slug %}" 
-            src="{{ item.get_header_img.src }}" />
-            {% endif%}
+            <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="trbl_articleTop">
+                {% if item.get_header_img.src %}
+                <img class="trbl_thumbnail" href="{% url 'trblcms:article_detail' item.slug %}" 
+                src="{{ item.get_header_img.src }}" />
+                {% endif%}
 
-            <div class="clearfix"> 
-                <div class="trbl_r"></div>
-                <a href="{% url 'trblcms:article_detail' item.slug %}" class="trbl_title">{{ item.title }}</a> 
+                <div class="clearfix"> 
+                    <div class="trbl_r"></div>
+                    <a href="{% url 'trblcms:article_detail' item.slug %}" 
+                    class="trbl_title">{{ item.title }}</a> 
+                </div>
             </div>
-        </div>
 
-        <div class="trbl_articleBottom">
+            <div class="trbl_articleBottom">
 
-            <span class="trbl_user clearfix">
-            <p class="trbl_body">{{ item.get_body_string|truncatewords:10 }}</p>
-            <span class="trbl_user">
-            <a href="{{ item.user.userprofile.get_absolute_url }}">
-                {% avatar item.user.get_username 30 %} 
-                {{ item.user.get_username }}
-            </a>
+                <span class="trbl_user">
+                <p class="trbl_body">{{ item.get_body_string|truncatewords:10 }}</p>
+                <span class="trbl_user">
+                <a href="{{ item.user.userprofile.get_absolute_url }}">
+                    {% avatar item.user.get_username 30 %} 
+                    {{ item.user.get_username }}
+                </a>
+                </span>
             </span>
+                <p class="trbl_date">{{ item.created_at|date }}</p> 
+            </div>
+            </div>
+        {% endfor %}
 
-            <p class="trbl_date">{{ item.created_at|date }}</p> 
         </div>
-        </div>
-    {% endfor %}
-
-    </div>
 
     </div>
 
 <!--tutorial-->
-    <div class="col-md-4 col-sm-3 col-xs-12 trbl_tutorial">
+    <div class="col-md-4 col-sm-12 col-xs-12 trbl_tutorial">
     {% for item in Tutorials %} 
 
-        <div class="col-md-12">
+        <div class="col-md-12 col-md-6 col-xs-6">
         <div class="trbl_articleTop">
             {% if item.get_header_img.src %}
             <img class="trbl_thumbnail" href="{% url 'trblcms:article_detail' item.slug %}" 
@@ -95,7 +97,7 @@
     </div>
 
 <!--toon-->
-    <div class="col-md-2 col-sm-2 col-xs-12col-trbl_toon">
+    <div class="col-md-2 col-sm-2 col-xs-12 col-trbl_toon">
         <div class="col-md-12 toon">
             <img class="img-responsive" src="https://i1.ytimg.com/sh/7YFnn-JE4Zw/showposter.jpg?v=5073624b" />
         </div>

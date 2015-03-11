@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 /* @main */
 
 /* 횡 스크롤 방지코드 너어봄 
@@ -126,6 +125,7 @@ input.form_control {
     width: 100%;
     font-size: 18px;
 }
+
 .trbl_articleBottom p.trbl_body {overflow: auto; margin-left: 0;}
 .trbl_articleTop .trbl_thumbnail {margin-bottom: 10px; max-width: 100%; min-width: 100%; max-height: 300px;}
 .trbl_articleBottom .trbl_date {
