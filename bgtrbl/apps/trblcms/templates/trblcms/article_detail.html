@@ -44,6 +44,9 @@
                 <a href="{% url 'trblcms:edit_article' object.id %}" type="button" class="btn btn-primary">
                     {% bootstrap_icon "edit" %}[Edit]
                 </a>
+                <a href="{% url 'trblcms:delete_article' object.id %}" type="button" class="btn btn-primary">
+                    {% bootstrap_icon "remove" %}[Delete]
+                </a>
         {% endbuttons %}</p>
         {% endif %}
     </div>

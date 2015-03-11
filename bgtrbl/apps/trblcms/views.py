@@ -2,14 +2,16 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
 from django.template import RequestContext
-from django.core.urlresolvers import reverse
+
+# reverse_lazy 더 알아보기
+from django.core.urlresolvers import reverse, reverse_lazy
 
 # comment saving by ContentType
 from django.contrib.contenttypes.models import ContentType
 
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, DeleteView
 
 from .models import Article, Sequel, Category
 from .forms import ArticleModelForm, SequelModelForm
@@ -48,6 +50,12 @@ def editArticle(request, pk):
         form.save_m2m()
         return redirect(article.get_absolute_url())
     return render(request, 'trblcms/add_or_edit_article.html', {'article_form': form, 'pk': pk})
+
+
+class ArticleDeleteView(DeleteView):
+    model = Article
+    # success 스마트하게 보내야...
+    success_url = reverse_lazy('main:home')
 
 
 class SequelDetailView(DetailView):
