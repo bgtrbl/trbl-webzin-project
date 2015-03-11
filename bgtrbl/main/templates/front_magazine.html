@@ -28,7 +28,7 @@
     <div class="col-md-12 trbl_review">
     {% for item in Reviews %}
 
-        <div class="col-md-6">
+        <div class="col-md-6 col-sm-6 col-xs-12">
         <div class="trbl_articleTop">
             {% if item.get_header_img.src %}
             <img class="trbl_thumbnail" href="{% url 'trblcms:article_detail' item.slug %}" 
@@ -62,7 +62,7 @@
     </div>
 
 <!--tutorial-->
-    <div class="col-md-4 trbl_tutorial">
+    <div class="col-md-4 col-sm-3 col-xs-12 trbl_tutorial">
     {% for item in Tutorials %} 
 
         <div class="col-md-12">
@@ -96,7 +96,7 @@
     </div>
 
 <!--toon-->
-    <div class="col-md-2 trbl_toon">
+    <div class="col-md-2 col-sm-2 col-xs-12col-trbl_toon">
         <div class="col-md-12 toon">
             <img class="img-responsive" src="https://i1.ytimg.com/sh/7YFnn-JE4Zw/showposter.jpg?v=5073624b" />
         </div>
