@@ -16,50 +16,72 @@ body {background: #ECF0F1;}
 
 
 /* navigation */
-.trbl_navBar {
-    position: fixed;
-    width: 100%;
-    height: 8%;
-    background: #2c3e50;
-    z-index: 5000;
+ul.trbl_navBar {
     top: 0;
     left: 0;
+    width: 100%;
+    height: 60px;
+    background: #2c3e50;
+    position: fixed;
+    display: inline;
+    z-index: 5000; /* navigation 제일 앞에 */
 }
 .trbl_navBar > li {
+    width: 10%;
+    min-width: 100px;
     height: 100%;
-    position: relative;
     font-size: 20px;
     text-align: center;
-    float: left;
-    width: 10%;
+    display: inline-block;
+    overflow: hidden;
 }
-.trbl_navBar > li a {
+.trbl_navBar li > a {
     color: #ecf0f1;
-    position: relative;
-    top: 30%;
+    line-height: 2;
 }
-.trbl_navBar > li.trbl_sideToggle {
-    margin-left: 0;
-    width: 3%;
+#trbl_menu { line-height: 2.7;}
+li.trbl_sideToggle {
+    width: 20px;
+    font-size: 30px; 
+    margin-right: 20%;
 }
-.trbl_navBar > li.trbl_marginLeft {
-    width: 40%;
-}
-
-.trbl_navBar > li:hover:not(.trbl_marginLeft) {
+li:hover {
     background: #34495e;
-    bottom: 3%;
-    right: 0.5%;
+    margin-bottom: 10px;
     transition: all 0.5s ease; 
     -webkit-transition: all 0.5s ease; 
     -moz-transition: all 0.5s ease; 
-    -o-transition: all 0.5s ease; 
-    
+    -o-transition: all 0.5s ease;  
+}
+
+@media screen and (max-width: 780px) {
+    li.trbl_sideToggle {
+        margin-right: 0;  
+    }
+}
+@media screen and (max-width: 600px) {
+    li.trbl_sideToggle {
+        font-size: 20px;
+    }
+    .trbl_navBar > li {
+        font-size: 15px;
+        margin: 0;
+        width: 32%;
+        height:50%; 
+    }
+    ul.trbl_navBar {
+        display: inline-block;
+        height: 100px;
+    } 
+    .trbl_content {
+        margin-top: 20%;
+}
 }
 
 
 /* @login */
 #myModal .modal-content {
+    margin: 30% 0 0 20%;
     width: 60%;
 }
 #myModal li {

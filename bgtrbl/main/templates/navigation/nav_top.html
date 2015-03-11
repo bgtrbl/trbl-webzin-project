@@ -1,12 +1,11 @@
 {% load sitetree %}
     
 
-<ul class="trbl_navBar clearfix">
-
+<ul class="trbl_navBar">
     {% if not user.is_authenticated %}
-    <li class="trbl_sideToggle"><a class="trbl_menu" data-toggle="modal" data-target="#myModal"><i class="glyphicon  glyphicon-user"></i></a></li>
+    <li class="trbl_sideToggle"><a data-toggle="modal" data-target="#myModal"><i class="glyphicon  glyphicon-user"></i></a></li>
     {% else %}
-    <li class="trbl_sideToggle"><a class="trbl_menu" id="trbl_showLeftPush"><i class="glyphicon glyphicon glyphicon-align-justify"></i></a></li>
+    <li class="trbl_sideToggle"><a id="trbl_showLeftPush"><i class="glyphicon glyphicon glyphicon-align-justify"></i></a></li>
     <!--login script-->
     <script>
     var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
@@ -20,9 +19,9 @@
     };
     </script>
     {% endif %}
-    <li class="trbl_marginLeft"></li>
+
     {% for item in sitetree_items %}
-    <li class="{% if item.is_current %}active{% endif %}"><a class="trbl_menu" href="{% sitetree_url for item %}">{{ item.title_resolved }}</a></li> 
+    <li class="{% if item.is_current %}active{% endif %}"><a id="trbl_menu" href="{% sitetree_url for item %}">{{ item.title_resolved }}</a></li> 
     {% endfor %}
 
 </ul>
