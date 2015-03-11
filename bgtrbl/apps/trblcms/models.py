@@ -52,7 +52,7 @@ class Category(SluggedItemMixin):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return "{}: {}".format(self.level, self.title)
+        return "{}: {}".format(self.title, self.level)
 
 
 # Article model's custom query set to customize default 'objects' manager
@@ -88,7 +88,7 @@ class Sequel(SluggedItemMixin, CommentedItemMixin):
     #def get_edit_url(self):
 
     def __str__(self):
-        return "{}: {}".format(self.title, self.category.title)
+        return "{}: {}".format(self.title, self.category)
 
     class Meta:
         ordering = ["-created_at"]
@@ -135,7 +135,7 @@ class Article(SluggedItemMixin, CommentedItemMixin):
         return reverse('trblcms:article_detail', kwargs={'slug': self.slug})
 
     def __str__(self):
-        return "{}: {}: {}".format(self.title, self.sequel.title, self.category.title)
+        return "{}: {}".format(self.title, self.category)
 
     class Meta:
         ordering = ["-created_at"]
