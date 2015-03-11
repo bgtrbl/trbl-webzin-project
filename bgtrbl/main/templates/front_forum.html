@@ -20,12 +20,10 @@
 
 <div class="container-fluid">
 
-    <div class="col-md-6 trbl_wiki">
+    <div class="col-md-6 col-sm-6 col-xs-12">
     {% for item in Wiki %}
 
-        <div class="col-md-6">
-        <div class="trbl_forumWrapper">
-            
+        <div class="col-md-6 col-sm-12 clearfix">
             <div class= "trbl_articleTop">         
                 {% if item.get_header_img.src %}
                 <a href="{% url 'trblcms:article_detail' item.slug%}">
@@ -33,7 +31,7 @@
                 </a>
                 {% endif %}
 
-                <span class="trbl_user clearfix">
+                <span class="trbl_user">
                 <a href="{{ item.user.userprofile.get_absolute_url }}">
                 {% avatar item.user.get_username 30 %}
                 </a>
@@ -47,17 +45,15 @@
                 
                 <p class="trbl_body">{{ item.get_body_string|truncatewords:10 }}</p>
                 <p class="trbl_date">{{ item.created_at|date }}</p>
-
-        </div>
         </div>
     {% endfor %}
     </div>
 
         <!-- gallery --> 
-    <div class="col-md-6 trbl_gallery">  
+    <div class="col-md-6 col-sm-6 col-xs-12 trbl_gallery">  
     {% for item in Gallery %}
 
-        <div class="col-md-6">
+        <div class="col-md-6 col-sm-12">
         <div class="trbl_wrapper">
 
             <div class="trbl_articleTop">
