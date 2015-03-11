@@ -31,7 +31,7 @@ class Comment(models.Model):
     modified_at = models.DateTimeField(auto_now=True)
     # optional author submission
     user = models.ForeignKey(User)
-    text = models.TextField()
+    text = RichTextField(max_length=200, blank=False, null=False)
     parent_thread = models.ForeignKey(CommentThread)
 
     objects = CommentQuerySet.as_manager()
