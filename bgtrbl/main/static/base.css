@@ -11,7 +11,7 @@ html, body {
 /* @base */
 body {background: #ECF0F1;}
 .trbl_content {
-    padding-top: 8%;
+    padding-top: 60px;
 }
 
 
@@ -70,11 +70,10 @@ li:hover {
         height:50%; 
     }
     ul.trbl_navBar {
-        display: inline-block;
         height: 100px;
     } 
     .trbl_content {
-        margin-top: 20%;
+        padding-top: 100px;
 }
 }
 
