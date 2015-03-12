@@ -1,31 +1,27 @@
 {% load avatar_tags %}
 
-<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
-    <div class="col-md-12 tabs-framed tabs-framed-right"><div class="col-me-12 tab-content">
-        <div class="profile-image">
-        {% avatar request.user 250 %}
+
+<div class="menu-wrap">
+    <nav class="menu-top">
+        <div class="profile">
+        {% avatar request.user 50 %}
+        {% with request.user.userprofile as profile %}
+            <span>{{ profile.user }}</span>
+            <!-- bio 추가 -->
+        {% endwith %}
+        <div>
+
+        <div class="icon-list">
+            <a href="#"><i class="fa fa-fw fa-star-o"></i></a>
+            <a href="#"><i class="fa fa-fw fa-bell-o"></i></a>
+            <a href="#"><i class="fa fa-fw fa-envelope-o"></i></a>
+            <a href="#"><i class="fa fa-fw fa-comment-o"></i></a>
         </div>
+    </nav>
 
-        <div class="bottom"> 
-            <div class="profile-desc">
-            {% with request.user.userprofile as profile %}
-                <h3 class="profile-title">{{ profile.user }}</h3>
-                <span class="profile-subtitle">{{ profile.bio|safe }}</span>
-            {% endwith %}
-            </div>
-
-            <ul class="profile-links clearfix">
-                <li class="profile-views"><a href="{% url 'account_logout' %}">
-                    <i class="icon-small-author"></i>logout
-                </a></li>
-                <li class="profile-likes"><a href="#">
-                    <i class="icon-small-like"></i>12 980
-                </a></li>
-                <li class="profile-comments"><a href="#">
-                    <i class="icon-small-comment"></i>9 156
-                </a></li>
-            </ul>
-        </div> 
-    </div></div>
-    <div class="col-md-12">history</div>
-</nav>
+    <nav class="menu-side">
+    <a href="{% url 'account_logout' %}">logout</a>
+    <a href="{% url 'userprofile:my_userprofile' %}">profile</a>
+    <span>history</span>
+    </nav>
+</div>

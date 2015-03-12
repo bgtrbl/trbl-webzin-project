@@ -5,19 +5,42 @@
     {% if not user.is_authenticated %}
     <li class="trbl_sideToggle"><a data-toggle="modal" data-target="#myModal"><i class="glyphicon  glyphicon-user"></i></a></li>
     {% else %}
-    <li class="trbl_sideToggle"><a id="trbl_showLeftPush"><i class="glyphicon glyphicon glyphicon-align-justify"></i></a></li>
+    <li class="trbl_sideToggle"><a id="trbl_openSlide"><i class="glyphicon  glyphicon-user"></i></a></li>
     <!--login script-->
-    <script>
-    var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
-        showLeftPush = document.getElementById( 'trbl_showLeftPush' ),
-        body = document.body;
+<script>
+(function() {
 
-    showLeftPush.onclick = function() {
-        classie.toggle( this, 'active' );
-        classie.toggle( body, 'cbp-spmenu-push-toright' );
-        classie.toggle( menuLeft, 'cbp-spmenu-open' );
-    };
-    </script>
+    var bodyEl = document.body,
+        content = document.querySelector( '#trbl_contents' ),
+        closebtn = document.getElementById( 'close-button' ),
+        isOpen = false;
+
+    function init() {
+        initEvents();
+    }
+
+    function initEvents() {
+        $(document).on( 'click', '.trbl_sideToggle' , toggleMenu );
+        if( closebtn ) {
+            closebtn.on( 'click', toggleMenu );
+        }
+
+    }
+
+    function toggleMenu() {
+        if( isOpen ) {
+            classie.remove( bodyEl, 'show-menu' );
+        }
+        else {
+            classie.add( bodyEl, 'show-menu' );
+        }
+        isOpen = !isOpen;
+    }
+
+    init();
+
+})();
+</script>
     {% endif %}
 
     {% for item in sitetree_items %}

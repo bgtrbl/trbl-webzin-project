@@ -1,0 +1,121 @@
+html,
+body,
+.trbl_container, 
+#trbl_contents {
+	width: 100%;
+	height: 100%;
+}
+
+.menu-wrap a {
+	color: #b8b7ad;
+}
+
+.menu-wrap a:hover,
+.menu-wrap a:focus {
+	color: #c94e50;
+}
+
+
+/* Menu Button */
+.menu-button {
+	z-index: 1000;
+	border: none;
+	text-indent: 2.5em;
+	font-size: 1.5em;
+	color: transparent;
+	background: transparent;
+	-webkit-transition: -webkit-transform 0.3s;
+	transition: transform 0.3s;
+}
+
+.menu-button::before {
+	position: absolute;
+	top: 0.5em;
+	right: 0.5em;
+	bottom: 0.5em;
+	left: 0.5em;
+	background: linear-gradient(#373a47 20%, transparent 20%, transparent 40%, #373a47 40%, #373a47 60%, transparent 60%, transparent 80%, #373a47 80%);
+	content: '';
+}
+
+.menu-button:hover {
+	opacity: 0.6;
+}
+/* Menu */
+.menu-wrap {
+	position: absolute;
+	font-weight: 700;
+	opacity: 0;
+	-webkit-transition: opacity 1s;
+	transition: opacity 1s;
+}
+
+.menu-top {
+	line-height: 58px;
+}
+
+.menu-top .profile {
+	display: inline-block;
+	padding: 8px 10px;
+	line-height: 42px;
+}
+
+.menu-top .profile,
+.menu-side {
+        z-index: 9999;
+	width: 300px;
+}
+
+.menu-top .profile img {
+	float: left;
+	margin-right: 1em;
+}
+
+.menu-top .profile span {
+        font-size: 25px; 
+        color: wheat;
+        line-height: 2;
+}
+.icon-list {
+	display: inline-block;
+	font-size: 1.25em;
+}
+
+.icon-list a {
+	margin: 0 1em 0 0;
+	padding: 0;
+}
+
+@media screen and (max-width: 32em) {
+	.icon-list {
+		padding-left: 1em;
+	}
+}
+
+.menu-side a {
+	display: block;
+	padding: 1.2em;
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.menu-side a:first-child {
+	border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+/* Shown menu */
+.show-menu .menu-wrap {
+	opacity: 1;
+}
+
+.show-menu .trbl_contentWrap,
+.show-menu .menu-button {
+	-webkit-transform: translate3d(200px, 60px, 0);
+	transform: translate3d(200px, 60px, 0);
+}
+
+#trbl_contents::before {
+	-webkit-transition: opacity 0.3s;
+	transition: opacity 0.3s;
+	-webkit-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+}

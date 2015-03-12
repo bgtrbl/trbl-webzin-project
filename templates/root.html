@@ -14,7 +14,8 @@
     
 </head>
 
-<body class="cbp-spmenu-push">
+<body>
+    <div class="trbl_container">
     <header>
     {% block header %}{% endblock %}
     </header>
@@ -23,6 +24,7 @@
     {% block footer %}{% endblock %}
     </footer>
     {% block modal %}{% endblock %}
+    </div>
 {% if not 'javascript_in_head'|bootstrap_setting %}{% bootstrap_javascript jquery=True %}{% endif %}
 {% block extra_script %}{% endblock %}
 {% block base_script %}{% endblock %}
