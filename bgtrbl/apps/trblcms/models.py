@@ -57,9 +57,12 @@ class Category(SluggedItemMixin):
 
 # Article model's custom query set to customize default 'objects' manager
 class ArticleSequelQuerySet(models.QuerySet):
+    def get_recent_iterator(self):
+        return self.order_by('-created_at').iterator()
+
     def get_recent(self, n):
         result = []
-        i = self.order_by('-created_at').iterator()
+        i = get_recent_iterator()
         for _ in range(n):
             try:
                 result.append(next(i))
