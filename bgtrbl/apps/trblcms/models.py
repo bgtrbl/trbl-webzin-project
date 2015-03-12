@@ -62,7 +62,7 @@ class ArticleSequelQuerySet(models.QuerySet):
 
     def get_recent(self, n):
         result = []
-        i = get_recent_iterator()
+        i = self.get_recent_iterator()
         for _ in range(n):
             try:
                 result.append(next(i))
