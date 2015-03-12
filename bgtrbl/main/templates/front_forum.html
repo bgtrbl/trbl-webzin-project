@@ -3,7 +3,6 @@
 {% load avatar_tags %}
 
 {% block extra_head %}
-    <link href="{% static 'masonary.css' %}" media="all" rel="stylesheet"> 
 {% endblock %}
 
 {% block extra_header %}
@@ -11,12 +10,7 @@
 
 
 {% block content %}
-<a type="button" href="{% url 'trblcms:add_article' %}" class="btn"><i class="glyphicon glyphicon-pencil"></i><span>write</span></a>
-
-<div class="trbl_categoryPanel">
-    <a href="" class="trbl_panelW"></a>
-    <a href="" class="trbl_panelG"></a>
-</div>
+<a href="{% url 'trblcms:add_article' %}" hidfocus="false" class="btn">write</a>
 
 <div class="container-fluid">
 
