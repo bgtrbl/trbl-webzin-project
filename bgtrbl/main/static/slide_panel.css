@@ -38,16 +38,16 @@ body,
 	content: '';
 }
 
-.menu-button:hover {
-	opacity: 0.6;
-}
+
 /* Menu */
 .menu-wrap {
 	position: absolute;
 	font-weight: 700;
 	opacity: 0;
-	-webkit-transition: opacity 1s;
-	transition: opacity 1s;
+        -o-transition: opacity 0.5s;
+        -moz-transition: opacity 0.5s;
+	-webkit-transition: opacity 0.5s;
+	transition: opacity 0.5s;
 }
 
 .menu-top {
@@ -72,7 +72,7 @@ body,
 }
 
 .menu-top .profile span {
-        font-size: 25px; 
+        font-size: 20px; 
         color: wheat;
         line-height: 2;
 }
@@ -109,13 +109,7 @@ body,
 
 .show-menu .trbl_contentWrap,
 .show-menu .menu-button {
-	-webkit-transform: translate3d(200px, 60px, 0);
-	transform: translate3d(200px, 60px, 0);
+	-webkit-transform: translate3d(200px, 40px, 0);
+	transform: translate3d(200px, 40px, 0);
 }
 
-#trbl_contents::before {
-	-webkit-transition: opacity 0.3s;
-	transition: opacity 0.3s;
-	-webkit-transform: translate3d(0,0,0);
-	transform: translate3d(0,0,0);
-}
