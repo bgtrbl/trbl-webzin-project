@@ -12,6 +12,25 @@
 
 {% block extra_head %}
 <link href="{% static 'article.css' %}" media="all" rel="stylesheet">
+<script href="{% static 'trblcomment.js' %}"></script>
+<!--script src="{% static 'jquery-cookie/jquery.cookie.js' %}"></script-->
+<script>
+$(function() {
+    $('#comment_submit').click(function() {
+        $.ajax({
+            type: "GET",
+            url: "{% url 'trblcomment:add_comment' %}",
+            contentType: "application/javascript; charset=utf-8",
+            dataType: "json",
+            data:{ comment_text: $('#id_text').val() },
+            success: function(data) {
+            $('#trbl_comment_added').append("<li>"+data.comment_text+"</li>");
+            }
+        });
+        return false;
+    });
+});
+</script>
 {% endblock %}
 
 {% block content %}
@@ -51,7 +70,7 @@
         {% endif %}
     </div>
 
-    <div class-"cmmnt">
+    <div id="trbl_comment" class="cmmnt">
         {# comment form 은 로그인한 유저만 #}
         {% if user.is_authenticated %}
             {% get_comment_form 'article' object.id %}

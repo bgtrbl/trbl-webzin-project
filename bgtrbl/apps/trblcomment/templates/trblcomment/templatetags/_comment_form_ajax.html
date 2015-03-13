@@ -1,0 +1,37 @@
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% load crispy_forms_tags %}
+
+
+{% block extra_head %}
+<script href="{% static 'trblcomment.js' %}"></script>
+<script>
+$(document).ready(function(){
+    // set a function that switches its states after the first
+    // submission to block duplicated submission
+    $("#comment_form").submit(function() {
+        $(this).submit(function() {
+            return false;
+        });
+        return true;
+    });
+});
+</script>
+{% endblock %}
+
+
+{% block comment_form_content %}
+    <form method="GET">
+        {{ comment_form|crispy }} {# crispy form #}	
+        {% buttons %}
+            {# 변수 선언 로컬 영역 설정은 이렇게 하는듯 #}
+            {% with "star" as icon_name %}
+            {# Javascript disabling submit button after the first click, #}
+            {# preventing multiple submittion from one form #}
+                <button id="comment_submit" type="submit" class="btn btn-primary">
+                    {% bootstrap_icon icon_name %} Submit
+                </button>
+            {% endwith %}
+        {% endbuttons %}
+    </form>
+{% endblock %}

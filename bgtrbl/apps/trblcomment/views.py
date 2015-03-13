@@ -3,9 +3,12 @@ from django.shortcuts import get_object_or_404, redirect
 
 # comment saving by ContentType
 from django.contrib.contenttypes.models import ContentType
+from django.http import HttpResponse
 
 from .models import Comment
 from .forms import CommentForm
+
+import json
 
 
 # @! security flaws
@@ -26,3 +29,9 @@ def saveComment(request, content_type, pk):
     # @? comment redirection... where to go if fails?
     # @todo support many content type that inherits CommentedItemMixin
     return redirect(commented_item.get_absolute_url())
+
+def addComment(request):
+    print("called by", request.user.username)
+    if 'comment_text' in request.GET:
+        response_dict = {'comment_text': request.GET['comment_text']}
+        return HttpResponse(json.dumps(response_dict), content_type='application/javascript')

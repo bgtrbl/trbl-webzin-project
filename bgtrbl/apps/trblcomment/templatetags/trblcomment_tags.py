@@ -31,5 +31,5 @@ def get_comments(content_type, pk):
     print("something is wrong")
 
 
-register.inclusion_tag('trblcomment/templatetags/_comment_form.html')(get_comment_form)
+register.inclusion_tag('trblcomment/templatetags/_comment_form_ajax.html')(get_comment_form)
 register.inclusion_tag('trblcomment/templatetags/_comments.html')(get_comments)
