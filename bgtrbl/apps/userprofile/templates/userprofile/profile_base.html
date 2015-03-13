@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block extra_head %}
+    {% block profile_extrahead %}
+    <link href="{% static 'userprofile.css' %}" media="screen" rel="stylesheet">
+    {% endblock%}
+{% endblock %}
+
+{% block content %}
+<div class="profile_content">
+    {% block profile_content %}
+    {% endblock %}
+</div>
+{% endblock %}

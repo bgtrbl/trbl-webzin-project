@@ -51,6 +51,7 @@ ul.trbl_navBar {
     width: 100%;
     height: 60px;
     position: fixed;
+    padding: 0;
     display: inline;
     z-index: 5000; /* navigation 제일 앞에 */
     background: black;

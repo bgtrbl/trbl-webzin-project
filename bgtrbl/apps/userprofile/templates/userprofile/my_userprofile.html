@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'userprofile/profile_base.html' %}
 
 {% load bootstrap3 %}
 {% load account %}
@@ -9,39 +9,54 @@
     My Profile
 {% endblock %}
 
-{% block content %}
-<ul>
-    <li> {{ user_profile.user }} </li>
-    <li> {{ user_profile.bio }} </li>
-    <li> {{ user_profile.dob|date }} </li>
-    <li> {{ user_profile.gender }} </li>
-    <li> {{ user_profile.website }} </li>
-    <li><a href="{% url 'avatar_change' %}">{% avatar user_profile.user %}</a></li>
-    <li><a href="{% url 'userprofile:edit_userprofile' %}">edit</a></li>
-    <li> Recent Activities (5 items maximum): </li>
-    <ul>
-        <li> 최근 글 : 
-            <ul>
-            {% for item in recent_articles %}
-                <li> <a href="{{ item.get_absolute_url }}">{{ item }}</a> </li>
-            {% endfor %}
-            </ul>
-        </li>
-        <li> 최근 시퀄:
-            <ul>
-            {% for item in recent_sequels %}
-                <li> <a href="{{ item.get_absolute_url }}">{{ item }}</a> </li>
-            {% endfor %}
-            </ul>
-        </li>
-        <li> 최근 댓글:
-            <ul>
-            {% for item in recent_comments %}
-                <li> <a href="{{ item.get_absolute_url }}">{{ item }}</a> </li>
-            {% endfor %}
-            </ul>
-        </li>
-        <li> 달린 댓글 있는 내꺼들? </li>
-    </ul>
+{% block profile_content %}
+
+<ul class="col-md-6 col-sm-6 col-xs-12" id="trbl_profileImg">
+    <li><a href="{% url 'avatar_change' %}">{% avatar user_profile.user 520 %}</a></li>
+</ul> 
+
+<ul class="col-md-6 col-sm-6 col-xs-12">
+    <li>이름:<span>{{ user_profile.user }}</span></li>
+    <li>상태:<span>{{ user_profile.bio|striptags|default:"" }}</span></li>
+    <li>생일:<span>{{ user_profile.dob|date }}</span> </li>
+    <li>성별:<span>{{ user_profile.gender|default:"" }}</span></li>
+    <li>사이트: {{ user_profile.website|default:"" }}</span></li>
+    <li id="trbl_profileEdit"><a href="{% url 'userprofile:edit_userprofile' %}">
+        <i class="fa fa-3x fa-edit"></i> 
+    </a></li>
 </ul>
+
+<ul class="col-md-12 col-sm-12 col-xs-12" id="trbl_recentAction">
+    <li>최근 글:</li>
+    <li class="clearfix"> 
+        {% for item in recent_articles %}
+        <ul class="col-md-2 col-sm-4 col-xs-6"><li><a href="{{ item.get_absolute_url }}">
+            {% if item.get_header_img.src%}
+            <img src="{{ item.get_header_img.src}}" />
+            {% endif %}
+            {{ item.title }}
+        </a></li></ul>
+        {% endfor %}
+    </li>
+
+    <li> 최근 시퀄:
+        <ul>
+        {% for item in recent_sequels %}
+            <li> <a href="{{ item.get_absolute_url }}">{{ item }}</a> </li>
+            {% if item.get_herader_img.src %}
+            <li><a href="{{ item.get_absolute_url }}">{{ item.get_header_img.src}}</a> </li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    </li>
+
+    <li> 최근 댓글:
+        <ul>
+        {% for item in recent_comments %}
+            <li> <a href="{{ item.get_absolute_url }}">{{ item }}</a> </li>
+        {% endfor %}
+        </ul>
+    </li>
+</ul>
+
 {% endblock %}
