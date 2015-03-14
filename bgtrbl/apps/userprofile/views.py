@@ -17,7 +17,7 @@ class UserProfileDetail(DetailView):
                 'articles'  : user.article_set.all()[:5],
                 'sequels'   : user.sequel_set.all()[:5],
                 'comments'  : user.comment_set.order_by('-created_at')[:5],
-                                   }
+                                 }
         return context
 
 
@@ -50,7 +50,7 @@ def myUserProfile(request):
     comment_set = request.user.comment_set
     return render(request, 'userprofile/my_userprofile.html',
                 {
-                    'recent_articles': article_set.all()[:5]),
-                    'recent_sequels': sequel_set.all()[:5]),
+                    'recent_articles': article_set.all()[:5],
+                    'recent_sequels': sequel_set.all()[:5],
                     'recent_comments': comment_set.order_by('-created_at')[:5],
                 })

@@ -17,7 +17,6 @@ class CommentQuerySet(models.QuerySet):
     # @n togoaway
     def get_recent(self, n):
         return self.order_by('-modified_at')
-        return result
 
 
 # possible commented item(with CommentedItemMixin) for tree style commenting
