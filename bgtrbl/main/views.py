@@ -7,10 +7,9 @@ from bgtrbl.apps.trblcms.models import Category, Article
 from allauth.account.forms import LoginForm
 
 from django.conf import settings
+from endless_pagination.decorators import page_template
 
-def _add_modal_login_form(user, context):
-    if not user.is_authenticated():
-        context['modal_login_form'] = LoginForm()
+from django.template import RequestContext;
 
 
 def home(request):
@@ -28,27 +27,22 @@ def home(request):
     "tumblr_lmyk6v85ho1qla8s3o1_500.jpg"]
 
     context['images'] = [ "/media/design_comps/img/{}".format(_) for _ in i_1 ]
-    _add_modal_login_form(request.user, context)
-    return render(request, 'main/home.html', context)
+    return render(request, 'main/home.html', context, context_instance=RequestContext(request))
 
 
 def allauthTest(request):
     return render(request, 'main/allauth_test.html', {})
 
-
-def magazine(request):
+@page_template('main/front_review_endless.html')
+def magazine(request, extra_context=None):
     magazin_category = get_object_or_404(Category, title='Magazin')
     context = {sub.title: sub.article_set.all() for sub in magazin_category.get_descendants()}
-    _add_modal_login_form(request.user, context)
-    return render(request, 'front_magazine.html', context)
+    if extra_context is not None:
+        context.update(extra_context)
+    return render(request, 'main/front_magazine.html', context, context_instance=RequestContext(request))
 
 
 def forum(request):
     forum_category = get_object_or_404(Category, title="Forum")
     context = {sub.title: sub.article_set.all() for sub in forum_category.get_descendants()}
-    return render(request, 'front_forum.html', context)
-
-    def get_context_data(self, **kwargs):
-        context = super(forum, self).get_context_data(**kwargs)
-        _add_modal_login_form(self.request.user, context)
-        return context
+    return render(request, 'main/front_forum.html', context, context_instance=RequestContext(request))
