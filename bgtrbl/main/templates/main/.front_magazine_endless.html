@@ -1,0 +1,34 @@
+{% load avatar_tags %}
+{% for item in Reviews %}
+{% load endless %}
+
+
+<div class="col-md-6 col-sm-6 col-xs-12">
+    <div class="trbl_articleTop">
+        {% if item.get_header_img.src %}
+        <img class="trbl_thumbnail" href="{% url 'trblcms:article_detail' item.slug %}" 
+        src="{{ item.get_header_img.src }}" />
+        {% endif%}
+
+        <div class="clearfix"> 
+            <div class="trbl_r"></div>
+            <a href="{% url 'trblcms:article_detail' item.slug %}" 
+            class="trbl_title">{{ item.title }}</a> 
+        </div>
+    </div>
+
+    <div class="trbl_articleBottom">
+    <span class="trbl_user">
+        <p class="trbl_body">{{ item.get_body_string|truncatewords:10 }}</p>
+        <span class="trbl_user">
+        <a href="{{ item.user.userprofile.get_absolute_url }}">
+            {% avatar item.user.get_username 30 %} 
+            {{ item.user.get_username }}
+        </a>
+        </span>
+    </span>
+    <p class="trbl_date">{{ item.created_at|date }}</p> 
+    </div>
+</div>
+{% endfor %}
+{% show_pages %}

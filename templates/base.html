@@ -10,15 +10,15 @@
 {% load i18n %}
 
 {% block base_head %}
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
-    <!--snippet script, css-->
-    <link href="{% static 'fonts/font-awesome.min.css' %}" media="screen" rel="stylesheet">
-    <script src="{% static 'js/general.js' %}"></script>
-    <link href="{% static 'normalize.css' %}" media="all" rel="stylesheet">
-    <link href="{% static 'base.css' %}" media="all" rel="stylesheet">
+    <!--css-->
+    <link href="{% static 'fonts/fontawesome/css/font-awesome.min.css' %}" media="screen" rel="stylesheet">
+    <link href="{% static 'trblcms.css' %}" media="all" rel="stylesheet">
     <link href="{% static 'slide_panel.css' %}" media="screen" rel="stylesheet">
+
+    <!--JS-->
     {% block extra_head %}{% endblock %}
+
 {% endblock %}
 
 {% block header %}
