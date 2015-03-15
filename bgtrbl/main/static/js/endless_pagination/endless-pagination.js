@@ -20,7 +20,7 @@
             // Set this to true to use the paginate-on-scroll feature.
             paginateOnScroll: false,
             // If paginate-on-scroll is on, this margin will be used.
-            paginateOnScrollMargin : 1,
+            paginateOnScrollMargin : 50,
             // If paginate-on-scroll is on, it is possible to define chunks.
             paginateOnScrollChunkSize: 0
         },
@@ -69,7 +69,7 @@
 
             // On scroll pagination.
             if (settings.paginateOnScroll) {
-                var win = $(window),
+                var win = $('.trbl_contentWrap'),
                     doc = $(document);
                 win.scroll(function(){
                     if (doc.height() - win.height() -

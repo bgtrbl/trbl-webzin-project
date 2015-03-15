@@ -6,12 +6,12 @@
 html, body {
         height: 100%;
         width: 100%;
-        position: fixed;
-        overflow: scroll;
 }
 
 /* @base */
-body {background: #373a47;}
+body {
+    background: #373a47;
+}
 
 #trbl_contents {
     padding-top: 60px;

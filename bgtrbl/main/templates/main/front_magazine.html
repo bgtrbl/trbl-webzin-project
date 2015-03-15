@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% load avatar_tags %}
+{% load endless %}
 
 
 {% block base_head %}
@@ -9,7 +10,7 @@
     <script>
         $(document).ready(function(){
             $(".endless_page_template").endlessPaginate({
-                paginateOnScroll: true
+                paginateOnScroll: true,
             });
         });
     </script>
@@ -26,44 +27,14 @@
     </div> 
     
     <!--review-->
-    <div class="col-md-6 col-sm-12 endless_page_template" id="trbl_reviews">
+    <div class="col-md-10 endless_page_template">
         {% include page_template %}
-    </div>
-<!--tutorial-->
-    <div class="col-md-4 col-sm-12 col-xs-12 trbl_tutorial">
-    {% for item in Tutorials %} 
-
-        <div class="col-md-12 col-md-6 col-xs-6">
-        <div class="trbl_articleTop">
-            {% if item.get_header_img.src %}
-            <img class="trbl_thumbnail" href="{% url 'trblcms:article_detail' item.slug %}" 
-            src="{{ item.get_header_img.src }}" />
-            {% endif%}
-
-            <div class="clearfix">
-                <div class="trbl_tu"></div>
-                <a href="{% url 'trblcms:article_detail' item.slug %}" class="trbl_title">{{ item.title }}</a> 
-            </div> 
-        </div>
-            
-
-        <div class= "trbl_articleBottom">
-            <p class="trbl_body">{{ item.get_body_string|truncatewords:10 }}</p>
-            <span class="trbl_user">
-            <a href="{{ item.user.userprofile.get_absolute_url }}" class="trbl_userName">
-                {% avatar item.user.get_username 30 %} 
-                {{ item.user.get_username }}
-            </a>
-            </span>
-
-            <p class="trbl_date">{{ item.created_at|date }}</p> 
-        </div>
-        </div>
-
-    {% endfor%}
+        {% show_more %}
     </div>
 
-<!--toon-->
+    <!--tutorial-->
+
+    <!--toon-->
     <div class="col-md-2 col-sm-2 col-xs-12 col-trbl_toon">
         <div class="col-md-12 toon">
             <img class="img-responsive" src="https://i1.ytimg.com/sh/7YFnn-JE4Zw/showposter.jpg?v=5073624b" />

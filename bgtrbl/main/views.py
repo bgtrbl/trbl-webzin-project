@@ -7,9 +7,9 @@ from bgtrbl.apps.trblcms.models import Category, Article
 from allauth.account.forms import LoginForm
 
 from django.conf import settings
-from endless_pagination.decorators import page_template
 
-from django.template import RequestContext;
+from endless_pagination.decorators import page_template
+from django.template import RequestContext
 
 
 def home(request):
@@ -33,15 +33,13 @@ def home(request):
 def allauthTest(request):
     return render(request, 'main/allauth_test.html', {})
 
-def magazine(request, extra_context=None):
+@page_template('main/front_paginations.html')
+def magazine(request, template = 'main/front_magazine.html', extra_context=None):
     magazin_category = get_object_or_404(Category, title='Magazin')
     context = {sub.title: sub.article_set.all() for sub in magazin_category.get_descendants()}
-    template = 'main/front_magazine.html'
-    page_template='main/front_review_endless.html'
-    context['page_template'] = page_template
 
-    if request.is_ajax():
-        template = page_template
+    if extra_context is not None:
+        context.update(extra_context)
 
     return render(request, template, context, context_instance=RequestContext(request))
 
