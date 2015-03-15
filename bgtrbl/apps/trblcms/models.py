@@ -8,7 +8,7 @@ from bgtrbl.apps.trblcomment.models import CommentedItemMixin
 
 from ckeditor.fields import RichTextField
 
-from .helpers import get_visible_string
+from .helpers.filters import get_visible_string
 
 from bs4 import BeautifulSoup
 
@@ -114,7 +114,6 @@ class Article(SluggedItemMixin, CommentedItemMixin):
 
     # applying custom query set as manager
     objects = ArticleSequelQuerySet.as_manager()
-
 
     # save method override 해서 url field에 헤더이미지 추가하는 로직작성 예정
     # 지금은 그냥 첫번째 이미지를 가져옴

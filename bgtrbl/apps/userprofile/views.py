@@ -13,11 +13,12 @@ class UserProfileDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.get_object().user
-        context['recent_acts'] = { 'articles': user.article_set.get_recent(5),
-                                   'sequels': user.sequel_set.get_recent(5),
-                                   'comments': user.comment_set.get_recent(5)}
+        context['recent_acts'] = {
+                'articles'  : user.article_set.all()[:5],
+                'sequels'   : user.sequel_set.all()[:5],
+                'comments'  : user.comment_set.order_by('-created_at')[:5],
+                                 }
         return context
-
 
 
 def editUserProfile(request):
@@ -44,14 +45,12 @@ def updateUserProfile(request):
 # view that displays user profile
 # login required
 def myUserProfile(request):
-    user_profile = UserProfile.objects.get(user=request.user)
-    article_set = user_profile.user.article_set
-    sequel_set = user_profile.user.sequel_set
-    comment_set = user_profile.user.comment_set
+    article_set = request.user.article_set
+    sequel_set = request.user.sequel_set
+    comment_set = request.user.comment_set
     return render(request, 'userprofile/my_userprofile.html',
                 {
-                    'user_profile': user_profile,
-                    'recent_articles': article_set.get_recent(5),
-                    'recent_sequels': sequel_set.get_recent(5),
-                    'recent_comments': comment_set.get_recent(5),
+                    'recent_articles': article_set.all()[:5],
+                    'recent_sequels': sequel_set.all()[:5],
+                    'recent_comments': comment_set.order_by('-created_at')[:5],
                 })

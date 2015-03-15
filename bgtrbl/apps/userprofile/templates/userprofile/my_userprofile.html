@@ -16,18 +16,18 @@
 </ul> 
 
 <ul class="col-md-6 col-sm-6 col-xs-12">
-    <li>이름:<span>{{ user_profile.user }}</span></li>
-    <li>상태:<span>{{ user_profile.bio|striptags|default:"" }}</span></li>
-    <li>생일:<span>{{ user_profile.dob|date }}</span> </li>
+    <li>이름:<span>{{ user }}</span></li>
+    <li>상태:<span>{{ user.userprofile.bio|striptags|default:"" }}</span></li>
+    <li>생일:<span>{{ user.userprofile.dob|date }}</span> </li>
     <li>성별:<span>
-                {% if user_profile.gender %}
+                {% if user.userprofile.gender %}
                 <i class="fa fa-fw fa-mars"></i>
                 {% else %}
                 <i class="fa fa-fw fa-venus"></i>
                 {% endif %}
             </span>
     </li>
-    <li>사이트: {{ user_profile.website|default:"" }}</span></li>
+    <li>사이트: {{ user.userprofile.website|default:"" }}</span></li>
     <li id="trbl_profileEdit"><a href="{% url 'userprofile:edit_userprofile' %}">
         <i class="fa fa-3x fa-edit"></i> 
     </a></li>
