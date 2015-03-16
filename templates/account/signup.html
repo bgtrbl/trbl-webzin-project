@@ -1,26 +1,30 @@
-{% extends "account/base.html" %}
+{% extends 'account/login_base.html' %}
+{% load account %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
 
-{% load url from future %}
-{% load i18n %}
+{% block ajax_login %}
+<div id="trbl_form_wrapper" class="trbl_form_wrapper">
+    {% if socialaccount.providers  %}
+        {% include "account/provider_list.html" with process="login" %}
+    {% endif %}
 
-{% block head_title %}{% trans "Signup" %}{% endblock %}
+    <form class="trbl_form active" method="POST" action="{% url 'account_signup' %}">
+      {% csrf_token %}
+        <h3>Register</h3>
+        <div>
+            {{ signup_form|crispy }}
+        </div>
+        <div class="trbl_bottom">
+            <a href="{% url 'account_login' %}" rel="login" class="trbl_linkForm">
+                You have an account already? login here.</a>
+            <input type="submit" class="btn btn-submit" />
+            {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+            <div class="clear"></div>
+        </div> 
+    </form>
 
-{% block content %}
-가입 하세요~~
-<h1>{% trans "Sign Up" %}</h1>
-
-<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
-
-<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <button type="submit">{% trans "Sign Up" %} &raquo;</button>
-</form>
-
-
+</div>
 {% endblock %}
-
-

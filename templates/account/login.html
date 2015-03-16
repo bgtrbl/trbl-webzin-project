@@ -1,25 +1,26 @@
-{% load i18n %}
+{% extends 'account/login_base.html' %}
+{% load staticfiles %}
 {% load account %}
-{% load url from future %}
 {% load crispy_forms_tags %}
 
-{% if socialaccount.providers  %}
-    <div class="socialaccount_ballot">
-        <ul class="socialaccount_providers">
-        {% include "account/provider_list.html" with process="login" %}
-        </ul>
-    <div class="login-or">{% trans 'or' %}</div>
-    </div>
-{% endif %}
 
-    <div class="row">
-        <form class="account" method="POST" action="{% url 'account_login' %}">
-          {% csrf_token %}
-          {{ form|crispy }}
-          <input type="submit" class="btn btn-submit col-md-offset-2">
-          {% if redirect_field_value %}
-            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-          {% endif %}
-          <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-        </form>
+{% block ajax_login %}
+<form class="trbl_form active" method="POST" action="{% url 'account_login' %}">
+    {% csrf_token %}
+    <h3>Login</h3>
+    <div>
+        {{ form|crispy }}
+    <a href="{% url 'account_reset_password' %}" rel="forgot_password" class="trbl_linkForm">Forgot Password?</a>
     </div>
+    
+    <div class="trbl_bottom">
+        <a href="{% url 'account_signup' %}" rel="register" class="trbl_linkForm">
+            You don't have an account yet? Register here. </a>
+        <input type="submit" class="btn btn-submit" /> 
+        {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+        <div class="clear">
+    </div>
+</form>
+{% endblock %}
