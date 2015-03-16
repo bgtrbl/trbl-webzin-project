@@ -14,22 +14,18 @@ register = template.Library()
 # prepoplutated with the corresponding thread_id via accessing the
 # child_thread attr of the CommentedItemMixin
 # possible solution: contenttype framework
-def get_comment_form(content_type, pk):
+def get_comment_form(context):
     # content_type goes to form's action value to saveComment view via url
     return {'comment_form': CommentForm(),
-            'content_type': content_type,
-            'pk': pk,
+            'object': context['object'],
+            'user': context['user'],
             }
 
 
-def get_comments(content_type, pk):
-    if ContentType.objects.filter(model=content_type).exists():
-        model_class = ContentType.objects.get(model=content_type).model_class()
-        child_thread = model_class.objects.get(id=pk).child_thread
-        return {'comments': Comment.objects.filter(parent_thread=child_thread),
-            }
-    print("something is wrong")
+# 고쳐야됨...
+def get_comments(thread_id):
+    return {'comments': Comment.objects.filter(parent_thread=thread_id),}
 
 
-register.inclusion_tag('trblcomment/templatetags/_comment_form_ajax.html')(get_comment_form)
-register.inclusion_tag('trblcomment/templatetags/_comments.html')(get_comments)
+register.inclusion_tag('trblcomment/templatetags/_comment_form_ajax.html', takes_context=True)(get_comment_form)
+register.inclusion_tag('trblcomment/templatetags/_comments_ajax.html')(get_comments)

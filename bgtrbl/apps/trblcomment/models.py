@@ -12,6 +12,9 @@ class CommentThread(models.Model):
         # @! temporary id return
         return str(self.id)
 
+    def get_post_url(self):
+        return reverse('trblcomment:add_comment', kwargs={'pk': self.id})
+
 
 class CommentQuerySet(models.QuerySet):
     # @n togoaway
