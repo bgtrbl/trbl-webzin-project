@@ -46,5 +46,12 @@
     {% for item in sitetree_items %}
     <li class="{% if item.is_current %}active{% endif %}"><a id="trbl_menu" href="{% sitetree_url for item %}">{{ item.title_resolved }}</a></li> 
     {% endfor %}
-
+    <li>
+        <div id="trbl_searchForm">
+            <form action="{% url 'haystack_search' %}" method="get">
+                <input type="text" name="q">
+                <button type="submit">submit</button>
+            </form>
+        </div>
+    </li>
 </ul>
