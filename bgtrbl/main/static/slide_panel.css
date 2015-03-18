@@ -1,11 +1,24 @@
-html,
-body,
+/*container*/
 .trbl_container, 
 #trbl_contents {
 	width: 100%;
 	height: 100%;
 }
+.menu-wrap {
+        width: 100%;
+}
 
+.trbl_siteTree{
+        width: 100%;
+        margin-left: 200px;
+}
+.trbl_side {
+        width: 200px;
+        float: left;
+}
+
+
+/* text */
 .menu-wrap a {
 	color: #b8b7ad;
 }
@@ -16,62 +29,42 @@ body,
 }
 
 
-/* Menu Button */
-.menu-button {
-	z-index: 1000;
-	border: none;
-	text-indent: 2.5em;
-	font-size: 1.5em;
-	color: transparent;
-	background: transparent;
-	-webkit-transition: -webkit-transform 0.3s;
-	transition: transform 0.3s;
-}
-
-.menu-button::before {
-	position: absolute;
-	top: 0.5em;
-	right: 0.5em;
-	bottom: 0.5em;
-	left: 0.5em;
-	background: linear-gradient(#373a47 20%, transparent 20%, transparent 40%, #373a47 40%, #373a47 60%, transparent 60%, transparent 80%, #373a47 80%);
-	content: '';
-}
-
-
-/* Menu */
+/* side bar */
 .menu-wrap {
 	position: absolute;
 	font-weight: 700;
 	opacity: 0;
-        -o-transition: opacity 0.5s;
-        -moz-transition: opacity 0.5s;
-	-webkit-transition: opacity 0.5s;
-	transition: opacity 0.5s;
+        -o-transition: opacity 0.4s ease;
+        -moz-transition: opacity 0.4s ease;
+	-webkit-transition: opacity 0.4s ease;
+	transition: opacity 0.4s ease;
 }
-
-.menu-top {
+.menu-sideTop {
+        width: 200px;
 	line-height: 58px;
 }
-
-.menu-top .profile {
+.menu-sideTop .toggle { text-align: center;}
+#close-button {
+    font-size: 30px;
+}
+.menu-sideTop .profile {
+        width: 100%;
 	display: inline-block;
 	padding: 8px 10px;
 	line-height: 42px;
 }
 
-.menu-top .profile,
-.menu-side {
-        z-index: 9999;
-	width: 300px;
+.menu-sideTop .profile,
+.menu-sideMiddle {
+	width: 200px;
 }
 
-.menu-top .profile img {
+.menu-sideTop .profile img {
 	float: left;
 	margin-right: 1em;
 }
 
-.menu-top .profile span {
+.menu-sideTop .profile span {
         font-size: 20px; 
         color: wheat;
         line-height: 2;
@@ -92,13 +85,13 @@ body,
 	}
 }
 
-.menu-side a {
+.menu-sideMiddle a {
 	display: block;
 	padding: 1.2em;
 	border-bottom: 1px solid rgba(0,0,0,0.1);
 }
 
-.menu-side a:first-child {
+.menu-sideMiddle a:first-child {
 	border-top: 1px solid rgba(0,0,0,0.1);
 }
 
@@ -110,6 +103,82 @@ body,
 .show-menu .trbl_contentWrap,
 .show-menu .menu-button {
 	-webkit-transform: translate3d(200px, 40px, 0);
+	-moz-transform: translate3d(200px, 40px, 0);
+	-o-transform: translate3d(200px, 40px, 0);
 	transform: translate3d(200px, 40px, 0);
+        transition: transform 1s, -webkit-transform 1s, -moz-transform 1s, -o-transform 1s;
 }
 
+
+
+/* top navigation */
+.trbl_navBar {
+    top: 0;
+    width: 100%;
+    height: 40px;
+    padding: 0;
+    list-style-type: none;
+    text-align: left;
+    background: black;
+}
+.trbl_navBar > li {
+    width: 10%;
+    height: 100%;
+    float: left;
+    text-align: center;
+}
+
+    /*search*/
+#trbl_searchFormWrapper {
+    width: 30%; 
+}
+
+.trbl_navBar input[type="text"] {
+    width: 50%;
+    height: 30px;
+    background: none;
+    border-radius: 6px;
+    border: 3px solid white;
+    margin-top: 4px;
+    -webkit-transition: all s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    transition: all 1s ease;
+}
+.trbl_navBar input[type="text"]:focus {
+    color: white;
+    width: 70%;
+    border-radius: 10px;
+    padding-left: 10px;
+    -webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out;
+}
+.trbl_navBar button {
+    font-size: 20px;
+    color: white;
+    background: none;
+    border: none;
+}
+
+    /* text */
+.trbl_navBar li > a {
+    font-size: 15px;
+    color: #ecf0f1;
+    text-decoration: none;
+    line-height: 2.5;
+}
+
+    /* effect */
+.trbl_navBar li:hover:not(#trbl_searchFormWrapper) {
+    background: #e67e22;;
+
+    -webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out;
+}
+.trbl_navBar .active {
+    background: #e74c3c;
+}

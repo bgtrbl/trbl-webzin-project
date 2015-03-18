@@ -1,14 +1,21 @@
 {% load avatar_tags %}
+{% load sitetree%}
 
 
 <div class="menu-wrap">
-    <nav class="menu-top">
+
+    <div class="trbl_side">
+        <nav class="menu-sideTop">
+        <div class="toggle">
+            <a id='close-button' class='trbl_sideToggle'><i class="fa fa-fw fa-navicon"></i></a>
+        </div>
+
         <div class="profile">
-        {% avatar request.user 35 %}
-        {% with request.user.userprofile as profile %}
-            <span>{{ profile.user }}</span>
-            <!-- bio 추가 -->
-        {% endwith %}
+            {% avatar request.user 35 %}
+            {% with request.user.userprofile as profile %}
+                <span>{{ profile.user }}</span>
+                <!-- bio 추가 -->
+            {% endwith %}
         <div>
 
         <div class="icon-list">
@@ -17,11 +24,19 @@
             <a href="#"><i class="fa fa-fw fa-envelope-o"></i></a>
             <a href="#"><i class="fa fa-fw fa-comment-o"></i></a>
         </div>
-    </nav>
+        </nav>
 
-    <nav class="menu-side">
-    <a href="{% url 'account_logout' %}">logout</a>
-    <a href="{% url 'userprofile:my_userprofile' %}">profile</a>
-    <span>history</span>
-    </nav>
+        <nav class="menu-sideMiddle">
+            <a href="{% url 'account_logout' %}">logout</a>
+            <a href="{% url 'userprofile:my_userprofile' %}">profile</a>
+        </nav>
+        
+        <nav class="menu-bottom">
+        <h3>history</h3>
+        </nav>
+    </div>
+
+    <div class="trbl_siteTree">
+        {% sitetree_menu from "root" include "trunk,topmeun" template "navigation/nav_top.html" %}
+    </div>
 </div>

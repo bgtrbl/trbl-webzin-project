@@ -4,7 +4,7 @@ $(function() {
             cssCls= $(this).attr('rel');
 
         $('.modal-content').load(target, function() {
-            $('.modal-content').removeClass().addClass('modal-content '+cssCls);
+            $('.modal-content').removeClass().addClass('modal-content '+ cssCls);
         });
         event.preventDefault();
     });
