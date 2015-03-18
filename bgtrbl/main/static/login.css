@@ -81,6 +81,9 @@
 .trbl_social .fa-facebook-square {
     color: #2980b9; 
 }
+.trbl_social .fa-tumblr-square {
+    color: #2980b9; 
+}
 
 /*button*/
 .modal-body button {
@@ -108,7 +111,9 @@
 
 /*form*/
 
-input[type='text'], input[type='password'], input[type='email'] {
+.trbl_fieldWrapper input[type='text'], 
+.trbl_fieldWrapper input[type='password'], 
+.trbl_fieldWrapper input[type='email'] {
     height: 40px;
     width: 80%;
     font-weight: 400;
