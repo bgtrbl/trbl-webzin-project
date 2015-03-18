@@ -13,9 +13,12 @@
 
     <!--css-->
     <link href="{% static 'fonts/fontawesome/css/font-awesome.min.css' %}" media="screen" rel="stylesheet">
+    <link href="{% static 'normalize.css' %}" media="screen" rel="stylesheet">
     <link href="{% static 'trblcms.css' %}" media="all" rel="stylesheet">
+    <link href="{% static 'login.css' %}" media="screen" rel="stylesheet">
     <link href="{% static 'slide_panel.css' %}" media="screen" rel="stylesheet">
-
+    
+    <script src="{% static 'js/login.js'%}"></script>
     <!--JS-->
     {% block extra_head %}{% endblock %}
 
@@ -38,14 +41,19 @@
     </div>
     </div>
 
-    {% include 'account/signup.html' %} 
 {% endblock %}
 
 {% block footer %}
 {% endblock %}
 
 {% block modal %}
-    {# 이거 되는거 맞나? #}
+        <div class="modal fade" id="trbl_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                {% include 'account/login.html' %} 
+            </div>
+        </div>
+        </div>
 {% endblock %}
 
 {% block base_script %}

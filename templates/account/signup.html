@@ -3,28 +3,37 @@
 {% load staticfiles %}
 {% load crispy_forms_tags %}
 
+{% block title %}<i class="fa fa-fw fa-paint-brush"></i>{% endblock %}
+
 {% block ajax_login %}
-<div id="trbl_form_wrapper" class="trbl_form_wrapper">
+
+<div class="modal-body">
     {% if socialaccount.providers  %}
+    <div class="trbl_social">
         {% include "account/provider_list.html" with process="login" %}
+        {% include "account/login_extra.html" %}
+    </div>
     {% endif %}
-
-    <form class="trbl_form active" method="POST" action="{% url 'account_signup' %}">
-      {% csrf_token %}
-        <h3>Register</h3>
-        <div>
-            {{ signup_form|crispy }}
+    <form class="trbl_form" method="POST" action="{% url 'account_signup' %}">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="{% if field.id_for_label != 'id_confirmation_key' %}trbl_fieldWrapper{% endif %}">
+            <i class="fa fa-fw {% cycle 'fa-user' 'fa-at' 'fa-key' 'fa-mail-forward' %}"></i>
+            {{ field.errors }}    
+            {{ field }}
         </div>
-        <div class="trbl_bottom">
-            <a href="{% url 'account_login' %}" rel="login" class="trbl_linkForm">
-                You have an account already? login here.</a>
-            <input type="submit" class="btn btn-submit" />
-            {% if redirect_field_value %}
-            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-            {% endif %}
-            <div class="clear"></div>
-        </div> 
+        {% endfor %}
+        <button type="submit" class="btn btn-primary" >확인</button>
     </form>
-
 </div>
+
+<div class="modal-bottom">
+    <p>You got a sunbutt? &nbsp;&nbsp;
+    <a href="{% url 'account_login' %}" rel="trbl_login" class="trbl_linkForm"><b>click here</b></a></br>
+    </p>
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+    {% endif %}
+</div>
+
 {% endblock %}

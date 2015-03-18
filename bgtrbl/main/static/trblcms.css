@@ -113,32 +113,6 @@ and (max-device-width : 480px) {
     }
 }
 
-
-/* @login */
-#myModal .modal-content {
-    margin: 30% 0 0 20%;
-    width: 60%;
-}
-#myModal li {
-    display: inline;
-    list-style-type: none;
-}
-.signin, .signup {
-    width: 120px; 
-    line-height:100px;
-    margin-left: 25px;
-}
-
-    /* login social providers image */
-ul.socialaccount_providers {
-    margin-bottom: 15px
-}
-.clean {
-    margin-top: 15px;
-    display:inline block;
-}
-
-
 /* categoryPanel */
 .trbl_categoryPanel {
     float: left;

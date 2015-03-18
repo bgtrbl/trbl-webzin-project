@@ -1,8 +1,13 @@
-$(document).on('click', '.trbl_linkForm', function (event) {
-    event.preventDefault();
-    var target= $(this).attr('href'); 
-    var date = new Date();
-    $('.trbl_form_wrapper').load(target);
+$(function() {
+    $(document).on('click', '.trbl_linkForm', function (event) {
+        var target= $(this).attr('href'),
+            cssCls= $(this).attr('rel');
 
+        $('.modal-content').load(target, function() {
+            $('.modal-content').removeClass().addClass('modal-content '+cssCls);
+        });
+        event.preventDefault();
+    });
 });
+
 

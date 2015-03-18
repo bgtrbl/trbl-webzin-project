@@ -4,23 +4,47 @@
 {% load crispy_forms_tags %}
 
 
+{% block title%}<i class="fa fa-fw fa-user"></i>{% endblock %}
+
 {% block ajax_login %}
-<form class="trbl_form active" method="POST" action="{% url 'account_login' %}">
-    {% csrf_token %}
-    <h3>Login</h3>
-    <div>
-        {{ form|crispy }}
-    <a href="{% url 'account_reset_password' %}" rel="forgot_password" class="trbl_linkForm">Forgot Password?</a>
+
+<div class="modal-body">
+    {% if socialaccount.providers  %}
+    <div class="trbl_social">
+        {% include "account/provider_list.html" with process="login" %}
+        {% include "account/login_extra.html" %}
     </div>
-    
-    <div class="trbl_bottom">
-        <a href="{% url 'account_signup' %}" rel="register" class="trbl_linkForm">
-            You don't have an account yet? Register here. </a>
-        <input type="submit" class="btn btn-submit" /> 
-        {% if redirect_field_value %}
-        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-        {% endif %}
-        <div class="clear">
-    </div>
-</form>
+{% endif %}
+    <form class="trbl_form" method="POST" action="{% url 'account_login' %}">
+        {% csrf_token %}
+        {% for field in login_form %}
+            {% if field.id_for_label == 'id_remember' %}
+            <div class="trbl_fieldWrapperRemember">
+                {{ field.errors }}
+                <label for="id_remember" class="checkbox-inline">
+                {{ field }}
+                &nbsp;remember me</label>
+            </div>
+            {% else %}
+            <div class="trbl_fieldWrapper">
+                <i class="fa fa-fw {% cycle 'fa-user' 'fa-key'%}"></i>
+                {{ field.errors }}
+                {{ field }}
+            </div>
+            {% endif %}
+        {% endfor %}
+        <a href="{% url 'account_reset_password' %}" rel="trbl_forgotPassword" class="trbl_linkForm">Forgot Password?</a><br>
+        <button type="submit" class="btn btn-primary">확인</button>
+    </form>
+</div>
+
+<div class="modal-bottom">
+    <p>New here? &nbsp;&nbsp;
+    <a href="{% url 'account_signup' %}" rel="trbl_signUp" class="trbl_linkForm"><b> Sign Up</b></a>
+    </p>
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+    {% endif %}
+</div>
+
 {% endblock %}
