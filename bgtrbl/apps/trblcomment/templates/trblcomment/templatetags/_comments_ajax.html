@@ -1,0 +1,59 @@
+{% load bootstrap3 %}
+{% load avatar_tags %}
+
+{% block comments_content %}
+<!-- url 하드코딩 -->
+<script>
+$(document).ready(function () {
+    $('.trbl_commentVote').click(function () {
+        var voteValue = $(this).attr('data-vote');
+        var commentId = $(this).attr('data-comment_id');
+        alert(commentId);
+        $.ajax({
+            type: "POST",
+            url: "/trblcomment/vote_comment/" + commentId,
+            beforeSend: function (xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrfcookie());
+                }
+            },
+            dataType: "json",
+            data: { vote: voteValue },
+            success: function (data) {
+                var ntag = $(this).find('.trbl_commnetNumber');
+                var n = Number($(this).find('.trbl_commnetNumber').text);
+                alert(n);
+                n++;
+                alert(n);
+                ntag.text = Strinb(n);
+                }
+            });
+        return false;
+    });
+});
+</script>
+    <ul>
+        <div id="trbl_comment_loaded">
+            {% for comment in comments %}
+            <li>
+                <div>
+                    <button class="trbl_commentVote" data-comment_id="{{ comment.id }}" data-vote="True">
+                        Up <span class="trbl_commentNumber">{{ comment.up_votes }}</span></button>
+                    <button class="trbl_commentVote" data-comment_id="{{ comment.id }}" data-vote="False">
+                        Down <span class="trbl_commentNumber">{{ comment.down_votes }}</span></button>
+                </div>
+                <div class="trbl_commentBody">
+                    {{ comment.text }}
+                    <br>
+                    by <a href="{{ comment.user.userprofile.get_absolute_url }}">
+                        {% avatar comment.user 18 %}
+                        {{ comment.user }}</a>
+                    at {{ comment.modified_at|date }}
+                </div>
+            </li>
+            {% endfor %}
+        </div>
+        <div id="trbl_commentAdded">
+        </div>
+    </ul>
+{% endblock %}

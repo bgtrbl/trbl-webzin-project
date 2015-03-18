@@ -5,10 +5,12 @@ Search
 {% endblock %}
 
 {% block content %}
-<form action="http://127.0.0.1:8000/search" method="get">
+{# 네비 탑으로 옮김 #}
+<!--form action="http://127.0.0.1:8000/search" method="get">
     <input type="text" name="q">
     <button type="submit">submit</button>
-</form>
+</form-->
+
 <ul>
 {% for result in page.object_list %}
     <li>

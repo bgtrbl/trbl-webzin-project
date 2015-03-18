@@ -1,27 +1,36 @@
 {% load staticfiles %}
 {% load bootstrap3 %}
 {% load crispy_forms_tags %}
+{% load avatar_tags %}
 
 
 {% block extra_head %}
-<script href="{% static 'trblcomment.js' %}"></script>
-<script>
-$(document).ready(function(){
-    // set a function that switches its states after the first
-    // submission to block duplicated submission
-    $("#comment_form").submit(function() {
-        $(this).submit(function() {
-            return false;
-        });
-        return true;
-    });
-});
-</script>
 {% endblock %}
 
 
 {% block comment_form_content %}
-    <form method="GET">
+{{ parent_thread }}
+<script>
+$(document).ready(function () {
+
+    $('#comment_submit').click(function() {
+        $.ajax({
+            type: "POST",
+            url: "{{ object.child_thread.get_post_url }}",
+            dataType: "json",
+            data: $('#trbl_commentForm').serialize(),
+            success: function(data) {
+                $('#trbl_commentAdded').append('<li>'+data.text+'<br>by <a href="{{ user.userprofile.get_absolute_url }}">');
+                $('#trbl_commentAdded').append('{% avatar user 18 %}{{ user }}</a></li>');
+            }
+        });
+        return false;
+    });
+});
+</script>
+
+    <form id="trbl_commentForm" method="POST" onsubmit="return false;">
+        {% csrf_token %}
         {{ comment_form|crispy }} {# crispy form #}	
         {% buttons %}
             {# 변수 선언 로컬 영역 설정은 이렇게 하는듯 #}

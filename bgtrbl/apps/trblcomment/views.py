@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponse
 
-from .models import Comment
+from .models import Comment, CommentThread
 from .forms import CommentForm
 
 import json
@@ -30,8 +30,26 @@ def saveComment(request, content_type, pk):
     # @todo support many content type that inherits CommentedItemMixin
     return redirect(commented_item.get_absolute_url())
 
-def addComment(request):
-    print("called by", request.user.username)
-    if 'comment_text' in request.GET:
-        response_dict = {'comment_text': request.GET['comment_text']}
-        return HttpResponse(json.dumps(response_dict), content_type='application/javascript')
+def addComment(request, pk):
+    if request.method == 'POST':
+        print("called by", request.user.username, request.method, CommentThread.objects.filter(id=pk).exists())
+        if CommentThread.objects.filter(id=pk).exists():
+            thread = CommentThread.objects.get(id=pk)
+            form = CommentForm(request.POST)
+            response_dict = {'text': request.POST['text']}
+            if form.is_valid():
+                print(form.cleaned_data)
+                Comment.objects.create(user=request.user,
+                        text=form.cleaned_data['text'],
+                        parent_thread=thread)
+                return HttpResponse(json.dumps(response_dict), content_type='application/javascript')
+
+def voteComment(request, pk):
+    import ipdb; ipdb.set_trace();
+    if request.method == 'POST':
+        print("called by", request.user.username)
+        if 'vote' in request.POST:
+            comment = Comment.objects.get(id=pk)
+            print(request.POST['vote'])
+            response_dict = {'vote': request.POST['vote']}
+            return HttpResponse(json.dumps(response_dict), content_type='application/javascript')
