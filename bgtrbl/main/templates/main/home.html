@@ -1,12 +1,23 @@
 {% extends 'base.html' %}
 
 {% load bootstrap3 %}
+{% load staticfiles %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'markdown/_markdown2.css' %}">
+    <style>
+        .trbl_homeImages {
+            width: 100%;
+        }
+    </style>
+{% endblock %}
 
 {% block title %}
     Hey there, Apples? 
 {% endblock %}
 
 {% block content %}
+<div id="trbl_markdown">
     <p>
         <h2>배고프다! ...</h2>
         <h5>Apple fritters?</h5>
@@ -15,10 +26,11 @@
     {% for image in images %}
     <p>
         <a href="{{ image }}">
-            <img src="{{ image }}" alt="img-{{ forloop.counter0 }}">
+            <div class="trbl_homeImages"><img src="{{ image }}" width="100%" alt="img-{{ forloop.counter0 }}"></div>
         </a>
     </p>
     {% endfor %}
+</div>
 
 <!-- div class="fb-like" data-share="true" data-width="450" data-show-faces="true"></div -->
 {% endblock %}
