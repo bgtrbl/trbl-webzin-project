@@ -21,10 +21,11 @@
 /* text */
 .menu-wrap a {
 	color: #b8b7ad;
+        text-decoration: none;
 }
 
-.menu-wrap a:hover,
-.menu-wrap a:focus {
+.trbl_side a:hover,
+.trbl_side a:focus {
 	color: #c94e50;
 }
 

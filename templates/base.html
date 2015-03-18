@@ -2,7 +2,6 @@
 
 {# load url from future #}
 {# navigation tree #}
-{% load sitetree %}
 {% load bootstrap3 %}
 {% load staticfiles %}
 {% load crispy_forms_tags%}
@@ -33,12 +32,19 @@
     {% bootstrap_messages %}
     <!--navi push container -->
     <div class="trbl_contentWrap">
-    <div id="trbl_contents">
-        <nav>
-        {% sitetree_menu from "root" include "trunk,topmeun" template "navigation/nav_top.html" %}
-        </nav>
-        {% block content %}(no content){% endblock %}
-    </div>
+        <div class="trbl_bodySlideToggle">
+        {% if not user.is_authenticated %}
+        <a data-toggle="modal" data-target="#trbl_modal" class="trbl_sideToggle"><i class="fa fa-fw fa-navicon"></i></a>
+        {% else %}
+        <a id="trbl_openSlide" class="trbl_sideToggle"><i class="fa fa-fw fa-navicon"></i></a>
+        <script src="{% static 'js/nav.js'%}"></script>
+        {% endif %}
+        </div>
+
+        <div id="trbl_contents">
+
+            {% block content %}(no content){% endblock %}
+        </div>
     </div>
 
 {% endblock %}
