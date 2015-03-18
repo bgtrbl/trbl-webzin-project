@@ -3,7 +3,7 @@
 
 <ul class="trbl_navBar">
     {% if not user.is_authenticated %}
-    <li class="trbl_sideToggle"><a data-toggle="modal" data-target="#myModal"><i class="glyphicon  glyphicon-user"></i></a></li>
+    <li class="trbl_sideToggle"><a data-toggle="modal" data-target="#trbl_modal"><i class="glyphicon  glyphicon-user"></i></a></li>
     {% else %}
     <li class="trbl_sideToggle"><a id="trbl_openSlide"><i class="glyphicon  glyphicon-user"></i></a></li>
     <!--login script-->
@@ -25,6 +25,12 @@
             closebtn.on( 'click', toggleMenu );
         }
 
+        $(document).on( 'click', '#trbl_contents', function(ev) {
+            var target = ev.target;
+            if( isOpen && target !== openbtn ) {
+                toggleMenu();
+            }
+        } );
     }
 
     function toggleMenu() {
