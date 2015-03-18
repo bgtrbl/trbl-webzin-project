@@ -148,31 +148,33 @@ input.form_control {
 
 
 /* toggle button */
+.trbl_sideToggle {
+    font-size: 30px;
+}
 #trbl_openSlide {
     z-index: 1000;
     font-size: 30px;
     position: fixed;
 }
-@-webkit-keyframes example {
+@-webkit-keyframes e1 {
     0% { font-size: 30px }
     50% { font-size: 28px; }
 }
-@-moz-keyframes example {
+@-moz-keyframes e1 {
     0% { font-size: 30px }
     50% { font-size: 28px; }
 }
-@-o-keyframes example {
+@-o-keyframes e1 {
     0% { font-size: 30px; }
     50% { font-size: 28px; }
 }
-@-ms-keyframes example {
+@-ms-keyframes e1 {
     0% { font-size: 30px; }
     50% { font-size: 28px; }
 }
-
-.trbl_bodySlideToggle a {
-    -webkit-animation: example 2s ease-in-out 0 infinite;
-    -moz-animation: example 2s ease-in-out 0 infinite;
-    -o-animation: example 2s ease-in-out 0 infinite;
-    animation: example 2s ease-in-out 0 infinite;
+#trbl_openSlide a {
+    -webkit-animation: e1 2s ease-in-out 0 infinite;
+    -moz-animation: e1 2s ease-in-out 0 infinite;
+    -o-animation: e1 2s ease-in-out 0 infinite;
+    animation: e1 2s ease-in-out 0 infinite;
 }
