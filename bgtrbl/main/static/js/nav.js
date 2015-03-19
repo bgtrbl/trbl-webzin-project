@@ -2,7 +2,8 @@ $(function() {
 
     var bodyEl = document.body,
         content = document.querySelector( '#trbl_contents' ),
-        closebtn = document.getElementById( 'close-button' ),
+        closebtn = $( '.close-button' ),
+        openbtn = $('.trbl_sideToggle'),
         isOpen = false;
 
     function init() {
@@ -10,12 +11,12 @@ $(function() {
     }
 
     function initEvents() {
-        $(document).on( 'click', '.trbl_sideToggle' , toggleMenu );
+        $(document).on( 'click touchend', '.trbl_sideToggle' , toggleMenu );
         if( closebtn ) {
-            closebtn.on( 'click', toggleMenu );
+            $( closebtn ).on( 'click', toggleMenu );
         }
 
-        $(document).on( 'click', '#trbl_contents', function(ev) {
+        $(document).on( 'click touchend', '#trbl_contents', function(ev) {
             var target = ev.target;
             if( isOpen && target !== openbtn ) {
                 toggleMenu();
@@ -30,7 +31,7 @@ $(function() {
         }
         else {
             classie.add( bodyEl, 'show-menu' );
-            $(this).hide();
+            $('#trbl_openSlide').hide();
 
         }
         isOpen = !isOpen;
