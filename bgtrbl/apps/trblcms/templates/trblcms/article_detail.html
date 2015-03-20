@@ -21,45 +21,46 @@
     {% include 'trblcms/_ggl_sdk.html' %}
 
     <div class="detail col-md-8">
+        
         <div class="top">
-        <h1>{{ object.title }}</h1>
-        {% avatar object.user 40 %}
-        <a href="{{ object.user.userprofile.get_absolute_url }}">{{ object.user }}</a>  
-    </div>
+            <h1>{{ object.title }}</h1>
+            {% avatar object.user 40 %}
+            <a href="{{ object.user.userprofile.get_absolute_url }}">{{ object.user }}</a>  
+        </div>
 
-    <div class="bdy">
-        <p>Created at - {{ object.created_at|date }}</p>
-        <p>Modified at - {{ object.modified_at|date }}</p>
-        {% if object.sequel %}
-            <p>Sequel - <a href="{{ object.sequel.get_absolute_url }}">{{ object.sequel }}</a></p>
-        {% endif %}
-        <p>{{ object.body|safe }}</p>
-        <p>Tags -
-            {% for tag in object.tags.all %}
-                {{ tag }} 
-            {% endfor %}</p>
-        {% include 'trblcms/_share_buttons.html' %}
+        <div class="bdy">
+            <p>Created at - {{ object.created_at|date }}</p>
+            <p>Modified at - {{ object.modified_at|date }}</p>
+            {% if object.sequel %}
+                <p>Sequel - <a href="{{ object.sequel.get_absolute_url }}">{{ object.sequel }}</a></p>
+            {% endif %}
+            <p>{{ object.body|safe }}</p>
+            <p>Tags -
+                {% for tag in object.tags.all %}
+                    {{ tag }} 
+                {% endfor %}</p>
+            {% include 'trblcms/_share_buttons.html' %}
 
-        {% if request.user.is_authenticated and object.user == request.user %}
-        <p>{% buttons %}
-                <a href="{% url 'trblcms:edit_article' object.id %}" type="button" class="btn btn-primary">
-                    {% bootstrap_icon "edit" %}[Edit]
-                </a>
-                <a href="{% url 'trblcms:delete_article' object.id %}" type="button" class="btn btn-primary">
-                    {% bootstrap_icon "remove" %}[Delete]
-                </a>
-        {% endbuttons %}</p>
-        {% endif %}
-    </div>
+            {% if request.user.is_authenticated and object.user == request.user %}
+            <p>{% buttons %}
+                    <a href="{% url 'trblcms:edit_article' object.id %}" type="button" class="btn btn-primary">
+                        {% bootstrap_icon "edit" %}[Edit]
+                    </a>
+                    <a href="{% url 'trblcms:delete_article' object.id %}" type="button" class="btn btn-primary">
+                        {% bootstrap_icon "remove" %}[Delete]
+                    </a>
+            {% endbuttons %}</p>
+            {% endif %}
+        </div>
 
-    <div id="trbl_comment" class="cmmnt">
-        {# comment form 은 로그인한 유저만 #}
-        {% if user.is_authenticated %}
-            {% get_comment_form %}
-        {% endif %}
+        <div id="trbl_comment" class="cmmnt">
+            {# comment form 은 로그인한 유저만 #}
+            {% if user.is_authenticated %}
+                {% get_comment_form %}
+            {% endif %}
 
-        {% get_comments object.child_thread.id %}
-    </div>
+            {% get_comments object.child_thread.id %}
+        </div>
 
     </div>
 
