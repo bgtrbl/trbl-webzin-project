@@ -2,7 +2,7 @@
 {% load endless %}
 
 <div class="col-md-8 col-sm-6 col-xs-12">
-{% lazy_paginate 6 Reviews %}
+{% paginate 6 Reviews %}
 {% for item in Reviews %}
 <div class="col-md-6 col-sm-6 col-xs-12">
     <div class="trbl_articleTop">
@@ -35,7 +35,7 @@
 </div>
 
 <div class="col-md-4 col-sm-12 col-xs-12">
-{% lazy_paginate 6 Tutorials %}
+{% paginate 6 Tutorials %}
 {% for item in Tutorials %} 
 
 <div class="col-md-12 col-md-6 col-xs-12">
@@ -67,4 +67,4 @@
 
 {% endfor%}
 </div>
-
+{% show_more %}
