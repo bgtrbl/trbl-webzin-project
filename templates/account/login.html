@@ -3,19 +3,17 @@
 {% load account %}
 {% load crispy_forms_tags %}
 
+{% block content %}
 
-{% block title%}<i class="fa fa-fw fa-user"></i>{% endblock %}
-
-{% block ajax_login %}
-
-<div class="modal-body">
-    {% if socialaccount.providers  %}
-    <div class="trbl_social">
+<div id="trbl_accountContainer">
+{% if socialaccount.providers  %}
+    <div class="trbl_social" id="trbl_socialLogin">
         {% include "account/provider_list.html" with process="login" %}
         {% include "account/login_extra.html" %}
     </div>
-{% endif %}
-    <form class="trbl_form" method="POST" action="{% url 'account_login' %}">
+    {% endif %}
+
+    <form id="trbl_accountForm" method="POST" action="{% url 'account_login' %}">
         {% csrf_token %}
         {% for field in login_form %}
             {% if field.id_for_label == 'id_remember' %}
@@ -33,18 +31,20 @@
             </div>
             {% endif %}
         {% endfor %}
-        <a href="{% url 'account_reset_password' %}" rel="trbl_forgotPassword" class="trbl_linkForm">Forgot Password?</a><br>
-        <button type="submit" class="btn btn-primary">확인</button>
+        <button type="submit" class="btn btn-primary" id="trbl_submitButton">Sign in</button>
     </form>
+
+    <div class="trbl_accountBottom">
+        <a href="{% url 'account_reset_password' %}" rel="trbl_forgotPassword" class="trbl_linkForm forgot">Forgot Password?</a><br>
+        <p>New here? &nbsp;&nbsp;
+        <a href="{% url 'account_signup' %}" rel="trbl_signUp" class="trbl_linkForm"><b> Sign Up</b></a>
+        </p>
+        {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+    </div>
+
 </div>
 
-<div class="modal-bottom">
-    <p>New here? &nbsp;&nbsp;
-    <a href="{% url 'account_signup' %}" rel="trbl_signUp" class="trbl_linkForm"><b> Sign Up</b></a>
-    </p>
-    {% if redirect_field_value %}
-    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-    {% endif %}
-</div>
 
 {% endblock %}

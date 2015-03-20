@@ -4,7 +4,16 @@
 {% load i18n %}
 
 {% block head_title %}{% trans "Sign Out" %}{% endblock %}
-
+{% block extra_head %}
+    <style>
+        #trbl_logoutSubmit {
+            color: #e74c3c;
+            font-size: 30px;
+            border: none;
+            background: none; 
+        }
+    </style>
+{% endblock %}
 {% block content %}
 로그아웃하세요~~
 <h1>{% trans "Sign Out" %}</h1>
@@ -16,7 +25,7 @@
   {% if redirect_field_value %}
   <input type="hidden" name="{{redirect_field_name}}" value="{{redirect_field_value}}"/>
   {% endif %}
-  <button type="submit" value="adf" class="btn btn-default"></button>
+  <button type="submit" value="adf" id="trbl_logoutSubmit"><i class="fa fa-fw fa-sign-out"></i></button>
 </form>
 
 
