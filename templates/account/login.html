@@ -1,4 +1,4 @@
-{% extends 'account/login_base.html' %}
+{% extends 'account/base.html' %}
 {% load staticfiles %}
 {% load account %}
 {% load crispy_forms_tags %}
@@ -6,7 +6,7 @@
 {% block content %}
 
 <div id="trbl_accountContainer">
-{% if socialaccount.providers  %}
+    {% if socialaccount.providers  %}
     <div class="trbl_social" id="trbl_socialLogin">
         {% include "account/provider_list.html" with process="login" %}
         {% include "account/login_extra.html" %}
@@ -21,11 +21,11 @@
                 {{ field.errors }}
                 <label for="id_remember" class="checkbox-inline">
                 {{ field }}
-                &nbsp;remember me</label>
+                &nbsp;Remember me?</label>
             </div>
             {% else %}
             <div class="trbl_fieldWrapper">
-                <i class="fa fa-fw {% cycle 'fa-user' 'fa-key'%}"></i>
+                <i class="fa fa-fw {% cycle 'fa-envelope-o' 'fa-lock'%}"></i>
                 {{ field.errors }}
                 {{ field }}
             </div>
@@ -35,9 +35,9 @@
     </form>
 
     <div class="trbl_accountBottom">
-        <a href="{% url 'account_reset_password' %}" rel="trbl_forgotPassword" class="trbl_linkForm forgot">Forgot Password?</a><br>
-        <p>New here? &nbsp;&nbsp;
-        <a href="{% url 'account_signup' %}" rel="trbl_signUp" class="trbl_linkForm"><b> Sign Up</b></a>
+        <a href="{% url 'account_reset_password' %}" rel="trbl_forgotPassword" class="trbl_linkForm forgot">Forgot password?</a><br>
+        <p>Are you new? &nbsp;&nbsp;
+        <a href="{% url 'account_signup' %}" rel="trbl_signUp" class="trbl_linkForm"><b>Sign up</b></a>
         </p>
         {% if redirect_field_value %}
         <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />

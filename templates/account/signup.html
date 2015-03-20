@@ -1,4 +1,4 @@
-{% extends 'account/login_base.html' %}
+{% extends 'account/base.html' %}
 {% load account %}
 {% load staticfiles %}
 {% load crispy_forms_tags %}
@@ -17,7 +17,7 @@
         {% csrf_token %}
         {% for field in form %}
         <div class="trbl_fieldWrapper{% if field.id_for_label == 'id_confirmation_key' %}-key{% endif %}">
-            <i class="fa fa-fw {% cycle 'fa-user' 'fa-at' 'fa-key' 'fa-mail-forward' %}"></i>
+            <i class="fa fa-fw {% cycle 'fa-user' 'fa-at' 'fa-lock' 'fa-mail-forward' %}"></i>
             {{ field.errors }}    
             {{ field }}
         </div>

@@ -1,0 +1,31 @@
+{% extends 'root.html' %}
+
+{% load bootstrap3 %}
+{% load staticfiles %}
+{% load crispy_forms_tags%}
+
+{% load i18n %}
+
+{% block base_head %}
+
+    <link href="{% static 'fonts/fontawesome/css/font-awesome.min.css' %}" media="screen" rel="stylesheet">
+    <link href="{% static 'normalize.css' %}" media="screen" rel="stylesheet">
+    <link href="{% static 'login.css' %}" media="screen" rel="stylesheet">
+
+{% endblock %}
+
+{% block root_content %}
+    <video autoplay loop poster="/media/design_comps/bgvid/polina.jpg" id="trbl_bgvid">
+    <source src="/media/design_comps/bgvid/polina.webm" type="video/webm">
+    <source src="/media/design_comps/bgvid/polina.mp4" type="video/mp4">
+    </video>
+    <div class="trbl_contentWrap">
+        <div id="trbl_contents">
+            {% block content %}(no content){% endblock %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
