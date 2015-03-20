@@ -1,8 +1,6 @@
 $(function() {
 
     var bodyEl = document.body,
-        content = document.querySelector( '#trbl_contents' ),
-        closebtn = $( '.close-button' ),
         openbtn = $('.trbl_sideToggle'),
         isOpen = false;
 
@@ -11,11 +9,8 @@ $(function() {
     }
 
     function initEvents() {
-        $(document).on( 'click touchend', '.trbl_sideToggle' , toggleMenu );
-        if( closebtn ) {
-            $( closebtn ).on( 'click', toggleMenu );
-        }
-
+        $(document).on( 'mouseover touchend', '.trbl_sideToggle' , toggleMenu );
+        $(document).on('click', '#close-button', toggleMenu);
         $(document).on( 'click touchend', '#trbl_contents', function(ev) {
             var target = ev.target;
             if( isOpen && target !== openbtn ) {
