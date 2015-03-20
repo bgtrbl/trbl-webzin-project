@@ -11,9 +11,9 @@
 </li>
 {% endfor %}
 {% endif %}
-  <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}}" 
+  <a title="{{provider.name}}" class="socialaccount_provider" 
   href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">
-  <i class="fa {% cycle 'fa-twitter' 'fa-google' 'fa-facebook-square' 'fa-tumblr-square' %}"></i>
+  <i id="{{provider.id}}" class="fa fa-{{ provider.id|lower }}{% if provider.id|lower == 'facebook' %}-square{% endif %}"></i>
   </a>
 {% endfor %}
 

@@ -148,14 +148,19 @@ input.form_control {
 
 
 /* toggle button */
-.trbl_sideToggle {
+.trbl_sideToggle:not(#close-button) {
     font-size: 30px;
-}
-#trbl_openSlide {
     z-index: 1000;
-    font-size: 30px;
+    cursor: pointer;/* clickable mobile(ios) */
     position: fixed;
 }
+.trbl_sideToggle:hover {
+    color: red; 
+}
+#trbl_openSlide {
+    font-size: 30px;
+}
+
 @-webkit-keyframes e1 {
     0% { font-size: 30px }
     50% { font-size: 28px; }
@@ -172,7 +177,7 @@ input.form_control {
     0% { font-size: 30px; }
     50% { font-size: 28px; }
 }
-#trbl_openSlide a {
+#trbl_openSlide {
     -webkit-animation: e1 2s ease-in-out 0 infinite;
     -moz-animation: e1 2s ease-in-out 0 infinite;
     -o-animation: e1 2s ease-in-out 0 infinite;

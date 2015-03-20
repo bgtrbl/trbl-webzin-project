@@ -1,5 +1,5 @@
 $(function() {
-    $(document).on('click', '.trbl_linkForm', function (event) {
+    $(document).on('click touchend', '.trbl_linkForm', function (event) {
         var target= $(this).attr('href'),
             cssCls= $(this).attr('rel');
 

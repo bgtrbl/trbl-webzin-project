@@ -106,8 +106,8 @@
 	-webkit-transform: translate3d(200px, 40px, 0);
 	-moz-transform: translate3d(200px, 40px, 0);
 	-o-transform: translate3d(200px, 40px, 0);
+	-ms-transform: translate3d(200px, 40px, 0);
 	transform: translate3d(200px, 40px, 0);
-        transition: transform 1s, -webkit-transform 1s, -moz-transform 1s, -o-transform 1s;
 }
 
 
@@ -131,9 +131,9 @@
 
     /*search*/
 #trbl_searchFormWrapper {
+    text-align: left;
     width: 30%; 
-    padding-top: 2px;
-    padding-bottom: 2px;
+    padding: 2px 0 0 5px;
 }
 
 .trbl_navBar input[type="text"] {
@@ -142,7 +142,7 @@
     background: white;
     border-radius: 4px;
     border: 1px solid white;
-    margin-top: 4px;
+    vertical-align: middle;
     -webkit-transition: all .6s ease;
     -moz-transition: all .6s ease;
     -o-transition: all .6s ease;
@@ -175,7 +175,7 @@
 
     /* effect */
 .trbl_navBar li:hover:not(#trbl_searchFormWrapper) {
-    background: #e67e22;;
+    background: #e67e22;
 
     -webkit-transition: all 1s ease-in-out;
     -moz-transition: all 1s ease-in-out;

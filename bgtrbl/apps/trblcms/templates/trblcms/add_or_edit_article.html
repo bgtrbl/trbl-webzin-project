@@ -56,7 +56,7 @@
 
     </div>
 <script>
-    CKEDITOR.inline("body", { customConfig : "{% static 'ckeditor/trblcms_config.js' %}",
+    CKEDITOR.replace("body", { customConfig : "{% static 'ckeditor/trblcms_config.js' %}",
             filebrowserUploadUrl : "{% url 'trblcms:ckeditor_upload' %}" });
 </script>
 {% endblock %}

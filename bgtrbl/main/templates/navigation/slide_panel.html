@@ -7,30 +7,34 @@
     <div class="trbl_side">
         <nav class="menu-sideTop">
         <div class="toggle">
-            <a id='close-button' class='trbl_sideToggle'><i class="fa fa-fw fa-navicon"></i></a>
+            <a id='close-button'><i class="fa fa-fw fa-navicon"></i></a>
         </div>
 
-        <div class="profile">
-            {% avatar request.user 35 %}
-            {% with request.user.userprofile as profile %}
-                <span>{{ profile.user }}</span>
-                <!-- bio 추가 -->
-            {% endwith %}
-        <div>
+        {% if not user.is_authenticated %}
+            <a href="{% url 'account_login' %}" id="trbl_loginButton">login좀좀좀좀좀아좀</a>
+        {% else %}
+            <div class="profile">
+                {% avatar request.user 35 %}
+                {% with request.user.userprofile as profile %}
+                    <span>{{ profile.user }}</span>
+                    <!-- bio 추가 -->
+                {% endwith %}
+            <div>
 
-        <div class="icon-list">
-            <a href="#"><i class="fa fa-fw fa-star-o"></i></a>
-            <a href="#"><i class="fa fa-fw fa-bell-o"></i></a>
-            <a href="#"><i class="fa fa-fw fa-envelope-o"></i></a>
-            <a href="#"><i class="fa fa-fw fa-comment-o"></i></a>
-        </div>
-        </nav>
+            <div class="icon-list">
+                <a href="#"><i class="fa fa-fw fa-star-o"></i></a>
+                <a href="#"><i class="fa fa-fw fa-bell-o"></i></a>
+                <a href="#"><i class="fa fa-fw fa-envelope-o"></i></a>
+                <a href="#"><i class="fa fa-fw fa-comment-o"></i></a>
+            </div>
+            </nav>
 
-        <nav class="menu-sideMiddle">
-            <a href="{% url 'account_logout' %}">logout</a>
-            <a href="{% url 'userprofile:my_userprofile' %}">profile</a>
-        </nav>
-        
+            <nav class="menu-sideMiddle">
+                <a href="{% url 'account_logout' %}">logout</a>
+                <a href="{% url 'userprofile:my_userprofile' %}">profile</a>
+            </nav>
+        {% endif %}
+
         <nav class="menu-bottom">
         <h3>history</h3>
         </nav>

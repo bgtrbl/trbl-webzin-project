@@ -1,10 +1,9 @@
+{% extends 'base.html' %}
 {% load staticfiles %}
 
-<div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-    <span aria-hidden="true">&times;</span></button>
-    {% block title %}{% endblock %} 
-</div>
+{% block extra_head %}
+<link href="{% static 'login.css' %}" media="screen" rel="stylesheet">
+{% endblock %}
 
-{% block ajax_login %}{% endblock %}
+{% block content %}{% endblock %}
 

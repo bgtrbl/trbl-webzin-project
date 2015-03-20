@@ -3,37 +3,36 @@
 {% load staticfiles %}
 {% load crispy_forms_tags %}
 
-{% block title %}<i class="fa fa-fw fa-paint-brush"></i>{% endblock %}
+{% block content %}
+<div id="trbl_accountContainer">
 
-{% block ajax_login %}
-
-<div class="modal-body">
     {% if socialaccount.providers  %}
-    <div class="trbl_social">
+    <div class="trbl_social" id="trbl_socialSignup">
         {% include "account/provider_list.html" with process="login" %}
         {% include "account/login_extra.html" %}
     </div>
     {% endif %}
-    <form class="trbl_form" method="POST" action="{% url 'account_signup' %}">
+
+    <form id="trbl_accountForm" method="POST" action="{% url 'account_signup' %}">
         {% csrf_token %}
         {% for field in form %}
-        <div class="{% if field.id_for_label != 'id_confirmation_key' %}trbl_fieldWrapper{% endif %}">
+        <div class="trbl_fieldWrapper{% if field.id_for_label == 'id_confirmation_key' %}-key{% endif %}">
             <i class="fa fa-fw {% cycle 'fa-user' 'fa-at' 'fa-key' 'fa-mail-forward' %}"></i>
             {{ field.errors }}    
             {{ field }}
         </div>
         {% endfor %}
-        <button type="submit" class="btn btn-primary" >확인</button>
+        <button type="submit" class="btn btn-primary" id="trbl_submitButton">확인</button>
     </form>
-</div>
 
-<div class="modal-bottom">
-    <p>You got a sunbutt? &nbsp;&nbsp;
-    <a href="{% url 'account_login' %}" rel="trbl_login" class="trbl_linkForm"><b>click here</b></a></br>
-    </p>
-    {% if redirect_field_value %}
-    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-    {% endif %}
-</div>
+    <div class="account-bottom">
+        <p>You got a sunbutt? &nbsp;&nbsp;
+        <a href="{% url 'account_login' %}" rel="trbl_login" class="trbl_linkForm"><b>click here</b></a></br>
+        </p>
+        {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+    </div>
 
+</div>
 {% endblock %}

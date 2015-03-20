@@ -1,7 +1,5 @@
 {% extends 'root.html' %}
 
-{# load url from future #}
-{# navigation tree #}
 {% load bootstrap3 %}
 {% load staticfiles %}
 {% load crispy_forms_tags%}
@@ -10,15 +8,11 @@
 
 {% block base_head %}
 
-    <!--css-->
     <link href="{% static 'fonts/fontawesome/css/font-awesome.min.css' %}" media="screen" rel="stylesheet">
     <link href="{% static 'normalize.css' %}" media="screen" rel="stylesheet">
     <link href="{% static 'trblcms.css' %}" media="all" rel="stylesheet">
-    <link href="{% static 'login.css' %}" media="screen" rel="stylesheet">
     <link href="{% static 'slide_panel.css' %}" media="screen" rel="stylesheet">
-    
-    <script src="{% static 'js/login.js'%}"></script>
-    <!--JS-->
+
     {% block extra_head %}{% endblock %}
 
 {% endblock %}
@@ -28,21 +22,14 @@
 {% endblock %}
 
 {% block root_content %}
-    <!--snippet button style change-->
-    {% bootstrap_messages %}
     <!--navi push container -->
     <div class="trbl_contentWrap">
         <div class="trbl_bodySlideToggle">
-        {% if not user.is_authenticated %}
-        <a data-toggle="modal" data-target="#trbl_modal" class="trbl_sideToggle"><i class="fa fa-fw fa-navicon"></i></a>
-        {% else %}
         <a id="trbl_openSlide" class="trbl_sideToggle"><i class="fa fa-fw fa-navicon"></i></a>
         <script src="{% static 'js/nav.js'%}"></script>
-        {% endif %}
         </div>
 
         <div id="trbl_contents">
-
             {% block content %}(no content){% endblock %}
         </div>
     </div>
@@ -52,17 +39,6 @@
 {% block footer %}
 {% endblock %}
 
-{% block modal %}
-        <div class="modal fade" id="trbl_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                {% include 'account/login.html' %} 
-            </div>
-        </div>
-        </div>
-{% endblock %}
-
 {% block base_script %}
 <script src="{% static 'js/classie.js' %}"></script>
-
 {% endblock %}
