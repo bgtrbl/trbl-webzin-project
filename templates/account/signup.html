@@ -3,6 +3,10 @@
 {% load staticfiles %}
 {% load crispy_forms_tags %}
 
+{% block google_recaptcha %}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+{% endblock %}
+
 {% block content %}
 <div id="trbl_accountContainer">
 
@@ -21,6 +25,7 @@
             {{ field.errors }}    
             {{ field }}
         </div>
+        <div class="g-recaptcha" data-sitekey="6LeL2AMTAAAAAKWptgVUVd_HIQUj1WlFXD7Dawkf"></div>
         {% endfor %}
         <button type="submit" class="btn btn-primary" id="trbl_submitButton">확인</button>
     </form>
