@@ -26,7 +26,7 @@
 <ul class="col-md-12 col-sm-12 col-xs-12" id="trbl_recentAction">
     <li>최근 글:</li>
     <li class="clearfix"> 
-        {% for item in recent_articles %}
+        {% for item in recent.articles %}
         <ul class="col-md-2 col-sm-4 col-xs-6"><li><a href="{{ item.get_absolute_url }}">
             {% if item.get_header_img.src%}
             <img src="{{ item.get_header_img.src}}" />
@@ -38,7 +38,7 @@
 
     <li> 최근 시퀄:
         <ul>
-        {% for item in recent_sequels %}
+        {% for item in recent.sequels %}
             <li> <a href="{{ item.get_absolute_url }}">{{ item }}</a> </li>
             {% if item.get_herader_img.src %}
             <li><a href="{{ item.get_absolute_url }}">{{ item.get_header_img.src}}</a> </li>
@@ -49,7 +49,7 @@
 
     <li> 최근 댓글:
         <ul>
-        {% for item in recent_comments %}
+        {% for item in recent.comments %}
             <li> <a href="{{ item.get_absolute_url }}">{{ item }}</a> </li>
         {% endfor %}
         </ul>

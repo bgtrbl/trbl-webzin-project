@@ -14,7 +14,7 @@ class UserProfileDetail(DetailView):
         context = super().get_context_data(**kwargs)
 
         user = self.get_object().user
-        context['recent_acts'] = {
+        context['recent'] = {
                 'articles'  : user.article_set.all()[:5],
                 'sequels'   : user.sequel_set.all()[:5],
                 'comments'  : user.comment_set.order_by('-created_at')[:5],
