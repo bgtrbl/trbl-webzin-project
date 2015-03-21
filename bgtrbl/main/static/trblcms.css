@@ -109,7 +109,7 @@ input.form_control {
 }
 
 
-/* Magazine & Forum grid */
+/* Magazine */
     /* grid */
 .container-fluid p { width: 100%; display: inline-block; font-weight: bold;
     font-size: 15px;
@@ -118,7 +118,6 @@ input.form_control {
     margin-bottom: 10px;
 }
 
-.trbl_forumWrapper {height: 400px;}
 .trbl_articleTop {margin-bottom: 3px;}
 .trbl_articleTop .clearfix {margin-top: 5px;}
 .trbl_articleBottom {
@@ -182,4 +181,11 @@ input.form_control {
     -moz-animation: e1 2s ease-in-out 0 infinite;
     -o-animation: e1 2s ease-in-out 0 infinite;
     animation: e1 2s ease-in-out 0 infinite;
+}
+
+/* endless icon */
+.endless_container {
+    text-align: center;
+    font-size: 30px;
+    color: #34495e;
 }
