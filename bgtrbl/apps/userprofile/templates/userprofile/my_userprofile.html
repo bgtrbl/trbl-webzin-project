@@ -20,9 +20,10 @@
         Edit
     </a></li>
     <li>Nickname:<span>{{ user }}</span></li>
-    <li>상태:<span>{{ user.userprofile.bio|striptags|default:"" }}</span></li>
+    <li>Email: {{ user.email }}</span></li>
+    <li>상태:<span>{{ user.userprofile.bio|striptags|default:"상태 메세지가 없습니다." }}</span></li>
     <li>생년월일:<span>{{ user.userprofile.dob|date }}</span> </li>
-    <li>Website: {{ user.userprofile.website|default:"" }}</span></li>
+    <li>Website: {{ user.userprofile.website|default:"등록된 사이트가 없습니다." }}</span></li>
 </ul>
 
 <ul class="col-md-12 col-sm-12 col-xs-12" id="trbl_recentAction">
