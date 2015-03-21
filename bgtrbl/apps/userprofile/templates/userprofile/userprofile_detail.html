@@ -1,0 +1,59 @@
+{% extends 'userprofile/profile_base.html' %}
+
+{% load bootstrap3 %}
+{% load account %}
+{% load socialaccount %}
+{% load avatar_tags %}
+
+{% block title %}
+    My Profile
+{% endblock %}
+
+{% block profile_content %}
+
+<ul class="col-md-6 col-sm-6 col-xs-12" id="trbl_profileImg">
+    <li>{% avatar user_profile.user 100 %}</li>
+</ul> 
+
+<ul class="col-md-6 col-sm-6 col-xs-12">
+    <li>Nickname:<span>{{ user_profile.user }}</span></li>
+    <li>Email: {{ user_profile.user.email }}</span></li>
+    <li>상태:<span>{{ user_profile.bio|striptags|default:"상태 메세지가 없습니다." }}</span></li>
+    <li>생년월일:<span>{{ user_profile.dob|date }}</span> </li>
+    <li>Website: {{ user_profile.website|default:"등록된 사이트가 없습니다." }}</span></li>
+</ul>
+
+<ul class="col-md-12 col-sm-12 col-xs-12" id="trbl_recentAction">
+    <li>최근 글:</li>
+    <li class="clearfix"> 
+        {% for item in recent_articles %}
+        <ul class="col-md-2 col-sm-4 col-xs-6"><li><a href="{{ item.get_absolute_url }}">
+            {% if item.get_header_img.src%}
+            <img src="{{ item.get_header_img.src}}" />
+            {% endif %}
+            {{ item.title }}
+        </a></li></ul>
+        {% endfor %}
+    </li>
+
+    <li> 최근 시퀄:
+        <ul>
+        {% for item in recent_sequels %}
+            <li> <a href="{{ item.get_absolute_url }}">{{ item }}</a> </li>
+            {% if item.get_herader_img.src %}
+            <li><a href="{{ item.get_absolute_url }}">{{ item.get_header_img.src}}</a> </li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    </li>
+
+    <li> 최근 댓글:
+        <ul>
+        {% for item in recent_comments %}
+            <li> <a href="{{ item.get_absolute_url }}">{{ item }}</a> </li>
+        {% endfor %}
+        </ul>
+    </li>
+</ul>
+
+{% endblock %}
