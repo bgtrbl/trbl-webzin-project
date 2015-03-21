@@ -3,5 +3,6 @@
 축하합니다.
 유저네임{{ user_display }} 님이 {{ site_name }} 에 가입하셨습니다!
 
-이메일 확인을 위해 옆의 주소를 클릭해주세요!! {{ activate_url }}
+이메일 확인을 위해 링크를 클릭해 주세요!!
+{{ activate_url }}
 {% endblocktrans %}{% endautoescape %}
