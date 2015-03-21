@@ -10,10 +10,7 @@
                 <a id='close-button'><i class="fa fa-fw fa-navicon"></i></a>
             </div>
 
-            {% if not user.is_authenticated %}
-            <a href="{% url 'account_login' %}" id="trbl_loginButton">login</a>
-
-            {% else %}
+            {% if user.is_authenticated %}
             <div class="profile">
                 <a href="{% url 'userprofile:my_userprofile' %}">
                     {% avatar user 35 %}
@@ -28,10 +25,14 @@
                 <a href="#"><i class="fa fa-fw fa-envelope-o"></i></a>
                 <a href="#"><i class="fa fa-fw fa-comment-o"></i></a>
             </div>
+
+            {% else %}
+            <a href="{% url 'account_login' %}" id="trbl_loginButton">login</a>
+
             {% endif %}
         </nav>
 
-        {% if not user.is_authenticated %}
+        {% if user.is_authenticated %}
         <nav class="menu-sideMiddle">
             <a href="{% url 'account_logout' %}">logout</a>
         </nav>
