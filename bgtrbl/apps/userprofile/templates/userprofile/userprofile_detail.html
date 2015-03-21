@@ -12,15 +12,15 @@
 {% block profile_content %}
 
 <ul class="col-md-6 col-sm-6 col-xs-12" id="trbl_profileImg">
-    <li>{% avatar user_profile.user 100 %}</li>
+    <li>{% avatar object 100 %}</li>
 </ul> 
 
 <ul class="col-md-6 col-sm-6 col-xs-12">
-    <li>Nickname:<span>{{ user_profile.user }}</span></li>
-    <li>Email: {{ user_profile.user.email }}</span></li>
-    <li>상태:<span>{{ user_profile.bio|striptags|default:"상태 메세지가 없습니다." }}</span></li>
-    <li>생년월일:<span>{{ user_profile.dob|date }}</span> </li>
-    <li>Website: {{ user_profile.website|default:"등록된 사이트가 없습니다." }}</span></li>
+    <li>Nickname:<span>{{ object.user }}</span></li>
+    <li>Email: {{ object.user.email }}</span></li>
+    <li>상태:<span>{{ object.bio|striptags|default:"상태 메세지가 없습니다." }}</span></li>
+    <li>생년월일:<span>{{ object.dob|date }}</span> </li>
+    <li>Website: {{ object.website|default:"등록된 사이트가 없습니다." }}</span></li>
 </ul>
 
 <ul class="col-md-12 col-sm-12 col-xs-12" id="trbl_recentAction">
