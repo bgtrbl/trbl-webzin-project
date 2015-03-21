@@ -12,12 +12,13 @@ class UserProfileDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         user = self.get_object().user
         context['recent_acts'] = {
                 'articles'  : user.article_set.all()[:5],
                 'sequels'   : user.sequel_set.all()[:5],
                 'comments'  : user.comment_set.order_by('-created_at')[:5],
-                                 }
+                }
         return context
 
 
