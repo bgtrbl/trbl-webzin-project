@@ -189,3 +189,11 @@ input.form_control {
     font-size: 30px;
     color: #34495e;
 }
+
+footer {
+    display: block;
+    width: 100%;
+    height: 300px;
+    background: black;
+    color: white;
+}
